@@ -13,7 +13,7 @@ class TasController < ApplicationController
     @ta = @board.tas.new(params[:ta].merge( :password => params[:queue_password]))
     respond_with do |f|
       if @ta.save
-        session['user_id'] = @ta.id if request.format == 'html'
+        sign_in @ta
         f.html { redirect_to board_path @board }
         f.json { render :json => { token: @ta.token, id: @ta.id, username: @ta.username }, :status => :created }
         f.xml  { render :xml => { token: @ta.token, id: @ta.id, username: @ta.username }, :status => :created }
@@ -34,9 +34,7 @@ class TasController < ApplicationController
 
   def destroy
     @ta.destroy
-    if request.format == "html"
-      session.delete 'user_id'
-    end
+    sign_out @ta
     respond_with do |f|
       f.html { redirect_to board_login_path @board }
     end

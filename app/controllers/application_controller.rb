@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  @@user_id_cookie_name = "_queue"
+
   private
 
     def current_user
@@ -14,7 +16,7 @@ class ApplicationController < ActionController::Base
         @current_user ||= authenticate_with_http_basic do |u, p| logger.debug "CREDENTIALS: " + u.to_s + " " + p.to_s; QueueUser.where(:_id => u, :token => p).first end
 
       else
-        @current_user ||= QueueUser.where(:_id => session['user_id']).first
+        @current_user ||= QueueUser.where(:_id => cookies.signed[@@user_id_cookie_name]).first
       end
 
       if @current_user
@@ -103,6 +105,24 @@ class ApplicationController < ActionController::Base
           user.save
           logger.debug "Alive time updated"
         end
+      end
+    end
+
+    def sign_in user
+      if request.format == "html"
+        cookies.permanent.signed[@@user_id_cookie_name] = user.id
+      end
+    end
+
+    def signed_in_id
+      if request.format == "html"
+        cookies.signed.delete @@user_id_cookie_name
+      end
+    end
+
+    def sign_out user
+      if request.format == "html"
+        cookies.permanent.signed[@@user_id_cookie_name] = nil
       end
     end
 

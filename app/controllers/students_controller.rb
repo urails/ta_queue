@@ -20,7 +20,7 @@ class StudentsController < ApplicationController
     @student = @board.students.new(params[:student])
     respond_with do |f|
       if @student.save
-        session['user_id'] = @student.id if request.format == 'html'
+        sign_in @student
         f.html { redirect_to (board_path @board) }
         f.json { render :json => { location: @student.location, token: @student.token, id: @student.id, username: @student.username }, :status => :created }
         f.xml  { render :xml => { token: @student.token, id: @student.id, username: @student.username }, :status => :created }
@@ -44,6 +44,7 @@ class StudentsController < ApplicationController
 
   def destroy
     @student.destroy
+    sign_out @student
     respond_with do |f|
       f.html { redirect_to board_login_path @board }
     end
