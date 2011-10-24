@@ -321,6 +321,32 @@ describe StudentsController do
 
     end
 
+    it "create fails if username is 'username'" do
+      stud = Factory.attributes_for :student
+      stud[:username] = "username"
+
+      post :create, { :board_id => @board.title, :student => stud }
+
+      response.code.should == "422"
+
+      res = decode response.body
+
+      res['username'].should_not be_nil
+    end
+
+    it "create fails if username is 'username'" do
+      stud = Factory.attributes_for :student
+      stud['location'] = "location"
+
+      post :create, { :board_id => @board.title, :student => stud }
+
+      response.code.should == "422"
+
+      res = decode response.body
+
+      res['location'].should_not be_nil
+    end
+
     it "create succeeds creating a student with a location longer than 20 characters" do
       stud = Factory.attributes_for :student
       stud[:location] = "a" * 20

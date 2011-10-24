@@ -8,6 +8,7 @@ class QueueUser
 
   validates :username, :token, :presence => true
   validates :username, :length => { :within => 1..40 }
+  validates :username, :exclusion => { :in => ["username"] }
 
   def as_json options = {}
     output_hash

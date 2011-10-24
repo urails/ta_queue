@@ -6,6 +6,7 @@ class Student < QueueUser
 
   validates :location, :presence => true
   validates :location, :length => { :within => 1..20 }
+  validates :location, :exclusion => { :in => ["location"] }
 
   validate :check_username_location, :on => :create
 
