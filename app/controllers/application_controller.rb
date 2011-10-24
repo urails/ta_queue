@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
     def current_user
+      authorize!
       @current_user
     end
 

@@ -3,7 +3,7 @@ class BoardsController < ApplicationController
   before_filter :get_board, :except => [:new, :create, :index]
   before_filter :authenticate_ta!, :only => [:update]
   before_filter :authenticate_user_for_current_board!, :only => [:show]
-  before_filter :filter_users, :only => [:login, :login_user]
+  before_filter :filter_users, :only => [:login]
   before_filter :authenticate_master_password!, :only => [:create, :destroy]
 
   @@master_password = "create_queue"
@@ -57,12 +57,8 @@ class BoardsController < ApplicationController
     end
 
     def filter_users
-      if session["user_id"]
-        if QueueUser.where(:_id => session["user_id"]).first
-          redirect_to @board and return
-        else
-          session.delete "user_id"
-        end
+      if current_user
+        redirect_to @board
       end
     end
 
