@@ -98,6 +98,7 @@ GEM
       mongo (~> 1.4)
       tzinfo (~> 0.3.22)
     multi_json (1.0.3)
+    newrelic_rpm (3.2.0)
     nokogiri (1.5.0)
     passenger (3.0.9)
       daemon_controller (>= 0.2.5)
@@ -193,6 +194,7 @@ DEPENDENCIES
   haml
   jquery-rails
   mongoid
+  newrelic_rpm
   passenger
   rails (= 3.1.0)
   rspec
