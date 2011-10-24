@@ -3,6 +3,9 @@
  *
  */
 
+@import url('http://fonts.googleapis.com/css?family=Architects+Daughter');
+@import url('http://fonts.googleapis.com/css?family=Ubuntu+Condensed|Yanone+Kaffeesatz:700');
+
 /* Custom width for main container */
 #content
 {
@@ -58,7 +61,7 @@
 .content_tab
 {
   padding: 0px 5px 6px 5px;  
-  font-family: ta_queue;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
   font-size: 13pt;
   height: 16px;
 }
@@ -110,7 +113,7 @@
   border-bottom-style: solid;
   border-bottom-color: #111;
   color: #efefef;
-  font-family: ta_queue;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
   font-size: 13pt;
   text-shadow: 0px 0px 3px #000;
 }
@@ -126,9 +129,10 @@
 {
   background: url('/assets/chalk_dust.jpg') top left repeat;
   padding: 10px;
-  font-family: chalk;
+  font-family: 'Architects Daughter';
   color: #fff;
-  font-size: 11pt;  
+  font-size: 11pt;
+  line-height: 1.4; 
 }
 
 #panes form
@@ -142,7 +146,7 @@
   width: 200px;
   border: none;
   color: #666;
-  font-family: chalk;
+  font-family: 'Architects Daughter';
   font-size: 18pt;
   padding: 2px 5px;
 }
@@ -163,7 +167,7 @@
   cursor: pointer;
   margin-right: 105px;
   margin-top: -115px;
-  padding: 14px 18px;  
+  padding: 16px 23px;  
 }
 
 #student_username, #ta_username
@@ -180,7 +184,7 @@
 
 .submit
 {
-  background: url('/assets/login_circle.png') -3px -7px no-repeat;
+  background: url('/assets/login_circle.png') 0px -3px no-repeat;
 }
 
 .errors

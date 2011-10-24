@@ -18,11 +18,9 @@ body
 	background-color: #5b5b5b;
 }
 
-@font-face
-{
-  font-family: chalk;
-  src: url('/assets/j.d.ttf');
-}
+@import url('http://fonts.googleapis.com/css?family=Gochi+Hand');
+/* To use font-family: 'Gochi Hand' */
+
 
 @font-face
 {

@@ -3,6 +3,9 @@
  *
  */
 
+@import url('http://fonts.googleapis.com/css?family=Architects+Daughter');
+@import url('http://fonts.googleapis.com/css?family=Ubuntu+Condensed|Yanone+Kaffeesatz:700');
+
 /* Placement of chalk board */
 .chalkboard
 {
@@ -36,7 +39,7 @@
 .content_tab
 {
   padding: 0px 5px 6px 5px;  
-  font-family: ta_queue; 
+  font-family: 'Yanone Kaffeesatz', sans-serif; 
   font-size: 13pt;
   height: 16px;
 }
@@ -65,7 +68,7 @@
 #queue_tab  .top_tab
 {
   position: absolute;
-  left: 78px;
+  left: 70px;
   background: url('/assets/htab_right.png') 0px 0px no-repeat;
 }
 
@@ -125,7 +128,7 @@
 
 #enter_queue, #freeze_queue, #activate_queue, #sign_out
 {
-  font-family: ta_queue;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
   color: #efefef;
   background: #111 url('/assets/status_bar.png') top right repeat-x;
   border: 1px solid #000;
@@ -201,14 +204,14 @@
   margin-left: 45px;
   margin-top: 13px;
   padding: 10px 20px 10px 14px;
-  font-family: chalk;
+  font-family: 'Architects Daughter';
   color: #3744ea;
 }
 
 #tas_in_queue_header
 {
   color: #efefef;
-  font-family: ta_queue;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
   font-size: 13pt;
   text-shadow: 0px 0px 3px #000;
 } 
@@ -250,7 +253,7 @@
   border-bottom-style: solid;
   border-bottom-color: #111;
   color: #efefef;
-  font-family: ta_queue;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
   font-size: 13pt;
   text-shadow: 0px 0px 3px #000;
 }
@@ -287,7 +290,7 @@ properly in Chrome
   -webkit-box-shadow: 0px 0px 4px 0px #828282;
   width: 300px;
   margin: 0px auto 0px auto;
-  font-family: ta_queue;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
   color: #efefef;
   text-shadow: 0px 0px 3px #000;
   border-radius: 10px;
@@ -335,7 +338,7 @@ properly in Chrome
 }
 .student .accept, .student .remove
 {  
-  font-family: ta_queue;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
   color: #efefef;
   background: #111 url('/assets/status_bar.png') top right repeat-x;
   border: 1px solid #000;
