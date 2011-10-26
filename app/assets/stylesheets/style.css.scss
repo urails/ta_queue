@@ -1,3 +1,5 @@
+@import url('http://fonts.googleapis.com/css?family=Architects+Daughter');
+@import url('http://fonts.googleapis.com/css?family=Ubuntu+Condensed|Yanone+Kaffeesatz:700');
 /*
  *
  * Global styles for TA Queue website
@@ -47,4 +49,19 @@ body
 .clear
 {
   clear: both;
+}
+
+.footer
+{
+  text-align:center;
+  padding-top:10px;
+  font-size:1.1em;
+  color:white;
+  letter-spacing:1px;
+  font-family:"Architects Daughter", sans-serif;
+}
+
+.footer a
+{
+  color:#EEEE88;
 }
