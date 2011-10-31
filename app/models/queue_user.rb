@@ -27,4 +27,18 @@ class QueueUser
     self.class == Student
   end
 
+  def keep_alive 
+    if self.alive_time.nil?
+      self.alive_time = DateTime.now
+      self.save
+      logger.debug "Alive time updated"
+    else
+      if self.alive_time + 15.minutes < DateTime.now
+        self.alive_time = DateTime.now
+        self.save
+        logger.debug "Alive time updated"
+      end
+    end
+  end
+
 end

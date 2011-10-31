@@ -11,5 +11,9 @@ namespace :db do
       board.students.create!(:username => "Student #{i}", :location => "lab1-#{i}", :token => SecureRandom.uuid, :in_queue => DateTime.now + i.seconds)
     end
   end
+
+  task :reset => :environment do
+    Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
+  end
   
 end
