@@ -1,6 +1,8 @@
 class QueueUser
   include Mongoid::Document
 
+  has_and_belongs_to_many :notifications
+
   field :username, type: String
   field :token, type: String, default: -> { SecureRandom.uuid }
   field :location, type: String
