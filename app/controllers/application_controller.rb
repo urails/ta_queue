@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  helper_method :current_user
 
   @@user_id_cookie_name = "_queue"
 

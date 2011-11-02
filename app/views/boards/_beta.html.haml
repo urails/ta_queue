@@ -1,3 +1,9 @@
 .footer.clear
-  This TA Queue is in beta, please help us improve it by reporting bugs/improvements
-  = link_to "here", "http://www.github.com/urails/ta_queue/issues", :target => "_blank"
+  - if !current_user || current_user.student?
+    This TA Queue is in beta, please help us improve it by reporting bugs/improvements
+    = link_to "here", "http://www.github.com/urails/ta_queue/issues", :target => "_blank"
+  - else
+    Hey TA's, thanks for testing out the Queue the last little while. You are our greatest resource in improving it and fixing bugs. If you are finding quirks or have suggestions, please 
+    = link_to "let us know.", "http://www.github.com/urails/ta_queue/issues"
+    Some obvious bugs can usually be fixed in a matter of minutes and pushed to the live site immediately. Thanks again!
+  
