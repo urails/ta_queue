@@ -3,7 +3,8 @@ class Board
 
   field :title, type: String
   field :password, type: String
-  field :frozen, type: Boolean, default: false
+  # This is now part of the queue but here to show the old way we did it:
+  # field :frozen, type: Boolean, default: false
   field :active, type: Boolean, default: false
 
   before_create :create_queue
@@ -16,6 +17,7 @@ class Board
   validates :title, :format => { :with => /^[a-zA-Z_\-0-9]*$/, :message => "The title of a queue must contain only numbers, letters, _, and -"}
 
   before_save :purge_if_inactive
+  before_save :check_if_active
 
   def state
     hash = Hash.new
@@ -51,6 +53,15 @@ class Board
           stud.in_queue = false
           stud.save
         end
+      end
+    end
+
+    # If the board went from inactive to active, make sure the board gets unfrozen too
+    def check_if_active
+      if self.active_changed? && self.active
+        _board_queue = self.queue
+        _board_queue.frozen = false
+        _board_queue.save
       end
     end
 end
