@@ -48,7 +48,30 @@ describe BoardsController do
       res['queue']['students'].count.should == 0
 
     end
+
+    it "should remove student TA is helping when deactivating" do
+      @board.students.count.should == 0
+
+      ta = @board.tas.create!(Factory.attributes_for(:ta))
+      authenticate ta
+
+      student = @board.students.create!(Factory.attributes_for(:student))
+
+      ta.accept_student student
+
+      ta.student.should == student 
+
+      put :update, { :id => @board.title, :board => { :active => false } }
+
+      response.code.should == "200"
+
+      ta = Ta.find(ta.id)
+
+      ta.student.should be_nil
+
+    end
   end
+
 
   describe "API responses" do
     it "index" do
@@ -67,9 +90,8 @@ describe BoardsController do
       res_hash.count.should == 6
 
       for board in res_hash
-        board.count.should == 6
+        board.count.should == 5
         board['title'].should_not be_nil
-        board['frozen'].should_not be_nil
         board['active'].should_not be_nil
         board['students'].should_not be_nil
         board['tas'].should_not be_nil
@@ -98,11 +120,10 @@ describe BoardsController do
 
       res_hash = decode response.body
 
-      res_hash.count.should == 6
+      res_hash.count.should == 5
 
       res_hash['title'].should == @board.title
       res_hash['active'].to_s.should == @board.active.to_s
-      res_hash['frozen'].to_s.should == @board.frozen.to_s
       res_hash['students'].count.should == @board.students.count
       res_hash['tas'].count.should == @board.tas.count
       res_hash['queue'].should_not be_nil

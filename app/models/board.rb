@@ -22,7 +22,7 @@ class Board
   def state
     hash = Hash.new
     hash[:active] = active
-    hash[:frozen] = frozen
+    #hash[:frozen] = queue.frozen
     hash[:title] = self.title
     hash[:tas] = self.tas
     hash[:students] = self.students
@@ -50,8 +50,7 @@ class Board
     def purge_if_inactive
       unless active
         self.students.each do |stud|
-          stud.in_queue = false
-          stud.save
+          stud.exit_queue!
         end
       end
     end
