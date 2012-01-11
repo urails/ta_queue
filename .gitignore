@@ -7,3 +7,7 @@ tmp/
 .DS_Store
 notes.txt
 *~
+config/newrelic.yml
+log/newrelic_agent_store.db
+log/newrelic_agent_store.pid
+mongo.log
