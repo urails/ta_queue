@@ -1,9 +1,14 @@
 .footer.clear
   - if !current_user || current_user.student?
     This TA Queue is in beta, please help us improve it by reporting bugs/improvements
-    = link_to "here", "http://www.github.com/urails/ta_queue/issues", :target => "_blank"
+    = link_to "as a GitHub issue", "http://www.github.com/urails/ta_queue/issues", :target => "_blank"
+    or sending an email to 
+    = mail_to "uofu.ta.queue@gmail.com"
   - else
-    Hey TA's, thanks for testing out the Queue the last little while. You are our greatest resource in improving it and fixing bugs. If you are finding quirks or have suggestions, please 
-    = link_to "let us know.", "http://www.github.com/urails/ta_queue/issues"
+    The TA Queue is currently in beta. If you are finding quirks or have suggestions, please let us know by
+    = link_to "submitting an issue on GitHub,", "http://www.github.com/urails/ta_queue/issues"
+    or emailing
+    = mail_to "uofu.ta.queue@gmail.com"
+    %br
     Some obvious bugs can usually be fixed in a matter of minutes and pushed to the live site immediately. Thanks again!
   
