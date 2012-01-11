@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
+gem 'juggernaut'
 gem 'mongoid'
 gem 'bson_ext'
 gem 'passenger'
