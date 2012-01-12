@@ -24,7 +24,8 @@
           .post_it
             %b= "Welcome " + @current_user.username + "!"
             .message
-              %span.position Position in queue: n/a
+              - if @current_user.student?
+                %span.position Position in queue: none
             = hidden_field_tag "board_title", @board.title
             = hidden_field_tag "user_token", @current_user.token
             = hidden_field_tag "user_id", @current_user.id.to_s

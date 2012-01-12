@@ -296,7 +296,7 @@ function StudentQueue ()
 
   this.updateQueuePosition = function ()
   {
-    var position = 'n/a';
+    var position = 'none';
 
     if (this.getQueuePosition() > 0)
     {

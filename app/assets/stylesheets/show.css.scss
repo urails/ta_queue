@@ -184,7 +184,7 @@
 
 #student_welcome
 {
-  height: 180px;
+  height: 90px;
   width: 100%;
   overflow: auto;
   background: url('/assets/chalk_dust.jpg') top right repeat;
@@ -193,19 +193,21 @@
 #student_welcome .message
 {
   font-size: 10pt;
+  
 }
 
 #student_welcome .message span
 {
   display: block;
-  margin-top: 5px;
+  margin-top: -5px;
   margin-bottom: 5px;
+  
 }
 
 .post_it
 {
-  background: url('/assets/post_it.png') top left no-repeat;
-  height: 140px;
+  background: url('/assets/post_it.png') bottom left no-repeat;
+  height: 50px;
   width: 180px;
   margin-left: 45px;
   margin-top: 13px;
@@ -230,7 +232,7 @@
 
 #tas_in_queue
 {
-  height: 220px;
+  height: 310px;
   width: 100%;
   overflow: auto;
   background: url('/assets/chalk_dust.jpg') top left repeat;
