@@ -96,24 +96,38 @@ function TAQueue ()
   {
     this.active = (data.active.toString() == 'true') ? true : false;
     this.frozen = (data.frozen.toString() == 'true') ? true : false;
-
+    
+    var currentTA = null;
+    
+    for (var i = 0; i < data.tas.length; i++)
+    {
+      if (data.tas[i].id == this.user.username)
+      {
+        currentTA = data.tas[i];
+        break;
+      }
+    }
+    
     if (this.active && !this.frozen) // Active and not frozen
     {
       $('#notification').html('The queue is active. Enter at your convenience.');
       this.updateStudents(data.students);
       this.updateTas(data.tas);
+      this.updateTaPostIt(currentTA.student);
     }
     else if (this.active && this.frozen) // Active but frozen
     {
       $('#notification').html('The queue is active, but no new students may enter.');
       this.updateStudents(data.students);
       this.updateTas(data.tas);
+      this.updateTaPostIt(currentTA.student);
     }
     else if (!this.active) // Not active and frozen
     {
       $('#notification').html('The queue is inactive.');
       this.updateStudents(data.students);
       this.updateTas(data.tas);
+      this.updateTaPostIt(currentTA.student);
     }
 
     this.updateControlButtons();
@@ -465,6 +479,31 @@ function TAQueue ()
 
   }
 
+  this.updateTaPostIt = function (a)
+  {
+    if (a == null)
+    {
+      $('.message').html('Not with a student');
+      return;    
+    }
+    
+    var html = '<input type="hidden" value="' + a.id + '~~~~"/>';
+        html += 'with <b>' + a.username + '</b>';
+        html += ' at <b>' + a.location + '</b>'; 
+        html += '<span title="Remove Student" class="post_it_remove">X</span>';
+        
+    $('.message').html(html);
+    
+    with (this)
+    {
+      $('.post_it_remove').click(function()
+      {
+        var student_id = $(this).parent().children('input').val();
+        removeStudent(student_id);
+      });
+    }
+  }
+  
   /**
    * This function centers the control panel of buttons at the top of the left panel of
    * the view.

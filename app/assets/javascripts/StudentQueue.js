@@ -18,6 +18,8 @@ function StudentQueue ()
   this.frozen;
 
   this.active;
+  
+  this.tas; 
 
   /*---------INSTANCE METHODS---------------*/
 
@@ -84,7 +86,8 @@ function StudentQueue ()
   {
     this.active = (data.active.toString() == 'true') ? true : false;
     this.frozen = (data.frozen.toString() == 'true') ? true : false;
-
+    this.tas = data.tas;
+    
     if (this.active && !this.frozen) // Active and not frozen
     {
       $('#notification').html('The queue is active. Enter at your convenience.');
@@ -247,6 +250,22 @@ function StudentQueue ()
 
         }
           });
+    }
+    
+    for (var i = 0; i < this.tas.length; i++)
+    {    
+      try
+      {
+        if (this.tas[i].student.id == this.user.username)
+        {
+          position = -2;
+          break;
+        }
+      }
+      catch(e)
+      {
+        continue;
+      }
     }
 
     if (position == -1)
