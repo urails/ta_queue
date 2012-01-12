@@ -382,27 +382,15 @@ function StudentQueue ()
 
       if (a[i].student == null)
       {
-        html += 'Current Student: none';
+        html += 'Not with a student';
       }
       else
       {
-        html += 'Currently with ' + a[i].student.username;
-        html += ' at ' + a[i].student.location;
+        html += 'with <b>' + a[i].student.username + '</b>';
+        html += ' at <b>' + a[i].student.location + '</b>';
       }
 
-      html += '</div>';
-      html += '<div class="ta_status">Status: '
-
-        if (a[i].status == '')
-        {
-          html += 'None';
-        }
-        else
-        {
-          html += a[i].status;
-        }
-
-      html += '</div>';      
+      html += '</div>';    
       html += '</div>';
     }
 
