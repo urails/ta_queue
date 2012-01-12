@@ -47,7 +47,7 @@
                   - flash[:errors].each do |error|
                     %li= error
             %span{ :class => "login_hint" }
-              To log in as a student, simply type in your name and computer location.  Each computer is marked with a label on top of the desktop.  If you are not sitting at a computer, please describe where you are so that the TAs can easily locate you.
+              To log in as a student, simply type in your name and computer location.
           #ta_panel
             = form_for [@board, @ta] do |f|
               = f.text_field :username, :value => "username"
@@ -60,7 +60,7 @@
                   - flash[:errors].each do |error|
                     %li= error
             %span{ :class => "login_hint" }
-              Please log in with your name and the password the professor you TA for provided you.  
+              Log in with your name and the password your professor provided you with.  
     %td{ :class => "mr" }
   %tr
     %td{ :class => "bl" }
