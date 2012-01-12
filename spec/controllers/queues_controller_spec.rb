@@ -9,6 +9,8 @@ describe QueuesController do
 
   before :each do
     @board = Factory.create :board
+    @board.active = true
+    @board.save
     @queue = @board.queue
     @ta = @board.tas.create!(Factory.attributes_for(:ta))
     @student = @board.students.create!(Factory.attributes_for(:student))
@@ -174,7 +176,7 @@ describe QueuesController do
       @ta.student.should == other_student
     end
 
-    it "should go fine if the student being helped dequeues and no one else is in the queue" do
+    it "should not throw exception if the student being helped dequeues and no one else is in the queue" do
       @ta.student.should be_nil
       authenticate @student
 
@@ -232,6 +234,28 @@ describe QueuesController do
       res['error'].should_not be_nil
       @student = Student.find(@student.id)
       @student.in_queue.should == nil
+    end
+
+    it "doesn't respond to enter_queue when deactivated" do
+      authenticate @student
+      
+      @board.active = false 
+      @board.save
+
+      get :enter_queue, { board_id: @board.title }
+
+      response.code.should == "403"
+    end
+
+    it "doesn't respond to exit_queue when deactivated" do
+      authenticate @student
+      
+      @board.active = false 
+      @board.save
+
+      get :exit_queue, { board_id: @board.title }
+
+      response.code.should == "403"
     end
   end
 

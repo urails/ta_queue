@@ -44,6 +44,15 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    # if the board is inactive, redirect
+    def check_active
+      unless @queue.active
+        respond_with do |f|
+          f.json { render :json => { :error => "You cannot enter the queue when it is frozen" }, :status => :forbidden }
+        end
+      end
+    end
+
     def authenticate_student! options = {}
       authorize!
       if options[:current] == true

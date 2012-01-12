@@ -2,6 +2,7 @@ class BoardQueue
   include Mongoid::Document
 
   belongs_to :board
+
   field :frozen, type: Boolean, default: false
 
   validates :frozen, :inclusion => { :in => [true, false], :message => "frozen must be a true/false value" }

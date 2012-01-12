@@ -52,7 +52,7 @@ class BoardsController < ApplicationController
       end
 
       if @board.nil?
-        redirect_to root_path
+        redirect_to root_path and return
       end
     end
 
@@ -87,5 +87,6 @@ class BoardsController < ApplicationController
         end
       end
     end
+
 
 end

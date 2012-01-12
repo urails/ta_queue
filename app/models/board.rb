@@ -7,7 +7,7 @@ class Board
   # field :frozen, type: Boolean, default: false
   field :active, type: Boolean, default: false
 
-  before_create :create_queue
+  before_create :create_queue # create_queue is defined by Mongoid
 
   has_many :students, dependent: :destroy
   has_many :tas, dependent: :destroy
