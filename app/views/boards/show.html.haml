@@ -20,7 +20,7 @@
               %input{ :id => "activate_queue", :type => "button", :value => (@board.active? ? "Deactivate" : "Activate") }
               %input{ :id => "freeze_queue", :type => "button", :value => (@board.frozen? ? "Unfreeze" : "Freeze") }
               = button_to "Sign out", board_ta_path(@board, @current_user), :method => :delete, :id => "sign_out", :class => "sign_out_with"
-        #student_welcome
+        #student_welcome.scroll-pane
           .post_it
             %b= "Welcome " + @current_user.username + "!"
             .message

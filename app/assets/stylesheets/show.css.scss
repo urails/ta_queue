@@ -200,18 +200,34 @@
 {
   display: block;
   margin-top: 0px;
-  margin-bottom: 5px;
-  
+  margin-bottom: 5px;  
+}
+
+#student_welcome .message .post_it_remove
+{
+  font-family: 'Architects Daughter';
+  font-size: 14pt;
+  font-weight: bold;
+  padding-top: 15px;
+  color: #aa6622;
+  cursor: pointer;
+  margin-left: 10px;
+  display: inline; 
+}
+
+#student_welcome .message .post_it_remove:hover
+{
+  color: #593612;
 }
 
 .post_it
 {
   background: url('/assets/post_it.png') bottom left no-repeat;
-  height: 50px;
+  /*height: 50px;*/
   width: 180px;
   margin-left: 45px;
   margin-top: 13px;
-  padding: 10px 20px 10px 14px;
+  padding: 10px 10px 20px 14px;
   font-family: 'Architects Daughter';
   color: #3744ea;
 }
@@ -247,7 +263,6 @@
 {
   font-size: 10pt;
   margin-top: 0px;
-  margin-bottom: 5px;
 }
 
 /* Status bar styles */
