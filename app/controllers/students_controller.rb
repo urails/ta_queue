@@ -15,7 +15,6 @@ class StudentsController < ApplicationController
     end
   end
 
-  # NOTE: DOES NOT CREATE OBJECT, UPDATES OBJECT
   def create 
     @student = @board.students.new(params[:student])
     respond_with do |f|

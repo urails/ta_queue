@@ -147,7 +147,57 @@ describe QueuesController do
       res_hash['students'].should be_empty
     end
 
+    it "should accept the next student if the student being helped dequeues themselves" do
+      @ta.student.should be_nil
+      authenticate @student
+
+      other_student = @board.students.create!(Factory.attributes_for(:student))
+      @student.enter_queue!
+      other_student.enter_queue!
+
+      @ta.accept_student! @student
+
+      @ta.student.should == @student
+      @student = Student.find(@student.id)
+      @student.ta.should == @ta
+
+      other_student.in_queue = DateTime.now
+      other_student.save!
+
+      get :exit_queue, { board_id: @board.title }
+
+      @ta = Ta.find(@ta.id)
+      @student = Student.find(@student.id)
+
+      @student.ta.should == nil
+
+      @ta.student.should == other_student
+    end
+
+    it "should go fine if the student being helped dequeues and no one else is in the queue" do
+      @ta.student.should be_nil
+      authenticate @student
+
+      @student.enter_queue!
+
+      @ta.accept_student! @student
+
+      @ta.student.should == @student
+      @student = Student.find(@student.id)
+      @student.ta.should == @ta
+
+      get :exit_queue, { board_id: @board.title }
+
+      @ta = Ta.find(@ta.id)
+      @student = Student.find(@student.id)
+
+      @ta.student.should be_nil
+
+      @student.ta.should be_nil
+    end
+
   end
+
 
   describe "Error validation" do
     it "receives proper validation errors" do

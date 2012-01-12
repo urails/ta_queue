@@ -36,6 +36,13 @@ class Ta < QueueUser
     save
   end
 
+  # If there are students left in the queue, accept the next one
+  def accept_next_student
+    if stud = board.students.in_queue.first
+      accept_student! stud
+    end
+  end
+
   private
 
     def check_password

@@ -23,7 +23,18 @@ class QueuesController < ApplicationController
   end
 
   def exit_queue
+    ta = current_user.ta
+
+    # We need to grab out this flag before the user exits the queue
+    should_accept_next = false
+    should_accept_next = true if current_user.ta 
+
     current_user.exit_queue!
+
+    # If when exiting the queue, the student was being helped by a TA, automatically
+    # accept the next student
+    ta.accept_next_student if should_accept_next
+
     respond_with @queue
   end
   
