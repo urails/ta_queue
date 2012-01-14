@@ -2,6 +2,7 @@ TaQueue::Application.routes.draw do
   get "pages/index"
 
   resources :boards do
+    get "new_show", :on => :member
     get "login"
     get "logout"
     post "logout"

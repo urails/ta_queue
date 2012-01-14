@@ -1,11 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.1.3'
 gem 'juggernaut'
 gem 'mongoid'
 gem 'bson_ext'
 gem 'passenger'
 gem 'execjs'
+gem 'spine-rails'
+gem 'eco'
 gem 'haml'
 gem 'therubyracer'
 gem 'cover_me', :group => :test

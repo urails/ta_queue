@@ -32,6 +32,9 @@ class BoardsController < ApplicationController
     respond_with @board
   end
 
+  def new_show
+  end
+
   def login
     @ta = Ta.new
     @student = Student.new    

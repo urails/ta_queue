@@ -1,0 +1,2 @@
+//= require StudentBoard
+//= require StudentQueue

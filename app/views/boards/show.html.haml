@@ -1,4 +1,4 @@
-= content_for :javascripts do javascript_include_tag "jquery", (@current_user.student? ? "StudentBoard" : "TABoard"), "User", (@current_user.student? ? "StudentQueue" : "TAQueue"), "jquery.mousewheel.js", "mwheelIntent", "jquery.jscrollpane.min.js" end
+= content_for :javascripts do javascript_include_tag (current_user.student? ? "application-student" : "application-ta" ) end
 = content_for :stylesheets do stylesheet_link_tag "style", "show", "chalkboard", "jquery.jscrollpane.css.scss" end
 %table{ :class => "chalkboard" }
   %tr
