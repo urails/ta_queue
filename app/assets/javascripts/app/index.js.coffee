@@ -16,7 +16,9 @@ class App extends Spine.Controller
     super
     
     # Initialize controllers:
-    #  @append(@items = new App.Items)
+    @append(@items = new App.Items)
+    App.Student.refresh(@options["students"])
+    
     #  ...
     
     Spine.Route.setup()    
