@@ -1,0 +1,19 @@
+Student
+  Do:
+    Enter the queue
+      Asking a question
+      Upvote
+    Exit the Queue
+  See:
+    Which TA's are on duty
+    State of the Queue
+      Who is in the queue, and in what order
+      Question being asked by each student
+      Button for
+  
+
+Ta
+  Do:
+    
+
+Admin
