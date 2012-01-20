@@ -51,7 +51,11 @@ function TAQueue ()
           freezeQueue(true);
         }
       });
+      
+      
+
     }
+  
   }  
 
   /*---------AJAX FUNCTIONS AND THEIR RESPECTIVE CALLBACKS--------*/
