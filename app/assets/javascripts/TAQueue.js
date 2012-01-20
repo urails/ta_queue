@@ -462,12 +462,12 @@ function TAQueue ()
 
       if (a[i].student == null)
       {
-        html += 'Not with a student';
+        html += 'No student';
       }
       else
       {
-        html += 'with <b>' + a[i].student.username + '</b>';
-        html += ' at <b>' + a[i].student.location + '</b>';
+        html += 'with <strong>' + a[i].student.username + '</strong>';
+        html += ' at <strong>' + a[i].student.location + '</strong>';
       }
 
       html += '</div>';     
@@ -483,13 +483,13 @@ function TAQueue ()
   {
     if (a == null)
     {
-      $('.message').html('Not with a student');
+      $('.message').html('No student');
       return;    
     }
     
     var html = '<input type="hidden" value="' + a.id + '~~~~"/>';
-        html += 'with <b>' + a.username + '</b>';
-        html += ' at <b>' + a.location + '</b>'; 
+        html += 'with <strong>' + a.username + '</strong>';
+        html += ' at <strong>' + a.location + '</strong>'; 
         html += '<span title="Remove Student" class="post_it_remove">X</span>';
         
     $('.message').html(html);

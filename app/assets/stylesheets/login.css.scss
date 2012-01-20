@@ -39,7 +39,7 @@
 
 #student_tab 
 {
-  left: 0px;
+  left: -5px;
   z-index: 50;
   color: #aa6622;
   text-shadow: 1px 1px 1px #eeee88;
@@ -47,7 +47,7 @@
 
 #ta_tab
 {
-  left: 112px;  
+  left: 122px;  
   z-index: 10;
   color: #834f1a;
   text-shadow: 1px 1px 1px #ccaa66;
@@ -60,20 +60,22 @@
 
 .content_tab
 {
-  padding: 0px 5px 6px 5px;  
+  padding: 0px 5px 9px 5px; 
+  margin-top: -3px; 
   font-family: 'Yanone Kaffeesatz', sans-serif;
-  font-size: 13pt;
+  font-size: 18pt;
   height: 16px;
+  letter-spacing: 2px;
 }
 
 #student_tab .content_tab
 {
-  background: url('/assets/h_wood.jpg') 0px 0px repeat-x;
+  background: url('/assets/h_wood.jpg') 0px 3px repeat-x;
 }
 
 #ta_tab .content_tab
 {
-  background: url('/assets/h_wood_dark.jpg') 0px 0px repeat-x;
+  background: url('/assets/h_wood_dark.jpg') 0px 3px repeat-x;
 }
 
 .left_tab, .right_tab
@@ -114,13 +116,14 @@
   border-bottom-color: #111;
   color: #efefef;
   font-family: 'Yanone Kaffeesatz', sans-serif;
-  font-size: 13pt;
+  font-size: 20pt;
   text-shadow: 0px 0px 3px #000;
+  letter-spacing: 2px;
 }
 
 #class_title
 {
-  margin-top: 13px;
+  margin-top: 7px;
   margin-left: 10px;
 }
 
@@ -131,8 +134,9 @@
   padding: 10px;
   font-family: 'Architects Daughter';
   color: #fff;
-  font-size: 11pt;
+  font-size: 15pt;
   line-height: 1.4; 
+  letter-spacing: 2px;
 }
 
 #panes form
@@ -147,7 +151,7 @@
   border: none;
   color: #666;
   font-family: 'Architects Daughter';
-  font-size: 18pt;
+  font-size: 25pt;
   padding: 2px 5px;
 }
 
@@ -165,26 +169,26 @@
 {
   width: auto;
   cursor: pointer;
-  margin-right: 105px;
-  margin-top: -115px;
+  margin-right: 55px;
+  margin-top: -135px;
   padding: 16px 23px;  
 }
 
 #student_username, #ta_username
 {
-  background: url('/assets/username_underline.png') 0px 27px no-repeat;
+  background: url('/assets/username_underline.png') 0px 37px no-repeat;
   margin: 15px 0px 15px 85px;
 }
 
 #ta_password, #student_location
 {
-  background: url('/assets/password_underline.png') -2px 28px no-repeat;
+  background: url('/assets/password_underline.png') -2px 37px no-repeat;
   margin: 15px 0px 50px 85px;
 }
 
 .submit
 {
-  background: url('/assets/login_circle.png') 0px -3px no-repeat;
+  background: url('/assets/login_circle.png') 10px 7px no-repeat;
 }
 
 .errors

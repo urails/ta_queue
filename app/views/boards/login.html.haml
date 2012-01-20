@@ -22,7 +22,7 @@
       #login
         #status_bar
           #class_title.left
-            = "Login to " + @board.title
+            = @board.title + " Queue"
           -#%table.board_status_table.right
             %tr
               %th Status
@@ -37,8 +37,8 @@
         #panes
           #student_panel
             = form_for [@board, @student] do |f|
-              = f.text_field :username, :value => "username"
-              = f.text_field :location, :value => "location", :class => "login"
+              = f.text_field :username, :autocomplete => "off", :value => "username"
+              = f.text_field :location, :value => "location", :class => "login", :autocomplete => "off"
               = submit_tag "Login", :class => "submit right"
             - if flash[:errors].present? && params[:student] == "true"
               .errors
@@ -47,10 +47,10 @@
                   - flash[:errors].each do |error|
                     %li= error
             %span{ :class => "login_hint" }
-              To log in as a student, simply type in your name and computer location.
+              Simply type in your name and computer location.
           #ta_panel
             = form_for [@board, @ta] do |f|
-              = f.text_field :username, :value => "username"
+              = f.text_field :username, :autocomplete => "off"
               = f.text_field :password, :value => "password", :name => "queue_password", :autocomplete => "off"
               = submit_tag "Login", :class => "submit right"
             - if flash[:errors].present? && params[:ta] == "true"
@@ -60,7 +60,7 @@
                   - flash[:errors].each do |error|
                     %li= error
             %span{ :class => "login_hint" }
-              Log in with your name and the password your professor provided you with.  
+              Log in with the password you were given.  
     %td{ :class => "mr" }
   %tr
     %td{ :class => "bl" }

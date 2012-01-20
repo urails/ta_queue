@@ -13,7 +13,7 @@
 $(document).ready(function() 
 {
   $('#ta_password').attr('value','password');
-  $('#ta_username,#student_username').attr('value','username');
+  $('#ta_username,#student_username').attr('value','name');
   $('#student_location').attr('value','location');
   
   if (window.location.search == '?ta=true')
@@ -91,7 +91,7 @@ $(document).ready(function()
     $('#ta_tab .content_tab').css(
       {
         'background-image' : 'url(\'/assets/h_wood.jpg\')',
-        'background-position' : '0px 0px',
+        'background-position' : '0px 3px',
         'background-repeat' : 'repeat-x'
       }
     );
@@ -115,7 +115,7 @@ $(document).ready(function()
     $('#student_tab .content_tab').css(
       {
         'background-image' : 'url(\'/assets/h_wood_dark.jpg\')',
-        'background-position' : '0px 0px',
+        'background-position' : '0px 3px',
         'background-repeat' : 'repeat-x'
       }
     );
@@ -169,7 +169,7 @@ $(document).ready(function()
     $('#ta_tab .content_tab').css(
       {
         'background-image' : 'url(\'/assets/h_wood_dark.jpg\')',
-        'background-position' : '0px 0px',
+        'background-position' : '0px 3px',
         'background-repeat' : 'repeat-x'
       }
     );
@@ -194,7 +194,7 @@ $(document).ready(function()
     $('#student_tab .content_tab').css(
       {
         'background-image' : 'url(\'/assets/h_wood.jpg\')',
-        'background-position' : '0px 0px',
+        'background-position' : '0px 3px',
         'background-repeat' : 'repeat-x'
       }
     );
@@ -212,7 +212,7 @@ $(document).ready(function()
 	$('#student_username, #ta_username')
 	  .focusin(function () 
 	  {
-	    if ($(this).attr('value') == 'username')
+	    if ($(this).attr('value') == 'name')
 	    {
 	      $(this).attr('value','');
 	    }
@@ -249,16 +249,16 @@ $(document).ready(function()
     {
       if ($(this).attr('value') == '')
       {
-        $(this).attr('value','username');
+        $(this).attr('value','name');
         $(this).css('color','#666');
       }
       
-      if ($(this).attr('value') != 'username')
+      if ($(this).attr('value') != 'name')
       {
         $(this).css('color','#fff');
       }
       
-      if ($(this).attr('value') == 'username')
+      if ($(this).attr('value') == 'name')
       {
         $(this).css('color','#666');
       }

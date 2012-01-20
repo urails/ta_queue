@@ -315,14 +315,14 @@ function StudentQueue ()
 
   this.updateQueuePosition = function ()
   {
-    var position = 'none';
+    var position = '0';
 
     if (this.getQueuePosition() > 0)
     {
       position = this.getQueuePosition();
     }
 
-    $('.position').html('Position in queue: ' + position);
+    $('.position').html('Queue position: ' + position);
   }
 
   /**
@@ -401,12 +401,12 @@ function StudentQueue ()
 
       if (a[i].student == null)
       {
-        html += 'Not with a student';
+        html += 'No student';
       }
       else
       {
-        html += 'with <b>' + a[i].student.username + '</b>';
-        html += ' at <b>' + a[i].student.location + '</b>';
+        html += 'with <strong>' + a[i].student.username + '</strong>';
+        html += ' at <strong>' + a[i].student.location + '</strong>';
       }
 
       html += '</div>';    

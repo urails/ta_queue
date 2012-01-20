@@ -44,9 +44,10 @@
 
 .content_tab
 {
-  padding: 0px 5px 6px 5px;  
+  padding: 0px 5px 9px 5px;  
   font-family: 'Yanone Kaffeesatz', sans-serif; 
-  font-size: 13pt;
+  font-size: 18pt;
+  margin-top: -3px;
   height: 16px;
 }
 
@@ -54,8 +55,8 @@
 {
   
   position: absolute;
-  left: 29px;
-  background: url('/assets/h_wood.jpg') 0px 0px repeat-x;
+  left: 27px;
+  background: url('/assets/h_wood.jpg') 0px 3px repeat-x;
 }
 
 .bottom_tab, .top_tab
@@ -74,7 +75,7 @@
 #queue_tab  .top_tab
 {
   position: absolute;
-  left: 70px;
+  left: 78px;
   background: url('/assets/htab_right.png') 0px 0px no-repeat;
 }
 
@@ -89,7 +90,6 @@
   position: absolute;
   top: 0px;
   width: 15px;
-  height: 498px;
   border-top: 1px;
   border-top-style: solid;
   border-top-color: #aa6622;
@@ -101,7 +101,6 @@
 #cork_board
 {
   width: 300px;
-  height: 500px;
 }
 
 #control_panel, #tas_in_queue_header
@@ -117,7 +116,7 @@
 #control_bar
 {
   float: left;
-  margin-top: 12px;
+  margin-top: 9px;
   padding: 0px;
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -141,7 +140,9 @@
   cursor: pointer;
   margin: 0px;
   text-shadow: 0px 0px 3px #000;
-  font-size: 11pt;
+  font-size: 17pt;
+  padding-bottom: 3px;
+  letter-spacing: 1px;
 }
 
 #enter_queue:hover, #freeze_queue:hover, #activate_queue:hover, #sign_out:hover
@@ -184,16 +185,13 @@
 
 #student_welcome
 {
-  height: 90px;
-  width: 100%;
-  overflow: auto;
-  background: url('/assets/chalk_dust.jpg') top right repeat;
+  width: 273px;
+  padding: 13px;
 }
 
 #student_welcome .message
 {
-  font-size: 10pt;
-  
+  font-size: 14pt; 
 }
 
 #student_welcome .message span
@@ -223,45 +221,54 @@
 .post_it
 {
   background: url('/assets/post_it.png') bottom left no-repeat;
-  /*height: 50px;*/
   width: 180px;
-  margin-left: 45px;
-  margin-top: 13px;
-  padding: 10px 10px 20px 14px;
+  margin-left: 32px;  
+  padding: 10px 10px 20px 10px;
   font-family: 'Architects Daughter';
   color: #3744ea;
+  letter-spacing: 1px;
+}
+
+.post_it b
+{
+  font-size: 22pt;
+  padding: 0px;
 }
 
 #tas_in_queue_header
 {
   color: #efefef;
   font-family: 'Yanone Kaffeesatz', sans-serif;
-  font-size: 13pt;
+  font-size: 20pt;
   text-shadow: 0px 0px 3px #000;
 } 
 
 #tas_in_queue_header div
 {
-  padding-top: 13px;
+  padding-top: 7px;
   padding-left: 10px;
 }
 
 #tas_in_queue
 {
-  height: 310px;
-  width: 100%;
+  padding: 13px;
   overflow: auto;
-  background: url('/assets/chalk_dust.jpg') top left repeat;
+}
+
+#tas_in_queue .post_it
+{
+  margin-bottom: 5px;
 }
 
 .ta_name
 {
   font-weight: bold;
+  font-size: 22pt;
 }
 
 .student_info,.ta_status
 {
-  font-size: 10pt;
+  font-size: 14pt;
   margin-top: 0px;
 }
 
@@ -277,13 +284,14 @@
   border-bottom-color: #111;
   color: #efefef;
   font-family: 'Yanone Kaffeesatz', sans-serif;
-  font-size: 13pt;
+  font-size: 20pt;
   text-shadow: 0px 0px 3px #000;
+  letter-spacing: 1px;
 }
 
 #notification
 {
-  padding-top: 13px;
+  padding-top: 7px;
   padding-left: 10px;
 }
 
@@ -293,15 +301,13 @@ properly in Chrome
  */
 #panes 
 {
-  background: url('/assets/chalk_dust.jpg') top left repeat;
-  height: 450px;
   width: 550px;
+  letter-spacing: 1px;
 }
 
 #queue_panel
 {
-  height: 100%;
-  overflow: auto; 
+  height: 100%; 
   padding-top: 20px; 
 }
 
@@ -311,7 +317,7 @@ properly in Chrome
   box-shadow: 0px 0px 4px 0px #828282;
   -moz-box-shadow: 0px 0px 4px 0px #828282;
   -webkit-box-shadow: 0px 0px 4px 0px #828282;
-  width: 300px;
+  width: 400px;
   margin: 0px auto 0px auto;
   font-family: 'Yanone Kaffeesatz', sans-serif;
   color: #efefef;
@@ -322,8 +328,7 @@ properly in Chrome
 }
 
 #queue_datetime
-{
-  width: 290px;
+{  
   background: #454545 url('/assets/queue_datetime.png') top left repeat-x;
   padding: 10px 5px;
   border-top-left-radius: 10px;
@@ -332,24 +337,24 @@ properly in Chrome
   border-top-right-radius: 10px;
   -moz-border-radius-topright: 10px;
   -webkit-border-top-right-radius: 10px;
+  font-size: 20pt;
 }
 
 .student
 {
   position: relative;
-  width: 290px;
   padding: 5px 5px;
 }
 
 .student .username
 {
-  font-size: 13pt;
+  font-size: 20pt;
   margin: 0px;
 }
 
 .student .location
 {
-  font-size: 10pt;
+  font-size: 18pt;
   margin: -5px 0px 0px 0px;
 }
 
@@ -357,7 +362,7 @@ properly in Chrome
 {
   position: absolute;
   right: 5px;
-  top: 12px;
+  top: 18px;
 }
 .student .accept, .student .remove
 {  
@@ -368,7 +373,8 @@ properly in Chrome
   cursor: pointer;
   margin: 0px;
   text-shadow: 0px 0px 3px #000;
-  font-size: 11pt;
+  font-size: 18pt;
+  padding-bottom: 3px;
 }
 
 .student .accept
@@ -410,7 +416,6 @@ properly in Chrome
 
 #queue_bottom
 {
-  width: 290px;
   background: #454545 url('/assets/queue_bottom.png') top right repeat-x;
   padding: 10px 5px;
   border-bottom-left-radius: 10px;
