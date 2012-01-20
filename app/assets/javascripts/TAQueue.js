@@ -52,7 +52,15 @@ function TAQueue ()
         }
       });
       
+      window.onbeforeunload = function (e) 
+      {
+        return "You will be logged out of the queue by navigating away from this page.";
+      }
       
+      window.getonunload = function (e)
+      {
+        signOut();
+      }     
 
     }
   
@@ -317,6 +325,31 @@ function TAQueue ()
         $(this).remove();
       }
     });
+  }
+  
+  this.signOut = function ()
+  {
+    with (this)
+    {
+      $.ajax({
+        type : 'POST',
+        url : '/boards/' + boardTitle + '/students/' + user.username,
+        headers :
+        {
+          'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content'),
+          'Authorization' : base64_encode(user.getName() + ":" + user.getPassword())
+        },
+        data :
+        {
+          _method : 'DELETE',
+        },
+        dataType : 'json',
+        success : function ()
+        {
+          
+        }
+      });
+    }
   }
 
   /*--------UTILITY FUNCTIONS-------------------------*/
