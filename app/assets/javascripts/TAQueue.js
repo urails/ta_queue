@@ -132,6 +132,15 @@ function TAQueue ()
 
     this.updateControlButtons();
     this.centerControlBar();
+    
+    if($('#queue_list').children().length > 2)
+    {
+      $('body').css('background-color','#8c4646');
+    }
+    else
+    {
+      $('body').css('background-color','#5b5b5b');
+    }
   }
 
   /**
