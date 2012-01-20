@@ -110,6 +110,7 @@ function TAQueue ()
     this.frozen = (data.frozen.toString() == 'true') ? true : false;
     
     var currentTA = null;
+    var html;
     
     for (var i = 0; i < data.tas.length; i++)
     {
@@ -148,10 +149,15 @@ function TAQueue ()
     if($('#queue_list').children().length > 2)
     {
       $('body').css('background-color','#8c4646');
+      html = '(' + ($('#queue_list').children().length - 2) + ') ';
+      html += $('title').html().substring($('title').html().search(/\)/)+1,$('title').html().length);
+      $('title').html(html); 
     }
     else
-    {
+    {      
       $('body').css('background-color','#5b5b5b');
+      html = $('title').html().substring($('title').html().search(/\)/)+1,$('title').html().length);
+      $('title').html(html); 
     }
   }
 
