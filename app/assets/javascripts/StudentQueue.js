@@ -49,6 +49,7 @@ function StudentQueue ()
       
       window.onunload = function ()
       {
+        //
         signOut();
       }
     }
