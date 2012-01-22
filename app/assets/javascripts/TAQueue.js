@@ -480,7 +480,6 @@ function TAQueue ()
     }
 
     $('#queue_list').append(html);
-    $('.scroll-pane').jScrollPane();
 
     with (this)
     {
@@ -527,7 +526,7 @@ function TAQueue ()
     }
 
     $('#tas_list').append(html);
-    $('.scroll-pane').jScrollPane();
+    
 
   }
 

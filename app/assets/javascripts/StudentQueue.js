@@ -407,7 +407,6 @@ function StudentQueue ()
     }
 
     $('#queue_list').append(html);
-    $('.scroll-pane').jScrollPane();
 
     with (this)
     {
@@ -454,7 +453,6 @@ function StudentQueue ()
     }
 
     $('#tas_list').append(html);
-    $('.scroll-pane').jScrollPane();
 
   }
 

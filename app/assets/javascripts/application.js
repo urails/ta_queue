@@ -6,9 +6,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.jscrollpane
-//= require jquery.mousewheel.js
-//= require mwheelIntent
 //= require User
 
 //= require app
