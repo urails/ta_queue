@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= @board.title %> Queue</title>
+  <title><%= if content_for? :title
+               @board.title 
+             else
+               "Queue"
+             end
+         %></title>
   <% # stylesheet_link_tag    "application" 
   %>
   <%= yield :stylesheets %>
