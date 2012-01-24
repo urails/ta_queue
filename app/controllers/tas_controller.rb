@@ -30,7 +30,6 @@ class TasController < ApplicationController
 
   def update
     @ta.update_attributes(params[:ta])
-
     @ta.save
 
     push_notify!

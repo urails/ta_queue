@@ -52,15 +52,15 @@ function TAQueue ()
         }
       });
       
-      window.onbeforeunload = function (e) 
-      {
-        return "You will be logged out of the queue by navigating away from this page.";
-      }
+      //window.onbeforeunload = function (e) 
+      //{
+        //return "Remember to click Sign Out if you intend to sign out";
+      //}
       
-      window.getonunload = function (e)
-      {
-        signOut();
-      }     
+      //window.getonunload = function (e)
+      //{
+        //signOut();
+      //}     
 
     }
   
