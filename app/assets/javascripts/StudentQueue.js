@@ -81,13 +81,14 @@ function StudentQueue ()
         success : function (data)
         {
           queryQueueSuccess(data);
+          window.querySuccessHandler = queryQueueSuccess
         }
       });
     }
 
     with (this)
     {
-      interval = setTimeout(function () { queryQueue(); }, 3000);
+      //interval = setTimeout(function () { queryQueue(); }, 3000);
     }
 
   }

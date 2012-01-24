@@ -6,6 +6,8 @@ class BoardsController < ApplicationController
   before_filter :filter_users, :only => [:login]
   before_filter :authenticate_master_password!, :only => [:create, :destroy]
 
+  #after_filter :push_notify!, :only => [:update]
+
   @@master_password = "create_queue"
 
   def create
@@ -16,6 +18,7 @@ class BoardsController < ApplicationController
 
   def update
     @board.update_attributes(params[:board])
+    push_notify!
     respond_with @board
   end
 

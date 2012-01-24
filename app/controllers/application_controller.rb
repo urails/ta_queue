@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+    def push_notify!
+      if Rails.env != "test"
+        Juggernaut.publish("#{current_user.board.title}/queue", current_user.board.queue.as_json)
+      end
+    end
+
     def current_user
       authorize!
       @current_user

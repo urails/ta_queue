@@ -68,6 +68,7 @@ $(document).ready(function()
 {
 	var q = new StudentQueue();
   q.queryQueue();
+  window.jug_handler.start_juggernaut(q);
   q.addEventListeners2Queue();
   q.centerControlBar();
 });

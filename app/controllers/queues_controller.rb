@@ -7,6 +7,8 @@ class QueuesController < ApplicationController
   before_filter :authenticate!, :only => [:show]
   before_filter :authenticate_ta!, :only => [:update]
 
+  #after_filter :push_notify!, :only => [:update, :enter_queue, :exit_queue]
+
   respond_to :json
 
   def show
@@ -15,11 +17,13 @@ class QueuesController < ApplicationController
 
   def update
     @queue.update_attributes(params[:queue])
+    push_notify!
     respond_with @queue
   end
 
   def enter_queue
     current_user.enter_queue!
+    push_notify!
     respond_with @queue
   end
 
@@ -35,6 +39,8 @@ class QueuesController < ApplicationController
     # If when exiting the queue, the student was being helped by a TA, automatically
     # accept the next student
     ta.accept_next_student if should_accept_next
+
+    push_notify!
 
     respond_with @queue
   end

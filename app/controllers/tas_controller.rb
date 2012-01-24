@@ -3,6 +3,8 @@ class TasController < ApplicationController
   before_filter :get_ta, :only => [:update, :show, :destroy]
   before_filter :authenticate_ta!, :except => [:create]
 
+  #after_filter :push_notify!, [:destroy, :create, :update]
+
   respond_to :json, :xml
 
   def show
@@ -14,6 +16,7 @@ class TasController < ApplicationController
     respond_with do |f|
       if @ta.save
         sign_in @ta
+        push_notify!
         f.html { redirect_to board_path @board }
         f.json { render :json => { token: @ta.token, id: @ta.id, username: @ta.username }, :status => :created }
         f.xml  { render :xml => { token: @ta.token, id: @ta.id, username: @ta.username }, :status => :created }
@@ -29,12 +32,15 @@ class TasController < ApplicationController
     @ta.update_attributes(params[:ta])
 
     @ta.save
+
+    push_notify!
     respond_with @ta
   end
 
   def destroy
     @ta.destroy
     sign_out @ta
+    push_notify!
     respond_with do |f|
       f.html { redirect_to board_login_path @board }
     end

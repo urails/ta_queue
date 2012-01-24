@@ -94,7 +94,8 @@ function TAQueue ()
 
     with (this)
     {
-      interval = setTimeout(function () { queryQueue(); }, 3000);
+      // We're doing push now, no more polling!
+      //interval = setTimeout(function () { queryQueue(); }, 3000);
     }
 
   }
@@ -184,7 +185,7 @@ function TAQueue ()
         dataType : 'json',
         success : function (data,isActive)
         {
-          activateQueueSuccess(data,isActive);
+          //activateQueueSuccess(data,isActive);
         }
       });
     }
@@ -233,7 +234,7 @@ function TAQueue ()
         dataType : 'json',
         success : function (data,isFrozen)
         {
-          freezeQueueSuccess(data,isFrozen);
+          //freezeQueueSuccess(data,isFrozen);
         }
       });
     }
