@@ -95,7 +95,8 @@ function TAQueue ()
     with (this)
     {
       // We're doing push now, no more polling!
-      //interval = setTimeout(function () { queryQueue(); }, 3000);
+      // We're still querying every 10 minutes to make sure you "stay alive" in the DB
+      interval = setTimeout(function () { queryQueue(); }, 10000 * 60);
     }
 
   }

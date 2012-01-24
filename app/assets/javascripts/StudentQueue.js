@@ -87,7 +87,8 @@ function StudentQueue ()
 
     with (this)
     {
-      //interval = setTimeout(function () { queryQueue(); }, 3000);
+      // We still need this here to update the "alive time" in the DB
+      interval = setTimeout(function () { queryQueue(); }, 10000 * 60);
     }
 
   }
