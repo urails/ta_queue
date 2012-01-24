@@ -42,16 +42,15 @@ function StudentQueue ()
         }
       });
       
-      window.onbeforeunload = function () 
-      {
-        return "You will be logged out of the queue by navigating away from this page.";
-      }
+      //window.onbeforeunload = function () 
+      //{
+        //return "You will be logged out of the queue by navigating away from this page.";
+      //}
       
-      window.onunload = function ()
-      {
-        //
-        signOut();
-      }
+      //window.onunload = function ()
+      //{
+        //signOut();
+      //}
     }
     
     
