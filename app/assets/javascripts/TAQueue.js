@@ -319,7 +319,6 @@ function TAQueue ()
    */
   this.changeQueueStatus = function (status)
   {
-    console.log("In changeQueueStatus: " + status);
     with (this)
     {
       $.ajax({
