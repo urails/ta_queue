@@ -126,6 +126,7 @@ function StudentQueue ()
     this.updateControlButtons();
     this.updateQueuePosition();
     this.centerControlBar();
+    this.updateQueueStatus(data.status);
   }
 
   /**
@@ -481,5 +482,18 @@ function StudentQueue ()
     $('#queue_list').append(html);
   }  
 
+  this.updateQueueStatus = function (status)
+  {
+    if (status === '')
+    {
+      $('#queue_status').css('display','none');
+    }
+    else
+    {
+      $('#queue_status').css('display','block');
+    }
+    
+    $('#queue_status').html(status);
+  }
 
 }

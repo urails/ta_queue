@@ -308,9 +308,25 @@ properly in Chrome
 #queue_panel
 {
   height: 100%; 
-  padding-top: 20px; 
+  padding: 20px 10px; 
+  font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
+#queue_status, #queue_status input
+{
+  color: red;
+  text-shadow: 0px 0px 3px #828282;
+  font-size: 20pt;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+#queue_status input
+{
+  border: none;
+  background-color: transparent;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+}
 
 #queue_list
 {
@@ -319,7 +335,7 @@ properly in Chrome
   -webkit-box-shadow: 0px 0px 4px 0px #828282;
   width: 400px;
   margin: 0px auto 0px auto;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
+  
   color: #efefef;
   text-shadow: 0px 0px 3px #000;
   border-radius: 10px;

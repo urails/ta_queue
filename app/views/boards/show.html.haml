@@ -45,6 +45,9 @@
           No notifications
       #panes
         #queue_panel
+          #queue_status
+            - if @current_user.ta?
+              Click to update queue status...
           #queue_list
     %td{ :class => "mr" }
       #left_tab_bar

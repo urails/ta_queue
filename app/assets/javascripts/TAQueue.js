@@ -52,6 +52,59 @@ function TAQueue ()
         }
       });
       
+      $('#queue_status').click(function () 
+      {
+        if ($(this).has('input').length)
+        {
+          return;        
+        }
+
+        var original = $(this).html(); 
+        var html = '<input id="queue_status_update" type="text" value="';
+        html += ($(this).html() === 'Click to update queue status...') ? '' : $(this).html();
+        html += '"/>';
+        
+        $(this).html(html);
+        $('#queue_status input').focus().select();
+        
+        $('#queue_status input').keydown(function (e)
+        {
+          // Enter key
+          if (e.which === 13)
+          {
+            if ($('#queue_status input').val() === '' || $('#queue_status input').val() === 'Click to update queue status...')
+            {
+              changeQueueStatus('');
+            }
+            else
+            {
+              changeQueueStatus($('#queue_status input').val());
+            }
+          }
+          
+          // Esc key
+          if (e.which === 27)
+          {
+            $('#queue_status').html(original);
+          }
+        
+        });
+        
+        $('#queue_status input').focusout(function ()
+        {
+          if ($('#queue_status input').val() === '' || $('#queue_status input').val() === 'Click to update queue status...')
+          {
+            changeQueueStatus('');
+          }
+          else
+          {
+            changeQueueStatus($('#queue_status input').val());
+          }
+        
+        });
+      
+      });
+      
       //window.onbeforeunload = function (e) 
       //{
         //return "Remember to click Sign Out if you intend to sign out";
@@ -147,6 +200,7 @@ function TAQueue ()
 
     this.updateControlButtons();
     this.centerControlBar();
+    this.updateQueueStatus(data.status);
     
     if($('#queue_list').children().length > 2)
     {
@@ -259,6 +313,32 @@ function TAQueue ()
     this.centerControlBar();
   }
 
+
+  /**
+   * This function changes the queue status via AJAX.
+   */
+  this.changeQueueStatus = function (status)
+  {
+    console.log("In changeQueueStatus: " + status);
+    with (this)
+    {
+      $.ajax({
+        type : 'POST',
+        url : '/boards/' + boardTitle + '/queue',
+        headers :
+        {
+          'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content'),
+          'Authorization' : base64_encode(user.getName() + ":" + user.getPassword())
+        },
+        data :
+        {
+          _method : 'PUT',
+          'queue[status]' : status
+        },
+        dataType : 'json'
+      });
+    }
+  }
   /**
    * This function allows a TA to accept a student from the queue via AJAX. Only applies
    * to users who are TAs.
@@ -581,5 +661,19 @@ function TAQueue ()
     $('#queue_list').append(html);
   }  
 
+
+  this.updateQueueStatus = function (status)
+  {
+    $('#queue_status').css('display','block');
+    
+    if (status === '')
+    {
+      $('#queue_status').html('Click to update queue status...');
+    }
+    else
+    {
+      $('#queue_status').html(status);
+    }
+  }
 
 }
