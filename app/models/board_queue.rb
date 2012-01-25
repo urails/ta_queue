@@ -4,6 +4,7 @@ class BoardQueue
   belongs_to :board
 
   field :frozen, type: Boolean, default: false
+  field :status, type: String, default: ""
 
   validates :frozen, :inclusion => { :in => [true, false], :message => "frozen must be a true/false value" }
   # Not currently a proper association for students in the queue or not,
@@ -13,6 +14,7 @@ class BoardQueue
     hash = {}
     hash[:frozen] = self.frozen 
     hash[:active] = self.board.active
+    hash[:status] = self.status
     hash[:students] = self.students.as_json
     hash[:tas] = self.tas.as_json
     hash

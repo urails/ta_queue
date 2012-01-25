@@ -65,17 +65,20 @@ describe QueuesController do
       res_hash = decode response.body
 
 
-      res_hash.count.should == 4
+      res_hash.count.should == 5
 
       res_hash['frozen'].should_not be_nil
       res_hash['active'].should_not be_nil
       res_hash['students'].should_not be_nil
+      res_hash['status'].should_not be_nil
       res_hash['tas'].should_not be_nil
 
       res_hash['students'].count.should == 7
       res_hash['tas'].count.should == 4 # the extra is due to the ta created in the before :each block
 
-      res_hash['tas'][0]['student']['id'].should == @board.students.first.id.to_s
+      res_hash['tas'].each do |_ta|
+        _ta['student']['id'].should == @board.students.first.id.to_s if _ta['id'] == ta.id.to_s
+      end
     end
 
     it "students should come back in the order they joined the queue" do
