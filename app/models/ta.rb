@@ -1,3 +1,4 @@
+require "helpers"
 class Ta < QueueUser
   belongs_to :board
 
@@ -12,7 +13,7 @@ class Ta < QueueUser
   def output_hash
     hash = {}
     hash[:id] = id.to_s
-    hash[:username] = username
+    hash[:username] = escp(username)
     hash[:student] = self.student
     hash[:status] = self.status
     hash

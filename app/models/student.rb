@@ -15,8 +15,8 @@ class Student < QueueUser
   def output_hash
     hash = {}
     hash[:id] = id.to_s
-    hash[:username] = username
-    hash[:location] = location
+    hash[:username] = escp(username)
+    hash[:location] = escp(location)
     hash[:in_queue] = (in_queue.nil? ? false : true)
     hash
   end

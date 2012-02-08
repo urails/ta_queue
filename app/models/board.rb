@@ -23,7 +23,7 @@ class Board
     hash = Hash.new
     hash[:active] = active
     #hash[:frozen] = queue.frozen
-    hash[:title] = self.title
+    hash[:title] = escp(self.title)
     hash[:tas] = self.tas
     hash[:students] = self.students
     hash[:queue] = self.queue.as_json

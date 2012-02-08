@@ -1,3 +1,4 @@
+require "helpers"
 class BoardQueue
   include Mongoid::Document
 
@@ -14,7 +15,7 @@ class BoardQueue
     hash = {}
     hash[:frozen] = self.frozen 
     hash[:active] = self.board.active
-    hash[:status] = self.status
+    hash[:status] = escp(self.status)
     hash[:students] = self.students.as_json
     hash[:tas] = self.tas.as_json
     hash
