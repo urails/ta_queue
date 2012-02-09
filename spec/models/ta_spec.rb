@@ -33,7 +33,7 @@ describe Ta do
 
         new_students = @board.students.in_queue.to_a
 
-        new_students.count.should == 10 - i - 1
+        new_students.count.should == 10 - i
       end
   end
 end

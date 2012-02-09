@@ -10,7 +10,7 @@ class Student < QueueUser
 
   validate :check_username_location, :on => :create
 
-  scope :in_queue, where(:in_queue.ne => nil, :ta_id => nil).asc(:in_queue)
+  scope :in_queue, where(:in_queue.ne => nil).asc(:in_queue)
   
   def output_hash
     hash = {}

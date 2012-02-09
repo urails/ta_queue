@@ -183,6 +183,7 @@ describe StudentsController do
     
     it "index returns a list of students" do
       board = Factory.create :board
+
       5.times do
         board.students.create!(Factory.attributes_for(:student))
       end
@@ -334,7 +335,20 @@ describe StudentsController do
       res['username'].should_not be_nil
     end
 
-    it "create fails if username is 'username'" do
+    it "create fails if username is 'name'" do
+      stud = Factory.attributes_for :student
+      stud[:username] = "name"
+
+      post :create, { :board_id => @board.title, :student => stud }
+
+      response.code.should == "422"
+
+      res = decode response.body
+
+      res['username'].should_not be_nil
+    end
+
+    it "create fails if location is 'location'" do
       stud = Factory.attributes_for :student
       stud['location'] = "location"
 
