@@ -45,7 +45,7 @@ describe BoardsController do
 
       res = decode response.body
 
-      res['queue']['students'].count.should == 0
+      res['queue']['students'].should be_nil
 
     end
 
@@ -77,8 +77,21 @@ describe BoardsController do
     it "index" do
       boards = [@board]
 
+
       5.times do
-        boards << Factory.create(:board)
+        board = Factory.create(:board)
+        board.valid?.should == true
+        boards << board
+      end
+
+      boards.each do |board|
+        5.times do
+          student = board.students.create!(Factory.attributes_for(:student))
+          student.enter_queue!
+        end
+        5.times do
+          ta = board.tas.create!(Factory.attributes_for(:ta))
+        end
       end
 
       get :index

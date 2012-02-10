@@ -6,9 +6,16 @@ class ApplicationController < ActionController::Base
 
   private
 
+    def render_queue
+      source = File.read('app/views/queues/show.rabl')
+      rabl_engine = Rabl::Engine.new(source, :format => 'json')
+      output = rabl_engine.render(self, {})
+    end
+
     def push_notify!
       if Rails.env != "test"
-        Juggernaut.publish("#{current_user.board.title}/queue", current_user.board.queue.as_json)
+        @queue = current_user.board.queue
+        Juggernaut.publish("#{current_user.board.title}/queue", render_queue) #current_user.board.queue.as_json)
       end
     end
 

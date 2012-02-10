@@ -27,6 +27,22 @@ describe TasController do
       @ta.destroy
     end
 
+    it "check escaped HTML" do
+      authenticate @ta
+
+      @ta.username = "<div>hello</div>"
+      @ta.save
+
+      get :show, { :board_id => @board.title, :id => @ta.id }
+
+      response.code.should == "200"
+
+      res = decode response.body
+
+      res['username'].should == "&lt;div&gt;hello&lt;/div&gt;"
+      
+    end
+
     it "show w/out student" do
       authenticate @ta
 
@@ -72,6 +88,7 @@ describe TasController do
     before :each do
       @ta = @board.tas.create!(Factory.attributes_for(:ta))
     end
+
     it "create" do
       post :create, { :board_id => @board.title, :ta => { :username => " ", :password => " " } }
 

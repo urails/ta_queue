@@ -11,10 +11,7 @@ class StudentsController < ApplicationController
   respond_to :html, :only => [:create, :update]
 
   def show
-    respond_with do |f|
-      f.json{ render :json => @student.output_hash }
-      f.xml { render :xml => @student.output_hash }
-    end
+    respond_with @student
   end
 
   def create 
@@ -36,7 +33,8 @@ class StudentsController < ApplicationController
   end
 
   def index
-    respond_with @board.students
+    @students = @board.students
+    respond_with @students
   end
 
   def update
@@ -59,13 +57,13 @@ class StudentsController < ApplicationController
   def ta_accept
     current_user.accept_student! @student
     push_notify!
-    respond_with @student and return
+    respond_with @student, :template => "students/show.rabl"
   end
 
   def ta_remove
     @student.exit_queue!
     push_notify!
-    respond_with @student and return
+    respond_with @student, :template => "students/show.rabl"
   end
 
 ###### PRIVATE ######
@@ -75,10 +73,7 @@ class StudentsController < ApplicationController
     def get_student
       @student ||= @board.students.where(:_id => params[:id]).first
       if !@student
-        respond_with do |f|
-          f.json { render :json => { error: "This student does not exist or is not part of this board" }, :status => :bad_request }
-          f.xml  { render :json => { error: "This student does not exist or is not part of this board" }, :status => :bad_request }
-        end
+        render template: "shared/does_not_exist.rabl", :status => 422
       end
     end
 end

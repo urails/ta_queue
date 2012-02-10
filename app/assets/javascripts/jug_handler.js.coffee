@@ -3,7 +3,8 @@ class JugHandler
     window.board_title = $('#board_title').val();
     jug = new Juggernaut
     jug.subscribe "#{window.board_title}/queue", (data) ->
-      queue.queryQueueSuccess(data)
+      queue.queryQueueSuccess($.parseJSON(data))
+      #queue.queryQueueSuccess(data)
     
 
 $( () ->

@@ -361,6 +361,18 @@ describe StudentsController do
       res['location'].should_not be_nil
     end
 
+    it "fails if trying 'show' action on non-existant student" do
+      authenticate @board.students.create(@full_student_hash)
+
+      get :show, { :board_id => @board.title, :id => "hello" }
+
+      res = decode response.body
+
+      response.code.should == "422"
+
+      res['error'].should_not be_nil
+    end
+
     it "create succeeds creating a student with a location longer than 20 characters" do
       stud = Factory.attributes_for :student
       stud[:location] = "a" * 20
@@ -369,4 +381,5 @@ describe StudentsController do
       response.code.should == "201"
     end
   end
+
 end

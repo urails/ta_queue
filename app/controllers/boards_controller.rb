@@ -1,5 +1,6 @@
 class BoardsController < ApplicationController
   respond_to :xml, :json, :html
+
   before_filter :get_board, :except => [:new, :create, :index]
   before_filter :authenticate_ta!, :only => [:update]
   before_filter :authenticate_user_for_current_board!, :only => [:show]
@@ -11,9 +12,9 @@ class BoardsController < ApplicationController
   @@master_password = "create_queue"
 
   def create
-      @board = Board.new(params[:board])
-      @board.save
-      respond_with @board
+    @board = Board.new(params[:board])
+    @board.save
+    respond_with @board, template: "boards/show", status: 201
   end
 
   def update

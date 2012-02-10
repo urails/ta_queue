@@ -12,14 +12,14 @@ class Student < QueueUser
 
   scope :in_queue, where(:in_queue.ne => nil).asc(:in_queue)
   
-  def output_hash
-    hash = {}
-    hash[:id] = id.to_s
-    hash[:username] = escp(username)
-    hash[:location] = escp(location)
-    hash[:in_queue] = (in_queue.nil? ? false : true)
-    hash
-  end
+  #def output_hash
+    #hash = {}
+    #hash[:id] = id.to_s
+    #hash[:username] = escp(username)
+    #hash[:location] = escp(location)
+    #hash[:in_queue] = (in_queue.nil? ? false : true)
+    #hash
+  #end
 
   def enter_queue
     if self.in_queue.nil?

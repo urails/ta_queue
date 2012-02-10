@@ -8,7 +8,7 @@ class TasController < ApplicationController
   respond_to :json, :xml
 
   def show
-    respond_with @ta
+    #respond_with @ta
   end
 
   def create 
@@ -49,5 +49,8 @@ class TasController < ApplicationController
 
     def get_ta
       @ta = @board.tas.find(params[:id])
+      if !@ta
+        render template: "shared/does_not_exist.rabl", :status => 422
+      end
     end
 end

@@ -139,6 +139,7 @@ describe QueuesController do
 
     it "should allow student to exit queue" do
       authenticate @student
+
       get :exit_queue, { :board_id => @board.title }
 
       response.code.should == "200"
@@ -149,7 +150,7 @@ describe QueuesController do
 
       student.in_queue.should be_nil
 
-      res_hash['students'].should be_empty
+      res_hash['students'].should be_nil
     end
 
     it "should accept the next student if the student being helped dequeues themselves" do

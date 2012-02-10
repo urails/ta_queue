@@ -161,6 +161,15 @@ function TAQueue ()
    */
   this.queryQueueSuccess = function (data)
   {
+    // PARKER EDIT: The API no longer returns an empty array if there are no TAs/Students, it
+    // just returns nothing. So set them to be empty arrays if they are null
+    if(data.students == null)
+      data.students = []
+
+    if(data.tas == null)
+      data.tas = []
+    // END PARKER EDIT
+    
     this.active = (data.active.toString() == 'true') ? true : false;
     this.frozen = (data.frozen.toString() == 'true') ? true : false;
     

@@ -14,6 +14,8 @@ gem 'cover_me', :group => :test
 gem 'crom', :git => 'http://github.com/kgiszczak/crom'
 gem 'newrelic_rpm', :group => :production
 
+gem 'rabl'
+
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 

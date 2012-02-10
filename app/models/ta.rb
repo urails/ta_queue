@@ -10,14 +10,14 @@ class Ta < QueueUser
   validate :check_password, :on => :create
   validates :username, :uniqueness => true
 
-  def output_hash
-    hash = {}
-    hash[:id] = id.to_s
-    hash[:username] = escp(username)
-    hash[:student] = self.student
-    hash[:status] = self.status
-    hash
-  end
+  #def output_hash
+    #hash = {}
+    #hash[:id] = id.to_s
+    #hash[:username] = escp(username)
+    #hash[:student] = self.student
+    #hash[:status] = self.status
+    #hash
+  #end
 
   def self.create_mock options = {}
     Ta.create!(:username => "Stanley", :token => SecureRandom.uuid)

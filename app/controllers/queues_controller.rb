@@ -24,7 +24,7 @@ class QueuesController < ApplicationController
   def enter_queue
     current_user.enter_queue!
     push_notify!
-    respond_with @queue
+    respond_with @queue, template: "queues/show"
   end
 
   def exit_queue
@@ -42,7 +42,7 @@ class QueuesController < ApplicationController
 
     push_notify!
 
-    respond_with @queue
+    respond_with @queue, template: "queues/show"
   end
   
   private
@@ -54,7 +54,7 @@ class QueuesController < ApplicationController
   def check_frozen
     if @queue.frozen
       respond_with do |f|
-        f.json { render :json => { :error => "You cannot enter the queue when it is frozen" }, :status => :forbidden }
+        render template: "queues/error_frozen.rabl", :status => 403 and return
       end
     end
   end

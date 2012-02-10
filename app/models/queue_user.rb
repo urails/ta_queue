@@ -12,9 +12,9 @@ class QueueUser
   validates :username, :length => { :within => 1..40 }
   validates :username, :exclusion => { :in => ["username", "Username", "name", "Name"], :message => "Please choose a different username" }
 
-  def as_json options = {}
-    output_hash
-  end
+  #def as_json options = {}
+    #output_hash
+  #end
 
   def to_xml
     output_hash.to_xml 
