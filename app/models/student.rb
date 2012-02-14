@@ -1,6 +1,7 @@
 class Student < QueueUser
   belongs_to :board
   belongs_to :ta, :class_name => "Ta"
+  has_one :in_queue_duration
 
   field :in_queue, type: DateTime
 
@@ -11,6 +12,8 @@ class Student < QueueUser
   validate :check_username_location, :on => :create
 
   scope :in_queue, where(:in_queue.ne => nil).asc(:in_queue)
+
+  after_create :create_in_queue_duration
   
   #def output_hash
     #hash = {}
@@ -23,8 +26,11 @@ class Student < QueueUser
 
   def enter_queue
     if self.in_queue.nil?
-      self.in_queue = DateTime.now
+      date = DateTime.now
+      in_queue_duration.enter_time = date
+      self.in_queue = date
     end
+    in_queue_duration.save
   end
 
   def enter_queue!
@@ -34,11 +40,14 @@ class Student < QueueUser
 
   def exit_queue
     unless self.in_queue.nil?
+      in_queue_duration.exit_time = DateTime.now
       self.in_queue = nil
     end
     unless self.ta.nil?
+      in_queue_duration.was_helped = true
       self.ta = nil
     end
+    in_queue_duration.save
   end
 
   def exit_queue!
