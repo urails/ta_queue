@@ -53,4 +53,8 @@ class TasController < ApplicationController
         render template: "shared/does_not_exist.rabl", :status => 422
       end
     end
+
+    def get_board
+      @board = Board.where(:title => params[:board_id])
+    end
 end

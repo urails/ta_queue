@@ -131,7 +131,8 @@ function TAQueue ()
     {
       $.ajax({
         type : 'GET',
-        url : '/boards/' + boardTitle + '/queue',
+        //url : '/boards/' + boardTitle + '/queue',
+        url : '/queue',
         headers :
         {
           'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content'),
@@ -284,7 +285,8 @@ function TAQueue ()
     {
       $.ajax({
         type : 'POST',
-        url : '/boards/' + boardTitle + '/queue',
+        //url : '/boards/' + boardTitle + '/queue',
+        url : '/queue',
         headers :
         {
           'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content'),
@@ -332,7 +334,8 @@ function TAQueue ()
     {
       $.ajax({
         type : 'POST',
-        url : '/boards/' + boardTitle + '/queue',
+        //url : '/boards/' + boardTitle + '/queue',
+        url : '/queue',
         headers :
         {
           'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content'),

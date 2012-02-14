@@ -50,11 +50,15 @@ class ApplicationController < ActionController::Base
 
 
     def get_board
-      if params[:controller] == "boards"
-        @board ||= Board.where(:title => params[:id]).first
-      else
-        @board ||= Board.where(:title => params[:board_id]).first
-      end
+      #if current_user
+        @board ||= current_user.board
+      #else
+        #if params[:controller] == "boards"
+          #@board ||= Board.where(:title => params[:id]).first
+        #else
+          #@board ||= Board.where(:title => params[:board_id]).first
+        #end
+      #end
     end
 
     # if the board is inactive, redirect

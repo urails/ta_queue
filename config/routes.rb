@@ -18,6 +18,11 @@ TaQueue::Application.routes.draw do
     end
   end
 
+  resource :queue, :only => [:show, :update] do
+    get "enter_queue"
+    get "exit_queue"
+  end
+
   root :to => "boards#index"
 
   # The priority is based upon order of creation:

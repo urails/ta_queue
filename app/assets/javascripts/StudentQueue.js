@@ -70,7 +70,8 @@ function StudentQueue ()
     {
       $.ajax({
         type : 'GET',
-        url : '/boards/' + boardTitle + '/queue',
+        //url : '/boards/' + boardTitle + '/queue',
+        url : '/queue',
         headers :
         {
           'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content'),
@@ -148,7 +149,8 @@ function StudentQueue ()
     {
       $.ajax({
         type : 'GET',
-        url : '/boards/' + boardTitle + '/queue/enter_queue',
+        //url : '/boards/' + boardTitle + '/queue/enter_queue',
+        url : '/queue/enter_queue',
         headers :
         {
           'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content'),
@@ -179,7 +181,8 @@ function StudentQueue ()
     {
       $.ajax({
         type : 'GET',
-        url : '/boards/' + boardTitle + '/queue/exit_queue',
+        //url : '/boards/' + boardTitle + '/queue/exit_queue',
+        url : '/queue/exit_queue',
         headers :
         {
           'X-CSRF-Token' : $('meta[name="csrf-token"]').attr('content'),
