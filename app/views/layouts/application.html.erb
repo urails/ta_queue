@@ -11,6 +11,9 @@
   %>
   <%= yield :stylesheets %>
   <%= javascript_include_tag "application" %>
+  <% if params[:iframe] %>
+    <%= stylesheet_link_tag "iframe" %>
+  <% end %>
   <%= yield :javascripts %>
   <%= csrf_meta_tags %>
 </head>
