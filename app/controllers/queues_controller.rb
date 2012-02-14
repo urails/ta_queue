@@ -57,5 +57,5 @@ class QueuesController < ApplicationController
           render template: "queues/error_frozen.rabl", :status => 403 and return
         end
       end
-  end
+    end
 end
