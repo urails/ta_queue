@@ -116,6 +116,7 @@ describe TasController do
 
     it "update" do
       authenticate @ta
+
       put :update, { :board_id => @board.title, :id => @ta.id.to_s, :ta => { :username => ""} }
 
       response.code.should == "422"
@@ -124,7 +125,7 @@ describe TasController do
 
       res.count.should == 1
 
-      res['username'].should_not be_nil
+      res['errors']['username'].should_not be_nil
     end
   end
 
@@ -162,19 +163,17 @@ describe TasController do
     it "successfully updates username" do
       authenticate QueueUser.where(:_id => @full_ta_hash[:id]).first
       new_username = "Harry"
+
       put :update, { :ta => { :username => new_username }, :id => @full_ta_hash[:id], :board_id => @board.title }
 
-      response.code.should == "200"
-
-      res_hash = decode response.body 
-      res_hash.count.should == 0
+      response.code.should == "204"
     end
 
     it "successfully destroys the student" do
       authenticate QueueUser.where(:_id => @full_ta_hash[:id]).first
       delete :destroy, { :board_id => @board.title, :id => @full_ta_hash[:id] }
 
-      response.code.should == "200"
+      response.code.should == "204"
 
       QueueUser.where(:_id => @full_ta_hash[:id]).first.should be_nil
     end

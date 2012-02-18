@@ -50,7 +50,7 @@ class TasController < ApplicationController
     def get_ta
       @ta = @board.tas.find(params[:id])
       if !@ta
-        render template: "shared/does_not_exist.rabl", :status => 422
+        render template: "shared/does_not_exist", :status => 422
       end
     end
 

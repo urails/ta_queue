@@ -102,7 +102,7 @@ describe StudentsController do
       authenticate QueueUser.where(:_id => @full_student_hash[:id]).first
       delete :destroy, { :board_id => @board.title, :id => @full_student_hash[:id] }
 
-      response.code.should == "200"
+      response.code.should == "204"
 
       QueueUser.where(:_id => @full_student_hash[:id]).first.should be_nil
     end

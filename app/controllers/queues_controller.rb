@@ -54,7 +54,7 @@ class QueuesController < ApplicationController
     def check_frozen
       if @queue.frozen
         respond_with do |f|
-          render template: "queues/error_frozen.rabl", :status => 403 and return
+          render template: "queues/error_frozen", :status => 403 and return
         end
       end
     end

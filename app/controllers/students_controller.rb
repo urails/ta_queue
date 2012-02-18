@@ -57,13 +57,13 @@ class StudentsController < ApplicationController
   def ta_accept
     current_user.accept_student! @student
     push_notify!
-    respond_with @student, :template => "students/show.rabl"
+    respond_with @student, :template => "students/show"
   end
 
   def ta_remove
     @student.exit_queue!
     push_notify!
-    respond_with @student, :template => "students/show.rabl"
+    respond_with @student, :template => "students/show"
   end
 
 ###### PRIVATE ######
@@ -73,7 +73,7 @@ class StudentsController < ApplicationController
     def get_student
       @student ||= @board.students.where(:_id => params[:id]).first
       if !@student
-        render template: "shared/does_not_exist.rabl", :status => 422
+        render template: "shared/does_not_exist", :status => 422
       end
     end
 

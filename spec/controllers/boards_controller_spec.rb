@@ -37,7 +37,7 @@ describe BoardsController do
 
       put :update, { :id => @board.title, :board => { :active => false } }
 
-      response.code.should == "200"
+      response.code.should == "204"
 
       get :show, { :id => @board.title }
 
@@ -63,7 +63,7 @@ describe BoardsController do
 
       put :update, { :id => @board.title, :board => { :active => false } }
 
-      response.code.should == "200"
+      response.code.should == "204"
 
       ta = Ta.find(ta.id)
 
@@ -152,11 +152,7 @@ describe BoardsController do
 
       put :update, { :id => @board.title, :board => { :active => true } }
 
-      response.code.should == "200"
-
-      res = decode response.body
-
-      res.should be_empty
+      response.code.should == "204"
     end
 
   end
@@ -187,7 +183,7 @@ describe BoardsController do
       @board.active.should == true
       put :update, { :id => @board.title, :board => { :active => false } }
 
-      response.code.should == "200"
+      response.code.should == "204"
       @board = Board.find(@board.id)
       @board.active.should == false
     end
@@ -259,7 +255,7 @@ describe BoardsController do
 
       put :update, { :id => @board_auth.title, :board => { :active => true } }
 
-      response.code.should == "200"
+      response.code.should == "204"
 
     end
 
@@ -310,7 +306,7 @@ describe BoardsController do
       authenticate @student
       delete :destroy, { :id => @board_auth.title, :master_password => "create_queue" }
 
-      response.code.should == "200"
+      response.code.should == "204"
 
       Board.where(:_id => @board_auth.id).first.should be_nil
     end

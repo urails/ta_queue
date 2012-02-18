@@ -33,11 +33,7 @@ describe QueuesController do
 
       put :update, { :board_id => @board.title, :queue => { :frozen => true } }
 
-      res = decode response.body
-
-      res.should be_empty
-
-      response.code.should == "200"
+      response.code.should == "204"
     end
 
     it "show" do
@@ -219,7 +215,7 @@ describe QueuesController do
 
       res = decode response.body
 
-      res['frozen'].should_not be_nil
+      res['errors']['frozen'].should_not be_nil
     end
 
     it "Doesn't respond to enter_queue when frozen" do
@@ -291,7 +287,7 @@ describe QueuesController do
       @queue.frozen.should == false
       put :update, { :board_id => @board.title, :queue => { :frozen => true } }
 
-      response.code.should == "200"
+      response.code.should == "204"
 
       @board = Board.find(@board.id)
 
