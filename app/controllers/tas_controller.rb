@@ -55,6 +55,6 @@ class TasController < ApplicationController
     end
 
     def get_board
-      @board = Board.where(:title => params[:board_id])
+      @board = Board.where(:title => params[:board_id]).first
     end
 end

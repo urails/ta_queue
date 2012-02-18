@@ -10,7 +10,6 @@ gem 'spine-rails'
 gem 'eco'
 gem 'haml'
 gem 'therubyracer'
-gem 'cover_me', :group => :test
 gem 'crom', :git => 'http://github.com/kgiszczak/crom'
 gem 'newrelic_rpm', :group => :production
 
