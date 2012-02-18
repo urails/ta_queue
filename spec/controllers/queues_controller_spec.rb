@@ -52,7 +52,7 @@ describe QueuesController do
 
       ta = @board.tas.first
 
-      ta.accept_student! @board.students.first
+      ta.accept_student! @student
 
       get :show, { :board_id => @board.title }
 
@@ -69,7 +69,7 @@ describe QueuesController do
       res_hash['status'].should_not be_nil
       res_hash['tas'].should_not be_nil
 
-      res_hash['students'].count.should == 7
+      res_hash['students'].count.should == 8
       res_hash['tas'].count.should == 4 # the extra is due to the ta created in the before :each block
 
       res_hash['tas'].each do |_ta|

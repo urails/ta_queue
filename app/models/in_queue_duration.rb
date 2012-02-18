@@ -8,6 +8,9 @@ class InQueueDuration
   field :was_helped, type: Boolean, default: false
 
   def time_in_queue type = :seconds
+    raise Exception, "Missing exit time" unless self.exit_time
+    raise Exception, "Missing enter time" unless self.enter_time
+
     time = (exit_time.to_f - enter_time.to_f)
     if type == :seconds
       return time

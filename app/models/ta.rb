@@ -24,12 +24,13 @@ class Ta < QueueUser
   end
 
   def accept_student stud
-    unless self.student.nil?
+    if self.student
       prev_student = self.student
       prev_student.exit_queue!
       self.save
     end
-      self.student = stud
+    stud.enter_queue!
+    self.student = stud
   end
 
   def accept_student! stud

@@ -14,7 +14,7 @@ class Student < QueueUser
   scope :in_queue, where(:in_queue.ne => nil).asc(:in_queue)
 
   after_create :create_in_queue_duration
-  
+
   #def output_hash
     #hash = {}
     #hash[:id] = id.to_s
@@ -26,11 +26,14 @@ class Student < QueueUser
 
   def enter_queue
     if self.in_queue.nil?
+      iqd = self.in_queue_duration ||= InQueueDuration.new
+
       date = DateTime.now
-      in_queue_duration.enter_time = date
       self.in_queue = date
+
+      iqd.enter_time = date
+      iqd.save
     end
-    in_queue_duration.save
   end
 
   def enter_queue!
@@ -40,14 +43,22 @@ class Student < QueueUser
 
   def exit_queue
     unless self.in_queue.nil?
-      in_queue_duration.exit_time = DateTime.now
+      iqd = self.in_queue_duration
+
+      iqd.exit_time = DateTime.now
+
       self.in_queue = nil
+
+      unless self.ta.nil?
+        iqd.was_helped = true
+        self.ta = nil
+      end
+
+      iqd.save
+
+      # Orphan off the old duration and build a new
+      self.in_queue_duration = InQueueDuration.new
     end
-    unless self.ta.nil?
-      in_queue_duration.was_helped = true
-      self.ta = nil
-    end
-    in_queue_duration.save
   end
 
   def exit_queue!
