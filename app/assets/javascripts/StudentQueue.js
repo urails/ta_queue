@@ -390,7 +390,7 @@ function StudentQueue ()
 
     $('#queue_list').html('');
     
-    this.updateDateTime();
+    html += '<div id="queue_datetime"></div>';
 
     for (i = 0; i < a.length; i++)
     {
@@ -421,6 +421,7 @@ function StudentQueue ()
     }
 
     $('#queue_list').append(html);
+    //this.updateDateTime();
 
     with (this)
     {
@@ -485,15 +486,16 @@ function StudentQueue ()
 
   this.updateDateTime = function ()
   {
-    var html = '<div id="queue_datetime">';
-    html += '<span class="left">' + this.getDate() + '</span>';
-    html += '<span class="right">' + this.getTime() + '</span>';
-    html += '<div class="clear"></div>';
-    html += '</div>';
-
-    $('#queue_list').append(html);
+    window.setTimeout(function (thisObj) {
+      var html = '<span class="left">' + thisObj.getDate() + '</span>';
+      html += '<span class="right">' + thisObj.getTime() + '</span>';
+      html += '<div class="clear"></div>';
+      $('#queue_datetime').html(html);
+      thisObj.updateDateTime();  
+    },1000,this);
+   
   }  
-
+     
   this.updateQueueStatus = function (status)
   {
     if (status === '')
