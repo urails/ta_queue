@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe BoardsController do
 
   before :all do
