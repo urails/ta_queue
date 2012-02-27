@@ -71,4 +71,5 @@ $(document).ready(function()
   window.jug_handler.start_juggernaut(q);
   q.addEventListeners2Queue();
   q.centerControlBar();
+  q.updateDateTime();
 });

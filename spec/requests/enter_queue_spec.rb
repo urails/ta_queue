@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe "testing" do
+	
   before :all do
     @board = Factory.create :board
     @pass = @board.password = "foobar"
     @board.save
   end
 
-  it "should fail" do
+  it "should login" do
     visit "/boards/#{@board.title}/login"
     within :css, 'form#new_ta' do
       fill_in 'ta[username]', :with => 'tommy'
