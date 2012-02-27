@@ -1,5 +1,7 @@
 ### TA Queue
 
+Build status: [![Build Status](https://secure.travis-ci.org/urails/ta_queue.png?branch=master)](http://travis-ci.org/urails/ta_queue)
+
 A TA queue for TA's/Teachers to use to visit students in a computer lab in an orderly fashion. You can test out a demo
 at 
 
