@@ -1,4 +1,4 @@
-require 'spec_helper'
+#require File.dirname(FILE) + '/../../spec_helper'
 
 # Specs in this file have access to a helper object that includes
 # the Admin::QueuesHelper. For example:
@@ -10,6 +10,6 @@ require 'spec_helper'
 #     end
 #   end
 # end
-describe Admin::QueuesHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
-end
+#describe Admin::QueuesHelper do
+  #pending "add some examples to (or delete) #{__FILE__}"
+#end
