@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.3'
 gem 'juggernaut'
+gem 'rails-backbone'
 gem 'foreman'
 gem 'mongoid'
 gem 'bson_ext'
