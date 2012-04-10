@@ -47,7 +47,7 @@ describe BoardsController do
 
       res = decode response.body
 
-      res['queue']['students'].should be_nil
+      res['queue']['students'].should be_empty
 
     end
 
