@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.3'
 gem 'juggernaut'
+gem 'foreman'
 gem 'mongoid'
 gem 'bson_ext'
 gem 'passenger'

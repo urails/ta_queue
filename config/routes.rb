@@ -18,6 +18,10 @@ TaQueue::Application.routes.draw do
     end
   end
 
+  namespace :admin do
+    resources :queues
+  end
+
   resource :queue, :only => [:show, :update] do
     get "enter_queue"
     get "exit_queue"
