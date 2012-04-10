@@ -1,7 +1,5 @@
 require "helpers"
 class Ta < QueueUser
-  belongs_to :board
-
   has_one :student, :class_name => "Student", dependent: :nullify
 
   field :status, type: String, default: ""

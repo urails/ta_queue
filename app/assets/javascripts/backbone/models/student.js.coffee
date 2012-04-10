@@ -2,7 +2,7 @@ class TaQueue.Models.Student extends TaQueue.Model
   paramRoot: 'student'
 
   initialize: (options) ->
-    @action "foobar"
+    console.log "got to student"
 
   defaults:
     token: null
@@ -13,4 +13,8 @@ class TaQueue.Models.Student extends TaQueue.Model
 
 class TaQueue.Collections.StudentsCollection extends Backbone.Collection
   model: TaQueue.Models.Student
+
+  in_queue: ->
+    @where in_queue: true
+
   url: '/students'

@@ -1,5 +1,4 @@
 class Student < QueueUser
-  belongs_to :board
   belongs_to :ta, :class_name => "Ta"
   has_one :in_queue_duration
 

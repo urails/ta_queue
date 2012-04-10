@@ -34,6 +34,9 @@ class StudentsController < ApplicationController
 
   def index
     @students = @board.students
+    if params[:in_queue]
+      @students = @board.students.in_queue
+    end
     respond_with @students
   end
 
@@ -78,6 +81,11 @@ class StudentsController < ApplicationController
     end
 
     def get_board
-      @board = Board.where(:title => params[:board_id]).first
+      #@board = Board.where(:title => params[:board_id]).first
+      if current_user
+        @board = current_user.board
+      elsif params[:board_id]
+        @board = Board.where(:title => params[:board_id]).first
+      end
     end
 end

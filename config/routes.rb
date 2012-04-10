@@ -18,6 +18,12 @@ TaQueue::Application.routes.draw do
     end
   end
 
+  resources :tas
+  resources :students do
+    get "ta_accept", :on => :member
+    get "ta_remove", :on => :member
+  end
+
   namespace :admin do
     resources :queues
   end

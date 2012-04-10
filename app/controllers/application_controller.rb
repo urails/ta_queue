@@ -28,7 +28,10 @@ class ApplicationController < ActionController::Base
     # being called if it happens here
     def authorize!
       if request.format != "html"
-        @current_user ||= authenticate_with_http_basic do |u, p| logger.debug "CREDENTIALS: " + u.to_s + " " + p.to_s; QueueUser.where(:_id => u, :token => p).first end
+        @current_user ||= authenticate_with_http_basic do |u, p| 
+          "CREDENTIALS: " + u.to_s + " " + p.to_s 
+          QueueUser.where(:_id => u, :token => p).first 
+        end
 
       else
         @current_user ||= QueueUser.where(:_id => cookies.signed[@@user_id_cookie_name]).first
