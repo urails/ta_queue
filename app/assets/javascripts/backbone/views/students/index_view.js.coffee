@@ -7,7 +7,6 @@ class TaQueue.Views.Students.IndexView extends Backbone.View
   id: "queue_list"
 
   initialize: (options) ->
-    console.log options.students
     @students = options.students
     @students.bind 'reset', @render, this
     _.bindAll(this, 'updateClock', 'render', 'updateStudentViews')
@@ -16,7 +15,6 @@ class TaQueue.Views.Students.IndexView extends Backbone.View
     this
 
   render: ->
-    console.log this
     $(@el).html(@template())
     @updateClock()
     @updateStudentViews()
