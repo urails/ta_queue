@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
     def check_active
       unless @queue.active
         respond_with do |f|
-          f.json { render :json => { :error => "You cannot enter the queue when it is frozen" }, :status => :forbidden }
+          f.json { render :json => { :error => "You cannot enter the queue when it is deactivated" }, :status => :forbidden }
         end
       end
     end

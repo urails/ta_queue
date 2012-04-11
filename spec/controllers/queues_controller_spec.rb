@@ -239,8 +239,9 @@ describe QueuesController do
     it "doesn't respond to enter_queue when deactivated" do
       authenticate @student
       
-      @board.active = false 
-      @board.save
+      queue = @board.queue
+      queue.active = false 
+      queue.save
 
       get :enter_queue, { board_id: @board.title }
 
@@ -250,8 +251,9 @@ describe QueuesController do
     it "doesn't respond to exit_queue when deactivated" do
       authenticate @student
       
-      @board.active = false 
-      @board.save
+      queue = @board.queue
+      queue.active = false 
+      queue.save
 
       get :exit_queue, { board_id: @board.title }
 
