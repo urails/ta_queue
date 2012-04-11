@@ -1,12 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user
+  helper_method :current_user, :render_queue
 
   @@user_id_cookie_name = "_queue"
 
-  private
 
+  private
     def render_queue
+      @queue = current_user.board.queue
       source = File.read('app/views/queues/show.rabl')
       rabl_engine = Rabl::Engine.new(source, :format => 'json')
       output = rabl_engine.render(self, {})
@@ -14,7 +15,6 @@ class ApplicationController < ActionController::Base
 
     def push_notify!
       if Rails.env != "test"
-        @queue = current_user.board.queue
         Juggernaut.publish("#{current_user.board.title}/queue", render_queue) #current_user.board.queue.as_json)
       end
     end

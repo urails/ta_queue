@@ -1,6 +1,6 @@
 class TaQueue.Model extends Backbone.Model
-  initialize: (options) ->
-    console.log "got to model"
+  toggle: (str) ->
+    @set(str, !@get(str))
 
   action: (action_name) ->
     $.get("#{@collection.url}/#{@get('id')}/#{action_name}")

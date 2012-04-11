@@ -1,22 +1,22 @@
-class TaQueue.Models.Queue extends Backbone.Model
+class TaQueue.Models.Queue extends TaQueue.Model
   url: "/queue"
 
   initialize: (options) ->
     @students = new TaQueue.Collections.StudentsCollection
     @tas = new TaQueue.Collections.TasCollection
+    @bind 'change', @refresh, this
 
-  parse: (response) ->
-    @tas.reset(response.tas)
-    delete response.tas
-    @students.reset(response.students)
-    delete response.students
-    return response
+  refresh: ->
+    @students.reset @get('students')
+    @tas.reset @get('tas')
 
   defaults:
     frozen: null
     active: null
     students: null
     tas: null
+
+  isNew: -> false
 
 
 #class TaQueue.Collections.QueuesCollection extends Backbone.Collection

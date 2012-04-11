@@ -1,6 +1,6 @@
 - content_for :title do @board.title end
 -#= content_for :javascripts do javascript_include_tag (current_user.student? ? "application-student" : "application-ta" ), "http://#{QUEUE_HOSTNAME}:8080/application.js" end
-- content_for :javascripts do javascript_include_tag "application-backbone" end
+- content_for :javascripts do javascript_include_tag "application-backbone", "http://#{QUEUE_HOSTNAME}:8080/application.js" end
 = content_for :stylesheets do stylesheet_link_tag "style", "show", "chalkboard" end
 %table{ :class => "chalkboard" }
   %tr
@@ -15,13 +15,13 @@
       #cork_board
         #control_panel
           #control_bar
-            - if @current_user.student?
-              %input{ :id => "enter_queue", :type => "button", :value => (@current_user.in_queue.nil? ? "Enter Queue" : "Exit Queue"), :style => ((@board.active? and not @board.frozen?) ? "display: none;" : "display: inline;") } 
-              = button_to "Sign out", board_student_path(@board, @current_user), :method => :delete, :id => "sign_out", :class => "sign_out_with"
-            - else
-              %input{ :id => "activate_queue", :type => "button", :value => (@board.active? ? "Deactivate" : "Activate") }
-              %input{ :id => "freeze_queue", :type => "button", :value => (@board.frozen? ? "Unfreeze" : "Freeze") }
-              = button_to "Sign out", board_ta_path(@board, @current_user), :method => :delete, :id => "sign_out", :class => "sign_out_with"
+            -#- if @current_user.student?
+              -#%input{ :id => "enter_queue", :type => "button", :value => (@current_user.in_queue.nil? ? "Enter Queue" : "Exit Queue"), :style => ((@board.active? and not @board.frozen?) ? "display: none;" : "display: inline;") } 
+              -#= button_to "Sign out", board_student_path(@board, @current_user), :method => :delete, :id => "sign_out", :class => "sign_out_with"
+            -#- else
+              -#%input{ :id => "activate_queue", :type => "button", :value => (@board.active? ? "Deactivate" : "Activate") }
+              -#%input{ :id => "freeze_queue", :type => "button", :value => (@board.frozen? ? "Unfreeze" : "Freeze") }
+              -#= button_to "Sign out", board_ta_path(@board, @current_user), :method => :delete, :id => "sign_out", :class => "sign_out_with"
         #student_welcome
           .post_it
             %b= @current_user.username
@@ -49,7 +49,6 @@
           #queue_status
             - if @current_user.ta?
               Click to update queue status...
-          #queue_list
     %td{ :class => "mr" }
       #left_tab_bar
         #queue_tab
@@ -64,4 +63,23 @@
     %td{ :class => "bm" }
     %td{ :class => "br" }
 = render "boards/beta"
+
+- if current_user.ta?
+  :javascript
+    $(function() {
+      window.current_user = new TaQueue.Models.Ta({ username:"#{current_user.username}" })
+    });
+- else
+  :javascript
+    $(function() {
+      window.current_user = new TaQueue.Models.Student({ username:"#{current_user.username}", location:"#{current_user.location}" })
+    });
+
+:javascript
+  $(function() {
+    window.queue = new TaQueue.Models.Queue
+    window.queue.set(#{render_queue});
+    window.queueRouter = new TaQueue.Routers.QueuesRouter({ queue:window.queue, current_user:window.current_user })
+  });
+
 

@@ -1,8 +1,9 @@
 object @queue
 
 attribute :frozen
-node(:active) { |q| q.board.active }
+node(:active) { |q| q.active }
 node(:status) { |q| escp(q.status) }
+
 child :students => :students do
   extends "students/show"
 end

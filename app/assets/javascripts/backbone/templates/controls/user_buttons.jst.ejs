@@ -1,0 +1,11 @@
+<% console.log("got to template"); %>
+<% if (current_user.isTa) { %>
+  <% if (queue.get('active')) { %>
+    <input id="activate_queue" type="button" value="Deactivate" />
+  <% } else { %>
+    <input id="activate_queue" type="button" value="Activate" />
+  <% } %>
+<% } else { %>
+  <input id="enter_queue" type="button" value="Enter Queue"/>
+<% } %>
+

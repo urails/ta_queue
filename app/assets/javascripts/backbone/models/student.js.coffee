@@ -1,8 +1,8 @@
 class TaQueue.Models.Student extends TaQueue.Model
   paramRoot: 'student'
 
-  initialize: (options) ->
-    console.log "got to student"
+  isTa: false
+  isStudent: true
 
   defaults:
     token: null

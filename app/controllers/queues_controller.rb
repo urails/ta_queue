@@ -16,7 +16,7 @@ class QueuesController < ApplicationController
   end
 
   def update
-    @queue.update_attributes(params[:queue])
+    @queue.update_attributes!(params[:queue])
     push_notify!
     respond_with @queue
   end
