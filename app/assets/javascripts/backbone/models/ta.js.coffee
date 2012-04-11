@@ -12,10 +12,6 @@ class TaQueue.Models.Ta extends Backbone.Model
   modelReset: (collection) ->
     @student.set(@get('student'))
 
-  url: ->
-    @get 'id'
-    
-
   defaults:
     username: null
     token: null

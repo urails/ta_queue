@@ -20,20 +20,6 @@ class Board
   before_save :purge_if_inactive
   before_save :check_if_active
 
-  #def state
-    #hash = Hash.new
-    #hash[:active] = active
-    #hash[:title] = escp(self.title)
-    #hash[:tas] = self.tas
-    #hash[:students] = self.students
-    #hash[:queue] = self.queue.as_json
-    #hash
-  #end
-
-  #def as_json options = {}
-    #state
-  #end
-  
   def queue_users
     QueueUser.where(:board_id => self.id)
   end

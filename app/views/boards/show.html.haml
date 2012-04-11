@@ -1,6 +1,15 @@
 - content_for :title do @board.title end
 -#= content_for :javascripts do javascript_include_tag (current_user.student? ? "application-student" : "application-ta" ), "http://#{QUEUE_HOSTNAME}:8080/application.js" end
 - content_for :javascripts do javascript_include_tag "application-backbone", "http://#{QUEUE_HOSTNAME}:8080/application.js" end
+- content_for :head do
+  - if current_user.ta?
+    :javascript
+      window.user_id = "#{current_user.id}"
+      window.user_type = "Ta"
+  - else
+    :javascript
+      window.user_id = "#{current_user.id}"
+      window.user_type = "Student"
 = content_for :stylesheets do stylesheet_link_tag "style", "show", "chalkboard" end
 %table{ :class => "chalkboard" }
   %tr
@@ -49,6 +58,7 @@
           #queue_status
             - if @current_user.ta?
               Click to update queue status...
+          #queue_list
     %td{ :class => "mr" }
       #left_tab_bar
         #queue_tab
@@ -64,22 +74,13 @@
     %td{ :class => "br" }
 = render "boards/beta"
 
-- if current_user.ta?
-  :javascript
-    $(function() {
-      window.current_user = new TaQueue.Models.Ta({ username:"#{current_user.username}" })
-    });
-- else
-  :javascript
-    $(function() {
-      window.current_user = new TaQueue.Models.Student({ username:"#{current_user.username}", location:"#{current_user.location}" })
-    });
 
 :javascript
   $(function() {
     window.queue = new TaQueue.Models.Queue
     window.queue.set(#{render_queue});
-    window.queueRouter = new TaQueue.Routers.QueuesRouter({ queue:window.queue, current_user:window.current_user })
+    window.queueRouter = new TaQueue.Routers.QueuesRouter()
+    Backbone.history.start()
   });
 
 

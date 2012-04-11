@@ -52,10 +52,15 @@ class BoardsController < ApplicationController
   private
 
     def get_board
-      if params[:id]
-        @board = Board.where(:title => params[:id]).first
+      if current_user
+        @board = current_user.board
       else
-        @board = Board.where(:title => params[:board_id]).first
+        # TODO: Clean this up! This shouldn't be necessary in v2.0
+        if params[:id]
+          @board = Board.where(:title => params[:id]).first
+        else
+          @board = Board.where(:title => params[:board_id]).first
+        end
       end
 
       if @board.nil?

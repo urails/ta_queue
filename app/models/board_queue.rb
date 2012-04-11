@@ -13,7 +13,7 @@ class BoardQueue
   # students have a boolean that determines that
 
   def students
-    self.board.students.in_queue
+    self.board.students
   end
 
   def tas

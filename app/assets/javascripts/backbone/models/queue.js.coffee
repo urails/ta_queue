@@ -16,6 +16,15 @@ class TaQueue.Models.Queue extends TaQueue.Model
     students: null
     tas: null
 
+  action: (action_name) ->
+    $.get("#{@url}/#{action_name}")
+
+  enter_queue: ->
+    @action "enter_queue"
+
+  exit_queue: ->
+    @action "exit_queue"
+
   isNew: -> false
 
 

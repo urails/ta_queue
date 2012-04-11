@@ -22,6 +22,7 @@ class TaQueue.Views.Students.IndexView extends Backbone.View
 
   updateStudentViews: ->
     el = $(@el).find("#queue_datetime")
+    $(el).after("")
     _.forEach @students.in_queue(), (student) ->
       view = new TaQueue.Views.Students.ShowView(student: student)
       $(el).after view.render().el
