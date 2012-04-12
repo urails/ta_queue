@@ -1,2 +1,8 @@
 <p class="username"><%= student.username %></p>
 <p class="location"><%= student.location %></p>
+<% if(window.current_user.isTa) { %>
+  <div class="ta_control">
+    <input type="button" class="accept" value="Accept" />
+    <input type="button" class="remove" value="Remove" />
+  </div>
+<% } %>

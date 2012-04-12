@@ -24,13 +24,6 @@
       #cork_board
         #control_panel
           #control_bar
-            -#- if @current_user.student?
-              -#%input{ :id => "enter_queue", :type => "button", :value => (@current_user.in_queue.nil? ? "Enter Queue" : "Exit Queue"), :style => ((@board.active? and not @board.frozen?) ? "display: none;" : "display: inline;") } 
-              -#= button_to "Sign out", board_student_path(@board, @current_user), :method => :delete, :id => "sign_out", :class => "sign_out_with"
-            -#- else
-              -#%input{ :id => "activate_queue", :type => "button", :value => (@board.active? ? "Deactivate" : "Activate") }
-              -#%input{ :id => "freeze_queue", :type => "button", :value => (@board.frozen? ? "Unfreeze" : "Freeze") }
-              -#= button_to "Sign out", board_ta_path(@board, @current_user), :method => :delete, :id => "sign_out", :class => "sign_out_with"
         #student_welcome
           .post_it
             %b= @current_user.username
@@ -56,8 +49,6 @@
       #panes
         #queue_panel
           #queue_status
-            - if @current_user.ta?
-              Click to update queue status...
           #queue_list
     %td{ :class => "mr" }
       #left_tab_bar

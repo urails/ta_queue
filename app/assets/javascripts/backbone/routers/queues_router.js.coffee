@@ -14,9 +14,15 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
   updateAll: ->
     @updateCurrentUser()
     @updateUserButtons()
+    @updateQueueStatus()
     @view = new TaQueue.Views.Students.IndexView(students: window.queue.students)
     @view.el = $("#queue_list")
     @view.render()
+    @user_buttons.centerControlBar()
+
+  updateQueueStatus: ->
+    queue_status = new TaQueue.Views.Controls.StatusUpdateShowView
+    queue_status.render()
 
   updateCurrentUser: ->
     if window.user_type == "Student"

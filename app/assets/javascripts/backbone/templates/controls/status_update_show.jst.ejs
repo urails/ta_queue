@@ -1,0 +1,5 @@
+<% if(queue.get('status').length > 0) { %>
+  <span class="checking"><%= queue.get('status') %></span>
+<% } else { %>
+  <span class="checking">Click to update queue status...</span>
+<% } %>

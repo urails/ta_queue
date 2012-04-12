@@ -13,10 +13,6 @@ class TaQueue.Views.Controls.UserButtons extends Backbone.View
     "click #freeze_queue" : "toggleFrozen"
     "click #sign_out" : "signOut"
     "click #enter_queue" : "toggleEnterQueue"
-    "click #routeroute" : "route"
-
-  route: ->
-    window.queueRouter.navigate("", { trigger: true })
 
   render: ->
     $(@el).html(@template(current_user:@options.current_user, queue:@options.queue))
@@ -39,8 +35,15 @@ class TaQueue.Views.Controls.UserButtons extends Backbone.View
       queue.enter_queue()
 
   signOut: ->
-    window.current_user.destroy(
+    window.current_user.destroy
       wait: true
       success: (model, response) ->
         window.location = "/"
-    )
+
+  centerControlBar: ->
+    parentWidth = $('#control_panel').innerWidth()
+    childWidth = $('#control_bar').innerWidth()
+    margin = (parentWidth - childWidth)/2
+
+    $('#control_bar').css('margin-left', margin + 'px')
+

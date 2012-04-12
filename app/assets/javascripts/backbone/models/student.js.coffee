@@ -11,6 +11,12 @@ class TaQueue.Models.Student extends TaQueue.Model
     in_queue: null
     question: null
 
+  ta_accept: ->
+    @action "ta_accept"
+
+  ta_remove: ->
+    @action "ta_remove"
+
 class TaQueue.Collections.StudentsCollection extends Backbone.Collection
   model: TaQueue.Models.Student
 
