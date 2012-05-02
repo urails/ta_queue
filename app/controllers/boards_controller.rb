@@ -14,7 +14,10 @@ class BoardsController < ApplicationController
   def create
     @board = Board.new(params[:board])
     @board.save
-    respond_with @board, template: "boards/show", status: 201
+    respond_to do |f|
+      f.json { render @board, template: "boards/show", status: 201 }
+      f.html { redirect_to board_login_path(@board) }
+    end
   end
 
   def update

@@ -220,7 +220,8 @@
 
 .post_it
 {
-  background: url('/assets/post_it.png') bottom left no-repeat;
+  background-color:#FFD873;
+  @include border-radius(3px);
   width: 180px;
   margin-left: 32px;  
   padding: 10px 10px 20px 10px;

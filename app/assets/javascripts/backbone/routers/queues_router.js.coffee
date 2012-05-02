@@ -8,21 +8,23 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
     "": "index"
   
   index: ->
-    console.log "updating all"
     @updateAll()
 
   updateAll: ->
     @updateCurrentUser()
     @updateUserButtons()
     @updateQueueStatus()
-    @view = new TaQueue.Views.Students.IndexView(students: window.queue.students)
-    @view.el = $("#queue_list")
+    @view = new TaQueue.Views.Students.IndexView
+      students: window.queue.students
+      el: $("#queue_list")
     @view.render()
     @user_buttons.centerControlBar()
 
   updateQueueStatus: ->
-    queue_status = new TaQueue.Views.Controls.StatusUpdateShowView
-    queue_status.render()
+    @queue_status = new TaQueue.Views.Controls.StatusUpdateShowView
+      queue: window.queue
+      el: $("#queue_status")
+    @queue_status.render()
 
   updateCurrentUser: ->
     if window.user_type == "Student"
@@ -33,4 +35,3 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
   updateUserButtons: ->
     @user_buttons = new TaQueue.Views.Controls.UserButtons(queue: @queue, current_user: window.current_user)
     $("#control_panel").html(@user_buttons.render().el)
-

@@ -16,6 +16,8 @@ class TaQueue.Views.Controls.UserButtons extends Backbone.View
 
   render: ->
     $(@el).html(@template(current_user:@options.current_user, queue:@options.queue))
+    @centerControlBar()
+    @delegateEvents()
     this
 
   toggleActive: ->

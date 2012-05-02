@@ -7,8 +7,8 @@
                "Queue"
              end
          %></title>
-  <% # stylesheet_link_tag    "application" 
-  %>
+  <% # stylesheet_link_tag    "application" %>
+  <%= yield :head_start %>
   <%= yield :stylesheets %>
   <%= javascript_include_tag "application" %>
   <% if params[:iframe] %>

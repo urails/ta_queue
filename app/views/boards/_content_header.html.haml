@@ -1,0 +1,11 @@
+- content_for :head do
+  :javascript
+    window.board_title = "#{@board.title}"
+    window.user_id = "#{current_user.id}"
+    window.user_token = "#{current_user.token}"
+  - if current_user.ta?
+    :javascript
+      window.user_type = "Ta"
+  - else
+    :javascript
+      window.user_type = "Student"

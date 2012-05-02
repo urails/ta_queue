@@ -35,4 +35,6 @@ TaQueue::Application.routes.draw do
     get "exit_queue"
   end
 
+  match "/chats" => "chats#receive", via: :post
+
 end

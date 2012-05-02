@@ -1,5 +1,17 @@
-- content_for(:javascripts){ javascript_include_tag "application-backbone" }
+- content_for(:javascripts) { javascript_include_tag "application-backbone", "http://#{QUEUE_HOSTNAME}:8080/application.js" }
+= render "boards/content_header"
+- content_for(:stylesheets) { stylesheet_link_tag "application" }
 
-#questions
+#chat
+  #chat_list
+  #chat_box
+    #messages
+    #send_message
 
-#tas
+:javascript
+  $(function() {
+    window.queue = new TaQueue.Models.Queue()
+    window.queue.set(#{render_queue});
+    window.chatsRouter = new TaQueue.Routers.ChatsRouter()
+    Backbone.history.start()
+  });

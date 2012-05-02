@@ -1,0 +1,48 @@
+#content {
+  width:960px;
+  margin-right:auto;
+  margin-left:auto;
+}
+
+#chat {
+  tr td {
+    &.selected {
+      color:white; 
+    }
+  }
+
+  #chat_list {
+    float:left;
+    display:inline-block;
+    width:20%;
+  }
+
+  #chat_box {
+    display:inline-block;
+    width:80%;
+    background-color:white;
+    height:100px;
+  }
+  #messages {
+    display:inline-block;
+    height:80px;
+
+    tr.sent {
+      color:red;
+      td {
+        text-align:right;
+      }
+    }
+
+    .received {
+      color:green;
+    }
+  }
+
+  #send_message {
+    input.send_message {
+      width:100%;
+      bottom:0;
+    }
+  }
+}
