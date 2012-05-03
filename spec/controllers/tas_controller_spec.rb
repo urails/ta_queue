@@ -4,7 +4,7 @@ describe TasController do
   before :all do
     QueueUser.destroy_all
     @school = Factory.create :school
-    @instructor = @school.instructors.create(Factory.attributes_for(:instructor))
+    @instructor = @school.instructors.create!(Factory.attributes_for(:instructor))
     @queue = @instructor.queues.create!(Factory.attributes_for(:school_queue))
     @full_ta_hash = { :username => "Bob" }
     @queue_hash = { school: @school.abbreviation, instructor: @instructor.username, queue: @queue.class_number }

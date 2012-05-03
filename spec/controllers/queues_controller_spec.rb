@@ -9,8 +9,8 @@ describe QueuesController do
 
   before :each do
     @school = Factory.create(:school)
-    @instructor = @school.instructors.create(Factory.attributes_for(:instructor))
-    @queue = @instructor.queues.create(Factory.attributes_for(:school_queue))
+    @instructor = @school.instructors.create!(Factory.attributes_for(:instructor))
+    @queue = @instructor.queues.create!(Factory.attributes_for(:school_queue))
     @ta = @queue.tas.create!(Factory.attributes_for(:ta))
     @student = @queue.students.create!(Factory.attributes_for(:student))
     @student.in_queue = nil
@@ -19,8 +19,6 @@ describe QueuesController do
   end
 
   after :each do
-    @student.destroy
-    @ta.destroy
     @school.destroy
   end
 

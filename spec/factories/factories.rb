@@ -4,6 +4,10 @@ FactoryGirl.define do
     "username#{n}"
   end
 
+  sequence :email do |n|
+    "foo#{n}@bar.com"
+  end
+
   sequence :class_number do |n|
     "cs140#{n}"
   end
@@ -52,6 +56,7 @@ FactoryGirl.define do
   factory :instructor do
     name "John Doe"
     username { Factory.next :username }
+    email { Factory.next :email }
     password "foobar"
     password_confirmation "foobar"
   end
