@@ -1,5 +1,5 @@
 - content_for(:javascripts) { javascript_include_tag "application-backbone", "http://#{QUEUE_HOSTNAME}:8080/application.js" }
-= render "boards/content_header"
+= render "queues/content_header"
 - content_for(:stylesheets) { stylesheet_link_tag "application" }
 
 %h2= current_user.username

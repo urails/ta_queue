@@ -6,7 +6,7 @@
     - school.instructors.each do |instructor|
       %li= instructor.name
       - instructor.queues.each do |queue|
-        %li= queue.title
+        %li= link_to queue.title, build_queue_login_path(queue)
 
 To embed a Board in your own webpage, insert the following HTML:
 

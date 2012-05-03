@@ -1,13 +1,26 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user, :render_queue
+  helper_method :current_user, :render_queue, :build_queue_login_path
+  helper_method :build_create_student_path, :build_create_ta_path
 
   @@user_id_cookie_name = "_queue"
 
 
   private
+    def build_queue_login_path queue, options={}
+      queue_login_path queue.instructor.school, queue.instructor, queue, options
+    end
+
+    def build_create_student_path queue, options={}
+      create_student_path queue.instructor.school, queue.instructor, queue, options
+    end
+
+    def build_create_ta_path queue, options={}
+      create_ta_path queue.instructor.school, queue.instructor, queue, options
+    end
+
     def render_queue
-      @queue = current_user.board.queue
+      @queue = current_user.queue
       source = File.read('app/views/queues/show.rabl')
       rabl_engine = Rabl::Engine.new(source, :format => 'json')
       output = rabl_engine.render(self, {})
@@ -15,7 +28,7 @@ class ApplicationController < ActionController::Base
 
     def push_notify!
       if Rails.env != "test"
-        Juggernaut.publish("#{current_user.board.title}/queue", render_queue) #current_user.board.queue.as_json)
+        Juggernaut.publish("queue/#{current_user.queue.title}", render_queue) #current_user.board.queue.as_json)
       end
     end
 
@@ -49,6 +62,7 @@ class ApplicationController < ActionController::Base
       if current_user.nil?
         respond_with do |f|
           f.json { render :json => { :error => "You are not authorized to perform this action" }, :status => :unauthorized }
+          f.html { redirect_to root_path }
         end
       end
     end

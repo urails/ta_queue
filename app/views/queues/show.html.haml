@@ -1,7 +1,7 @@
-- content_for :title do @board.title end
+- content_for :title do @queue.title end
 -#= content_for :javascripts do javascript_include_tag (current_user.student? ? "application-student" : "application-ta" ), "http://#{QUEUE_HOSTNAME}:8080/application.js" end
 - content_for :javascripts do javascript_include_tag "application-backbone", "http://#{QUEUE_HOSTNAME}:8080/application.js" end
-= render "boards/content_header"
+= render "queues/content_header"
 = content_for :stylesheets do stylesheet_link_tag "application" end
 %table{ :class => "chalkboard" }
   %tr
@@ -56,7 +56,7 @@
 #chat
   Chat goes here
 
-= render "boards/beta"
+= render "queues/beta"
 
 
 :javascript

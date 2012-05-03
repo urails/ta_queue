@@ -8,10 +8,15 @@ class QueuesController < ApplicationController
 
   #after_filter :push_notify!, :only => [:update, :enter_queue, :exit_queue]
 
-  respond_to :json
+  respond_to :json, :html
 
   def show
     respond_with @queue
+  end
+
+  def login
+    @ta = Ta.new
+    @student = Student.new
   end
 
   def update
@@ -45,10 +50,6 @@ class QueuesController < ApplicationController
   end
   
   private
-
-    def get_queue
-      @queue = current_user.queue
-    end
 
     def check_frozen
       if @queue.frozen

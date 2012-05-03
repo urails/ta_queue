@@ -1,0 +1,2 @@
+module QueueUser::DeviseMethods
+end

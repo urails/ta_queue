@@ -39,9 +39,10 @@ class TaQueue.Views.Controls.UserButtons extends Backbone.View
       queue.enter_queue()
 
   signOut: ->
-    window.queue.currentUser().destroy()
+    window.jug_handler.unsubscribe()
+    window.queue.currentUser().destroy
       wait: true
-      success: (model, response) ->
+      success: ->
         window.location = "/"
 
   centerControlBar: ->

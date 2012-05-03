@@ -1,4 +1,4 @@
-- content_for :title do @board.title end
+- content_for :title do @queue.title end
 - content_for :javascripts do javascript_include_tag "jquery", "login" end
 - content_for :stylesheets do stylesheet_link_tag "style", "login", "chalkboard" end
 %table{ :class => "chalkboard" }
@@ -23,7 +23,7 @@
       #login
         #status_bar
           #class_title.left
-            = @board.title + " Queue"
+            = @queue.title + " Queue"
           -#%table.board_status_table.right
             %tr
               %th Status
@@ -37,7 +37,7 @@
                 
         #panes
           #student_panel
-            = form_for [@board, @student] do |f|
+            = form_for @student, :url => build_create_student_path(@queue) do |f|
               = f.text_field :username, :autocomplete => "off", :value => "username"
               = f.text_field :location, :value => "location", :class => "login", :autocomplete => "off"
               = submit_tag "Login", :class => "submit right"
@@ -50,7 +50,7 @@
             %span{ :class => "login_hint" }
               Simply type in your name and computer location.
           #ta_panel
-            = form_for [@board, @ta] do |f|
+            = form_for @ta, :url => build_create_ta_path(@queue) do |f|
               = f.text_field :username, :autocomplete => "off"
               = f.text_field :password, :value => "password", :name => "queue_password", :autocomplete => "off"
               = submit_tag "Login", :class => "submit right"
@@ -67,4 +67,4 @@
     %td{ :class => "bl" }
     %td{ :class => "bm" }
     %td{ :class => "br" }
-= render "boards/beta"
+= render "queues/beta"

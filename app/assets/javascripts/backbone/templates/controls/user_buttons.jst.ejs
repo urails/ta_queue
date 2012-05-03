@@ -1,4 +1,4 @@
-<% if (current_user.isTa) { %>
+<% if (window.queue.currentUser().isTa) { %>
     <input id="activate_queue" type="button" value="<%= queue.get('active') ? "Deactivate" : "Activate" %>" />
     <input id="freeze_queue" type="button" value="<%= queue.get('frozen') ? "Unfreeze" : "Freeze" %>" />
 <% } else { %>
