@@ -13,7 +13,7 @@ class BoardQueue
   # students have a boolean that determines that
 
   def students
-    self.board.students
+    self.board.students.asc :in_queue
   end
 
   def tas

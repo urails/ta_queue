@@ -54,6 +54,7 @@ describe QueuesController do
 
       ta.accept_student! @student
 
+
       get :show, { :board_id => @board.title }
 
       response.code.should == "200"
@@ -69,7 +70,8 @@ describe QueuesController do
       res_hash['status'].should_not be_nil
       res_hash['tas'].should_not be_nil
 
-      res_hash['students'].count.should == 8
+      # The 12 created above, and one in the before :each block
+      res_hash['students'].count.should == 13
       res_hash['tas'].count.should == 4 # the extra is due to the ta created in the before :each block
 
       res_hash['tas'].each do |_ta|
@@ -84,7 +86,7 @@ describe QueuesController do
       @board.tas.destroy_all
 
       time = DateTime.now
-      # Order shoudl be 2, 5, 0, 1, 3, 4
+      # Order should be 2, 5, 0, 1, 3, 4
       order = {}
 
       stud = @board.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 2.seconds ))
@@ -116,7 +118,6 @@ describe QueuesController do
       students.each_index do |i|
         students[i].id.to_s.should == order[i.to_s].to_s
       end
-
     end
   end
 
@@ -148,7 +149,7 @@ describe QueuesController do
 
       student.in_queue.should be_nil
 
-      res_hash['students'].should be_empty
+      res_hash['students'].count.should == 1
     end
 
     it "should accept the next student if the student being helped dequeues themselves" do
