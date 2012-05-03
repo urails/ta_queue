@@ -77,6 +77,8 @@ describe QueuesController do
       end
     end
 
+    it "removes all students from the queue when going inactive"
+
     it "students should come back in the order they joined the queue" do
       @board.students.destroy_all
       @board.tas.destroy_all

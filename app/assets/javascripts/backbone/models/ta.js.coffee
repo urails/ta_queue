@@ -27,6 +27,11 @@ class TaQueue.Collections.TasCollection extends Backbone.Collection
   collectionReset: (collection) ->
     _.forEach @models, (model) ->
       model.modelReset()
+  
+  # This returns the first TA which is NOT the current_user
+  firstTa: () ->
+    for ta in @models
+      return ta if ta.get('id') != window.current_user.get('id')
     
 
   url: '/tas'

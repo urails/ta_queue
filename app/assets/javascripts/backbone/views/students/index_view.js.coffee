@@ -8,7 +8,7 @@ class TaQueue.Views.Students.IndexView extends Backbone.View
 
   initialize: (options) ->
     @students = options.students
-    @students.bind 'reset', @render, this
+    window.queue.bind 'change', @render, this
     _.bindAll(this, 'updateClock', 'render', 'updateStudentViews')
     @updateClock()
     window.setInterval @updateClock, 3000

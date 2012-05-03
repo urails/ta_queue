@@ -22,6 +22,12 @@ class TaQueue.Models.Queue extends TaQueue.Model
   enter_queue: ->
     @action "enter_queue"
 
+  currentUser: ->
+    if window.user_type == "Ta"
+      return @tas.get(window.user_id)
+    else
+      return @students.get(window.user_id)
+
   exit_queue: ->
     @action "exit_queue"
 

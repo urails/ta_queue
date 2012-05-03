@@ -5,33 +5,64 @@
 }
 
 #chat {
-  tr td {
-    &.selected {
-      color:white; 
-    }
-  }
 
   #chat_list {
     float:left;
     display:inline-block;
     width:20%;
+
+    ul {
+    }
+
+    .header {
+      font-size:1.2em;
+    }
+
+    .user {
+      padding-left:20px;
+    }
+
+    li {
+      list-style:none;
+      cursor: default;
+      &.selected {
+        color:white; 
+      }
+
+      &.user {
+        &:hover {
+          color:gray;
+        }
+      }
+
+      &.pending {
+        color:green;
+      }
+    }
+
   }
 
   #chat_box {
     display:inline-block;
     width:80%;
-    background-color:white;
-    height:100px;
+    height:auto;
   }
-  #messages {
-    display:inline-block;
-    height:80px;
 
-    tr.sent {
+  #messages {
+    overflow-y:auto;
+    background-color:white;
+    height:200px;
+
+    p {
+      margin:3px;;
+    }
+
+    .message_box {
+    }
+
+
+    .sent {
       color:red;
-      td {
-        text-align:right;
-      }
     }
 
     .received {
@@ -42,7 +73,6 @@
   #send_message {
     input.send_message {
       width:100%;
-      bottom:0;
     }
   }
 }

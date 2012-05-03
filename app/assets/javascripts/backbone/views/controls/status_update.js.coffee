@@ -6,6 +6,7 @@ class TaQueue.Views.Controls.StatusUpdateShowView extends Backbone.View
 
   initialize: (options) ->
     @queue = options.queue
+    @queue.bind "change", @render, this
     @current_template = @template_show
 
   events:
@@ -24,8 +25,10 @@ class TaQueue.Views.Controls.StatusUpdateShowView extends Backbone.View
   checkEnter: (e) ->
     return if (e.keyCode != 13)
     $(@el).undelegate("#queue_status_update", "keypress")
+    @current_template = @template_show
     queue.save('status' : $(@el).find("#queue_status_update").val())
 
   render: ->
     $(@el).html(@current_template(queue:@queue))
+    @delegateEvents()
     this

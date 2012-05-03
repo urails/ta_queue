@@ -26,10 +26,15 @@ class TaQueue.Routers.ChatsRouter extends Backbone.Router
     @messagesView.render id
 
   showChat: ->
-    @usersView.select window.queue.tas.first().get('id')
+    if user = window.queue.tas.firstTa()
+      id = user.get('id')
+    else if user = window.queue.students.firstStudent()
+      id = window.queue.students.firstStudent().get('id')
+    @showChatUser id if id
   
   receivedMessage: (id, message) ->
     @messagesView.appendReceivedMessage id, message
+    @usersView.messageReceivedFor id
 
   submitMessage: (message) ->
     $.post("/chats", { to: @usersView.selected, message: message })

@@ -5,6 +5,7 @@ class JugHandler
     queue_path = "#{window.board_title}/queue"
     console.log "Connecting to #{queue_path}..."
     jug.subscribe queue_path , (data) ->
+      console.log "Got queue data"
       window.queue.set($.parseJSON(data))
 
     chat_path = "chats/#{window.user_token}"

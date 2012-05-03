@@ -11,6 +11,7 @@ class TaQueue.Views.Chat.SendMessageView extends Backbone.View
     return if (e.keyCode != 13)
     console.log $(@el).find("input").val()
     window.chatsRouter.submitMessage($(@el).find("input").val())
+    $(@el).find("input").val("")
 
   render: ->
     console.log @el

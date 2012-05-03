@@ -4,6 +4,7 @@ class TaQueue.Views.Controls.UserButtons extends Backbone.View
   template: JST["backbone/templates/controls/user_buttons"]
 
   initialize: (options) ->
+    window.queue.bind "change", @render, this
     _.bindAll(this, 'render', 'toggleActive', 'toggleFrozen')
 
   id: 'control_bar'
@@ -15,7 +16,8 @@ class TaQueue.Views.Controls.UserButtons extends Backbone.View
     "click #enter_queue" : "toggleEnterQueue"
 
   render: ->
-    $(@el).html(@template(current_user:@options.current_user, queue:@options.queue))
+    console.log "render called"
+    $(@el).html(@template(current_user:window.queue.currentUser(), queue:window.queue))
     @centerControlBar()
     @delegateEvents()
     this
@@ -31,13 +33,13 @@ class TaQueue.Views.Controls.UserButtons extends Backbone.View
     queue.save()
 
   toggleEnterQueue: ->
-    if window.current_user.get('in_queue')
+    if window.queue.currentUser().get('in_queue')
       queue.exit_queue()
     else
       queue.enter_queue()
 
   signOut: ->
-    window.current_user.destroy
+    window.queue.currentUser().destroy()
       wait: true
       success: (model, response) ->
         window.location = "/"
@@ -48,4 +50,3 @@ class TaQueue.Views.Controls.UserButtons extends Backbone.View
     margin = (parentWidth - childWidth)/2
 
     $('#control_bar').css('margin-left', margin + 'px')
-

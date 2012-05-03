@@ -19,38 +19,6 @@ describe BoardsController do
   end
   
   describe "actions" do
-    it "should remove users from queue when going inactive" do
-      ta = @board.tas.create!(Factory.attributes_for(:ta))
-      @board.active.should == true
-
-      authenticate ta
-
-      5.times do
-        @board.students.create!(Factory.attributes_for(:student).merge( :in_queue => DateTime.now ))
-      end
-
-      get :show, { :id => @board.title }
-
-      response.code.should == "200"
-
-      res = decode response.body
-
-      res['queue']['students'].count.should == 5
-
-      put :update, { :id => @board.title, :board => { :active => false } }
-
-      response.code.should == "204"
-
-      get :show, { :id => @board.title }
-
-      response.code.should == "200"
-
-      res = decode response.body
-
-      res['queue']['students'].should be_empty
-
-    end
-
     it "should remove student TA is helping when deactivating" do
       @board.students.count.should == 0
 
