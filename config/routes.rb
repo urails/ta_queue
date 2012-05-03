@@ -1,27 +1,16 @@
 TaQueue::Application.routes.draw do
   get "pages/index"
 
-  root :to => "boards#index"
+  root :to => "schools#index"
 
-  resources :boards do
-    get "new_show", :on => :member
-    get "login"
-    get "logout"
-    post "logout"
-    post "login_user"
-    resources :tas
-    resources :students do
-      get "ta_accept", :on => :member
-      get "ta_remove", :on => :member
-    end
-    resource :queue, :only => [:show, :update] do
-      get "enter_queue"
-      get "exit_queue"
-    end
-  end
+  match "schools/:school/:instructor/:queue/login" => "queues#login", as: :queue_login
+  match "schools/:school/:instructor/:queue/students" => "students#create", as: :create_student, via: :post
+  match "schools/:school/:instructor/:queue/tas" => "students#create", as: :create_ta, via: :post
 
-  resources :tas
-  resources :students do
+  resources :schools, :only => [:index]
+
+  resources :tas, :only => [:index, :show, :update, :destroy]
+  resources :students, :only => [:index, :show, :update, :destroy] do
     get "ta_accept", :on => :member
     get "ta_remove", :on => :member
   end

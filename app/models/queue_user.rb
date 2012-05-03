@@ -1,26 +1,32 @@
 class QueueUser
   include Mongoid::Document
-  belongs_to :board
 
-  has_and_belongs_to_many :notifications
+  # ATTRIBUTES
 
   field :username, type: String
   field :token, type: String, default: -> { SecureRandom.uuid }
   field :location, type: String
   field :alive_time, type: DateTime, default: -> { DateTime.now }
 
+  # ASSOCIATIONS
+  
+  belongs_to :school_queue
+
+  # VALIDATIONS
+  
   validates :username, :token, :presence => true
   validates :username, :length => { :within => 1..40 }
+
+  # TODO: I don't like this being server-side, clients should take care of this - pwightman
   validates :username, :exclusion => { :in => ["username", "Username", "name", "Name"], :message => "Please choose a different username" }
 
-  #def as_json options = {}
-    #output_hash
-  #end
+  # SCOPES
+  
+  # CALLBACKS
 
-  def to_xml
-    output_hash.to_xml 
+  def queue
+    self.school_queue
   end
-
 
   def ta?
     self.class == Ta

@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   sequence :username do |n|
-    "username #{n}"
+    "username#{n}"
   end
 
   sequence :location do |n|
@@ -10,6 +10,14 @@ FactoryGirl.define do
 
   sequence :title do |n|
     "title#{n}"
+  end
+
+  sequence :name do |n|
+    "University of Utah #{n}"
+  end
+
+  sequence :school_abbreviation do |n|
+    "uofu#{n}"
   end
 
   factory :queue_user do
@@ -30,10 +38,18 @@ FactoryGirl.define do
     password "some_password"
   end
 
-  factory :board do
-    title { Factory.next :title }
-    password "some_password"
+  factory :school do
+    name { Factory.next :name }
+    abbreviation { Factory.next :school_abbreviation }
+    master_password "foobar"
+    contact_email "foo@bar.com"
   end
 
+  factory :instructor do
+    name "John Doe"
+    username { Factory.next :username }
+    password "foobar"
+    password_confirmation "foobar"
+  end
 
 end

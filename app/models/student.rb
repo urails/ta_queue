@@ -1,27 +1,33 @@
 class Student < QueueUser
+  
+  # ATTRIBUTES
+  
+  field :in_queue, type: DateTime
+  
+  # ASSOCIATIONS
+
   belongs_to :ta, :class_name => "Ta"
+  # NOTE: there does NOT need to be a belongs_to :school_queue because that
+  # is declared in QueueUser
+
+  # Used for statistices
   has_one :in_queue_duration
 
-  field :in_queue, type: DateTime
+  # VALIDATIONS
 
   validates :location, :presence => true
   validates :location, :length => { :within => 1..20 }
   validates :location, :exclusion => { :in => ["location"] }
-
   validate :check_username_location, :on => :create
 
+  # SCOPES
+
+  default_scope asc(:in_queue)
   scope :in_queue, where(:in_queue.ne => nil).asc(:in_queue)
 
+  # CALLBACKS
+  
   after_create :create_in_queue_duration
-
-  #def output_hash
-    #hash = {}
-    #hash[:id] = id.to_s
-    #hash[:username] = escp(username)
-    #hash[:location] = escp(location)
-    #hash[:in_queue] = (in_queue.nil? ? false : true)
-    #hash
-  #end
 
   def enter_queue
     if self.in_queue.nil?

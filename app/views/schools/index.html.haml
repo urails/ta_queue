@@ -1,0 +1,26 @@
+%p Good Morning!
+
+%ul
+  - @schools.each do |school|
+    %li= school.name
+    - school.instructors.each do |instructor|
+      %li= instructor.name
+      - instructor.queues.each do |queue|
+        %li= queue.title
+
+To embed a Board in your own webpage, insert the following HTML:
+
+%pre
+  %code
+    :plain
+      &lt;iframe width="1000" height="700" src="http://nine.eng.utah.edu/boards/{BOARD_TITLE}"&gt;
+        Your browser doesn't support iframe.
+      &lt;/iframe&gt;
+Where <code>{BOARD_TITLE}</code> is the title given to a board. Example:
+
+%pre
+  %code
+    :plain
+      &lt;iframe width="1000" height="700" src="http://nine.eng.utah.edu/boards/CS1410"&gt;
+        Your browser doesn't support iframe.
+      &lt;/iframe&gt;

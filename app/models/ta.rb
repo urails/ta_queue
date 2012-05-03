@@ -1,25 +1,25 @@
 require "helpers"
 class Ta < QueueUser
-  has_one :student, :class_name => "Student", dependent: :nullify
 
+  # ATTRIBUTES
+  
   field :status, type: String, default: ""
   attr_accessor :password
+
+  # ASSOCIATIONS
+  
+  has_one :student, :class_name => "Student", dependent: :nullify
+  # NOTE: there does NOT need to be a belongs_to :school_queue because that
+  # is declared in QueueUser
+
+  # VALIDATIONS
 
   validate :check_password, :on => :create
   validates :username, :uniqueness => true
 
-  #def output_hash
-    #hash = {}
-    #hash[:id] = id.to_s
-    #hash[:username] = escp(username)
-    #hash[:student] = self.student
-    #hash[:status] = self.status
-    #hash
-  #end
-
-  def self.create_mock options = {}
-    Ta.create!(:username => "Stanley", :token => SecureRandom.uuid)
-  end
+  # SCOPES
+  
+  # CALLBACKS
 
   def accept_student stud
     if self.student
@@ -46,7 +46,7 @@ class Ta < QueueUser
   private
 
     def check_password
-      if self.password != self.board.password
+      if self.password != self.queue.password
         self.errors["password"] = "is invalid"
       end
     end
