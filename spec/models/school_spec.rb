@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe School do
-  pending "add some examples to (or delete) #{__FILE__}"
+  pending "make sure deleting a school deletes all its students as well"
 end

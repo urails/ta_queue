@@ -10,10 +10,15 @@ class School
 
   # ASSOCIATIONS
   
-  embeds_many :instructors, cascade_callbacks: true
+  has_many :instructors, dependent: :destroy
 
   # VALIDATIONS
   
   # CALLBACKS
+  
+
+  def to_param
+    abbreviation
+  end
   
 end

@@ -1,26 +1,26 @@
 require 'spec_helper'
 
 describe TasController do
-    before :all do
-      Board.destroy_all
-      Student.destroy_all 
-      Ta.destroy_all
-      @board = Board.create!(:title => "CS1410", :password => "some_password")
-      @full_ta_hash = { :username => "Bob" }
-    end
+  before :all do
+    QueueUser.destroy_all
+    @school = Factory.create :school
+    @instructor = @school.instructors.create(Factory.attributes_for(:instructor))
+    @queue = @instructor.queues.create!(Factory.attributes_for(:school_queue))
+    @full_ta_hash = { :username => "Bob" }
+    @queue_hash = { school: @school.abbreviation, instructor: @instructor.username, queue: @queue.class_number }
+  end
 
-    after :all do
-      @board.destroy
-    end
+  after :all do
+    @school.destroy
+  end
 
-    before :each do
-      #@full_student = Student.create!(:username => "Bob", :token => SecureRandom.uuid, :location => "some_place")
-      set_api_headers
-    end
+  before :each do
+    set_api_headers
+  end
 
   describe "API" do
     before :each do
-      @ta = @board.tas.create!(Factory.attributes_for(:ta))
+      @ta = @queue.tas.create!(Factory.attributes_for(:ta))
     end
 
     after :each do
@@ -33,7 +33,7 @@ describe TasController do
       @ta.username = "<div>hello</div>"
       @ta.save
 
-      get :show, { :board_id => @board.title, :id => @ta.id }
+      get :show, { :id => @ta.id }
 
       response.code.should == "200"
 
@@ -46,7 +46,7 @@ describe TasController do
     it "show w/out student" do
       authenticate @ta
 
-      get :show, { :board_id => @board.title, :id => @ta.id }
+      get :show, { :id => @ta.id }
 
       response.code.should == "200"
 
@@ -59,7 +59,7 @@ describe TasController do
     end
 
     it "show with student" do
-      student = @board.students.create!(Factory.attributes_for(:student))
+      student = @queue.students.create!(Factory.attributes_for(:student))
       @ta.student = student
       @ta.save
 
@@ -67,7 +67,7 @@ describe TasController do
       student.ta.should == @ta
       authenticate @ta
 
-      get :show, { :board_id => @board.title, :id => @ta.id }
+      get :show, { :id => @ta.id }
 
       response.code.should == "200"
 
@@ -86,11 +86,11 @@ describe TasController do
 
   describe "Errors" do
     before :each do
-      @ta = @board.tas.create!(Factory.attributes_for(:ta))
+      @ta = @queue.tas.create!(Factory.attributes_for(:ta))
     end
 
     it "create" do
-      post :create, { :board_id => @board.title, :ta => { :username => " ", :password => " " } }
+      post :create, { :ta => { :username => " ", :password => " " } }.merge(@queue_hash)
 
       response.code.should == "422"
 
@@ -103,7 +103,7 @@ describe TasController do
     end
 
     it "create with invalid password" do
-      post :create, { :board_id => @board.title, :ta => { :username => "blah", :password => "blah" } }
+      post :create, { :ta => { :username => "blah", :password => "blah" } }.merge(@queue_hash)
 
       response.code.should == "422"
 
@@ -117,7 +117,7 @@ describe TasController do
     it "update" do
       authenticate @ta
 
-      put :update, { :board_id => @board.title, :id => @ta.id.to_s, :ta => { :username => ""} }
+      put :update, { :id => @ta.id.to_s, :ta => { :username => ""} }
 
       response.code.should == "422"
 
@@ -131,7 +131,7 @@ describe TasController do
 
   describe "CRUD ta" do
     it "successfully creates a ta" do
-      post :create, { :ta => @full_ta_hash, :queue_password => @board.password, :board_id => @board.title }
+      post :create, { :ta => @full_ta_hash, :queue_password => @queue.password }.merge(@queue_hash)
 
       response.code.should == "201"
 
@@ -144,14 +144,14 @@ describe TasController do
 
 
     it "fails to create a ta without proper password" do
-      post :create, { :ta => @full_ta_hash, :password => "wrong_password", :board_id => @board.title }
+      post :create, { :ta => @full_ta_hash, :password => "wrong_password" }.merge(@queue_hash)
 
       response.code.should == "422"
     end
 
     it "successfully reads a ta" do
       authenticate QueueUser.where(:_id => @full_ta_hash[:id]).first
-      get :show, { :id => @full_ta_hash[:id], :board_id => @board.title }
+      get :show, { :id => @full_ta_hash[:id] }
 
       response.code.should == "200"
 
@@ -164,14 +164,14 @@ describe TasController do
       authenticate QueueUser.where(:_id => @full_ta_hash[:id]).first
       new_username = "Harry"
 
-      put :update, { :ta => { :username => new_username }, :id => @full_ta_hash[:id], :board_id => @board.title }
+      put :update, { :ta => { :username => new_username }, :id => @full_ta_hash[:id] }
 
       response.code.should == "204"
     end
 
     it "successfully destroys the student" do
       authenticate QueueUser.where(:_id => @full_ta_hash[:id]).first
-      delete :destroy, { :board_id => @board.title, :id => @full_ta_hash[:id] }
+      delete :destroy, { :id => @full_ta_hash[:id] }
 
       response.code.should == "204"
 
@@ -181,25 +181,25 @@ describe TasController do
 
   describe "Authentication" do
     before :each do
-      @ta = @board.tas.create!(Factory.attributes_for(:ta))
+      @ta = @queue.tas.create!(Factory.attributes_for(:ta))
     end
 
     after :each do
       @ta.destroy
     end
     it "fails updating w/o credentials" do
-      put :update, { :student => { :in_queue => true}, :id => @ta.id, :board_id => @board.title }
+      put :update, { :student => { :in_queue => true}, :id => @ta.id }
       response.code.should ==  "401"
     end
 
     it "fails destroying without authorization" do
-      delete :destroy, { :board_id => @board.title, :id => @ta.id }
+      delete :destroy, { :id => @ta.id }
 
       response.code.should == "401"
     end
 
     it "fails reading a ta w/o credentials" do
-      get :show, { :id => @ta.id, :board_id => @board.title }
+      get :show, { :id => @ta.id }
 
       response.code.should == "401"
     end

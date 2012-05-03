@@ -1,9 +1,9 @@
 class StudentsController < ApplicationController
-  before_filter :get_board
-  before_filter :get_student, :except => [:index, :new, :create]
   before_filter :authenticate_current_student_or_ta!, :except => [:create, :ta_accept, :index]
   before_filter :authenticate_ta!, :only => [:ta_accept, :ta_remove]
   before_filter :authenticate!, :only => [:index]
+  before_filter :get_queue
+  before_filter :get_student, :except => [:index, :new, :create]
 
   #after_filter :push_notify!, [:create, :update, :destroy, :ta_accept, :ta_remove]
 
@@ -15,17 +15,17 @@ class StudentsController < ApplicationController
   end
 
   def create 
-    @student = @board.students.new(params[:student])
+    @student = @queue.students.new(params[:student])
     respond_with do |f|
       if @student.save
         sign_in @student
         push_notify!
-        f.html { redirect_to (board_path @board) }
+        f.html { redirect_to (board_path @queue) }
         f.json { render :json => { location: @student.location, token: @student.token, id: @student.id, username: @student.username }, :status => :created }
         f.xml  { render :xml => { token: @student.token, id: @student.id, username: @student.username }, :status => :created }
       else
         flash[:errors] = @student.errors.full_messages
-        f.html { redirect_to board_login_path(@board, :student => true) }
+        f.html { redirect_to board_login_path(@queue, :student => true) }
         f.json { render :json => @student.errors, :status => :unprocessable_entity }
         f.xml  { render :xml  => @student.errors, :status => :unprocessable_entity }
       end
@@ -33,9 +33,9 @@ class StudentsController < ApplicationController
   end
 
   def index
-    @students = @board.students
+    @students = @queue.students
     if params[:in_queue]
-      @students = @board.students.in_queue
+      @students = @queue.students.in_queue
     end
     respond_with @students
   end
@@ -51,7 +51,7 @@ class StudentsController < ApplicationController
     sign_out @student
     push_notify!
     respond_with do |f|
-      f.html { redirect_to board_login_path @board }
+      f.html { redirect_to board_login_path @queue }
     end
   end
 
@@ -74,18 +74,10 @@ class StudentsController < ApplicationController
   private
 
     def get_student
-      @student ||= @board.students.where(:_id => params[:id]).first
+      @student ||= @queue.students.where(:_id => params[:id]).first
       if !@student
-        render template: "shared/does_not_exist", :status => 422
+        render template: "shared/does_not_exist", :status => 422 and return
       end
     end
 
-    def get_board
-      #@board = Board.where(:title => params[:board_id]).first
-      if current_user
-        @board = current_user.board
-      elsif params[:board_id]
-        @board = Board.where(:title => params[:board_id]).first
-      end
-    end
 end

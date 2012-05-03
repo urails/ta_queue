@@ -39,9 +39,8 @@ end
 end
 
 Spork.each_run do
-  Board.destroy_all
+  School.destroy_all
   QueueUser.destroy_all
-  BoardQueue.destroy_all
   # This code will be run each time you run your specs.
   Dir["#{Rails.root}/app/models/**/*.rb"].each do |model|
     load model

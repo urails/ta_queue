@@ -4,6 +4,10 @@ FactoryGirl.define do
     "username#{n}"
   end
 
+  sequence :class_number do |n|
+    "cs140#{n}"
+  end
+
   sequence :location do |n|
     "location #{n}"
   end
@@ -35,7 +39,7 @@ FactoryGirl.define do
   factory :ta do
     username { Factory.next :username }
     token { SecureRandom.uuid }
-    password "some_password"
+    password "foobar"
   end
 
   factory :school do
@@ -50,6 +54,15 @@ FactoryGirl.define do
     username { Factory.next :username }
     password "foobar"
     password_confirmation "foobar"
+  end
+
+  factory :school_queue do
+    frozen false
+    title { Factory.next :title }
+    class_number { Factory.next :class_number }
+    active true
+    status "Welcome!"
+    password "foobar"
   end
 
 end

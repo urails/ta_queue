@@ -27,6 +27,8 @@ class ApplicationController < ActionController::Base
     # Simply grabs the user using the HTTP Credentials, does NOT redirect due to multiple redirects
     # being called if it happens here
     def authorize!
+      return if @current_user # No need to continue if the current_user has already been found
+      
       if request.format != "html"
         @current_user ||= authenticate_with_http_basic do |u, p| 
           logger.debug "CREDENTIALS: " + u.to_s + " " + p.to_s 
@@ -154,6 +156,16 @@ class ApplicationController < ActionController::Base
     def sign_out user
       if request.format == "html"
         cookies.permanent.signed[@@user_id_cookie_name] = nil
+      end
+    end
+
+    def get_queue
+      if current_user
+        @queue = current_user.queue
+      else
+        @queue = School.where( abbreviation: params[:school] ).first \
+                       .instructors.where( username: params[:instructor] ).first \
+                       .queues.where( class_number: params[:queue] ).first
       end
     end
 

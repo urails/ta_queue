@@ -1,18 +1,22 @@
+require 'spec_helper'
+
 describe Ta do
   before :each do
-    @board = Factory.create :board
-    @ta = @board.tas.create Factory.attributes_for(:ta)
-    @student = @board.students.create Factory.attributes_for(:student)
+    @school = Factory.create :school
+    @instructor = @school.instructors.create(Factory.attributes_for(:instructor))
+    @queue = @instructor.queues.create(Factory.attributes_for(:school_queue))
+    @ta = @queue.tas.create Factory.attributes_for(:ta)
+    @student = @queue.students.create Factory.attributes_for(:student)
   end
 
   it "properly accepts new students, setting all the proper attributes" do
-      @board.students.destroy_all
+      @queue.students.destroy_all
 
       10.times do |i|
-        @board.students.create!(Factory.attributes_for(:student).merge(:in_queue => DateTime.now + i.seconds))
+        @queue.students.create!(Factory.attributes_for(:student).merge(:in_queue => DateTime.now + i.seconds))
       end
 
-      students = @board.students.in_queue.to_a
+      students = @queue.students.in_queue.to_a
 
       students.count.times do |i|
         current_student = students[i]
@@ -31,7 +35,7 @@ describe Ta do
 
         @ta.student.should == current_student
 
-        new_students = @board.students.in_queue.to_a
+        new_students = @queue.students.in_queue.to_a
 
         new_students.count.should == 10 - i
       end

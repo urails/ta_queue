@@ -6,21 +6,21 @@ describe StudentsController do
     set_api_headers
   end
 
+  before :all do
+    @school = Factory.create :school
+    @instructor = @school.instructors.create(Factory.attributes_for(:instructor))
+    @queue = @instructor.queues.create(Factory.attributes_for(:school_queue))
+    @full_student_hash = Factory.attributes_for :student
+    @queue_hash = { :school => @school.abbreviation, :instructor => @instructor.username, :queue => @queue.class_number }
+  end
 
-    before :all do
-      Board.destroy_all
-      Student.destroy_all 
-      @board = Factory.create :board
-      @full_student_hash = Factory.attributes_for :student
-    end
-
-    after :all do
-      @board.destroy
-    end
+  after :all do
+    @school.destroy
+  end
 
   describe "CRUD student" do
     it "successfully creates a student" do
-      post :create, { :student => @full_student_hash, :board_id => @board.title }
+      post :create, { :student => @full_student_hash }.merge(@queue_hash)
 
       response.code.should == "201"
 
@@ -39,7 +39,7 @@ describe StudentsController do
     it "receives proper validation errors" do
       student = Factory.attributes_for :student
       student[:username] = ""
-    	post :create, { :student => student, :board_id => @board.title }
+    	post :create, { :student => student }.merge(@queue_hash)
     	
     	response.code.should == "422"
 
@@ -54,11 +54,11 @@ describe StudentsController do
       student_1[:username] = "doesn't matter"
       student_2[:username] = "doesn't matter"
       
-      post :create, { :student => student_1, :board_id => @board.title }
+      post :create, { :student => student_1 }.merge(@queue_hash)
 
       response.code.should == "201"
 
-      post :create, { :student => student_2, :board_id => @board.title }
+      post :create, { :student => student_2 }.merge(@queue_hash)
 
       response.code.should == "201"
     end
@@ -69,11 +69,11 @@ describe StudentsController do
       student_2[:username] = student_1[:username]
       student_2[:location] = student_1[:location]
       
-      post :create, { :student => student_1, :board_id => @board.title }
+      post :create, { :student => student_1 }.merge(@queue_hash)
 
       response.code.should == "201"
 
-      post :create, { :student => student_2, :board_id => @board.title }
+      post :create, { :student => student_2 }.merge(@queue_hash)
 
       response.code.should == "422"
 
@@ -84,7 +84,7 @@ describe StudentsController do
     
     it "successfully reads a student" do
       authenticate QueueUser.where(:_id => @full_student_hash[:id]).first
-      get :show, { :id => @full_student_hash[:id], :board_id => @board.title }
+      get :show, { :id => @full_student_hash[:id] }
 
       response.code.should == "200"
 
@@ -100,7 +100,7 @@ describe StudentsController do
 
     it "successfully destroys the student" do
       authenticate QueueUser.where(:_id => @full_student_hash[:id]).first
-      delete :destroy, { :board_id => @board.title, :id => @full_student_hash[:id] }
+      delete :destroy, { :id => @full_student_hash[:id] }
 
       response.code.should == "204"
 
@@ -110,8 +110,8 @@ describe StudentsController do
 
   describe "authentication" do
     before :each do
-      @student = @board.students.create!(Factory.attributes_for(:student))
-      @ta = @board.tas.create!(Factory.attributes_for(:ta))
+      @student = @queue.students.create!(Factory.attributes_for(:student))
+      @ta = @queue.tas.create!(Factory.attributes_for(:ta))
     end
 
     after :each do
@@ -119,61 +119,61 @@ describe StudentsController do
     end
 
     it "fails when student tries to change another student's state" do
-      student_1 = @board.students.create!(Factory.attributes_for(:student))
-      student_2 = @board.students.create!(Factory.attributes_for(:student))
+      student_1 = @queue.students.create!(Factory.attributes_for(:student))
+      student_2 = @queue.students.create!(Factory.attributes_for(:student))
       authenticate student_2
 
-      put :update, { :student => { :username => "it doesn't matter cause this should fail" }, :board_id => @board.title, :id => student_1.id.to_s }
+      put :update, { :student => { :username => "it doesn't matter cause this should fail" }, :id => student_1.id.to_s }
 
       response.code.should == "401"
     end
 
     it "fails reading a student w/o credentials" do
-      get :show, { :id => @student.id, :board_id => @board.title }
+      get :show, { :id => @student.id }
 
       response.code.should == "401"
     end
 
     it "fails updating w/o credentials" do
-      put :update, { :student => { :in_queue => true}, :id => @student.id, :board_id => @board.title }
+      put :update, { :student => { :in_queue => true}, :id => @student.id }
       response.code.should ==  "401"
     end
 
     it "fails destroying without authorization" do
-      delete :destroy, { :board_id => @board.title, :id => @student.id }
+      delete :destroy, { :id => @student.id }
       response.code.should == "401"
     end
 
     it "should reject ta_accept from a student" do
       authenticate @student
 
-      get :ta_accept, { :board_id => @board.title, :id => @student.id }
+      get :ta_accept, { :id => @student.id }
 
       response.code.should == "401"
     end
 
     it "should reject ta_accept without authentication" do
-      get :ta_accept, { :board_id => @board.title, :id => @student.id }
+      get :ta_accept, { :id => @student.id }
 
       response.code.should == "401"
     end
 
     it "ta_remove should reject no authentication" do
-      get :ta_remove, { :board_id => @board.title, :id => @student.id }
+      get :ta_remove, { :id => @student.id }
 
       response.code.should == "401"
     end
 
     it "ta_remove should reject student authentication" do
       authenticate @student
-      get :ta_remove, { :board_id => @board.title, :id => @student.id }
+      get :ta_remove, { :id => @student.id }
 
       response.code.should == "401"
     end
 
     it "ta_remove should succeed with ta authentication" do
       authenticate @ta
-      get :ta_remove, { :board_id => @board.title, :id => @student.id }
+      get :ta_remove, { :id => @student.id }
 
       response.code.should == "200"
     end
@@ -182,30 +182,29 @@ describe StudentsController do
   describe "API" do
     
     it "index returns a list of students" do
-      board = Factory.create :board
+      @queue.queue_users.destroy_all
 
       5.times do
-        board.students.create!(Factory.attributes_for(:student))
+        @queue.students.create!(Factory.attributes_for(:student))
       end
 
-      authenticate board.students.first
+      authenticate @queue.students(true).first
 
-      get :index, { :board_id => board.title }
-      
+      get :index
+
       response.code.should == "200"
 
       res = decode response.body
 
-      res.count.should == board.students.count
-      board.destroy
+      res.count.should == @queue.students.count
     end
 
     it "show" do
-      student = @board.students.create!(Factory.attributes_for(:student))
+      student = @queue.students.create!(Factory.attributes_for(:student))
 
       authenticate student
 
-      get :show, { :board_id => @board.title, :id => student.id.to_s }
+      get :show, { :id => student.id.to_s }
 
       response.code.should == "200"
 
@@ -223,8 +222,8 @@ describe StudentsController do
   describe "student actions" do
     before :each do
       @full_student_hash = Factory.attributes_for :student
-      @ta = @board.tas.create!(Factory.attributes_for :ta )
-      @student = @board.students.create!(@full_student_hash)
+      @ta = @queue.tas.create!(Factory.attributes_for :ta )
+      @student = @queue.students.create!(@full_student_hash)
     end
 
     after :each do
@@ -237,16 +236,16 @@ describe StudentsController do
 
       @ta.student.should be_nil
 
-      get :ta_accept, { :board_id => @board.title, :id => @student.id }
+      get :ta_accept, { :id => @student.id }
 
       response.code.should == "200"
 
-      ta = Ta.find(@ta.id)
+      @ta.reload
 
-      ta.student.should_not be_nil
-      ta.student.id.should == @student.id
+      @ta.student.should_not be_nil
+      @ta.student.id.should == @student.id
 
-      @student = Student.find(@student.id)
+      @student.reload
       @student.ta.should_not be_nil
       @student.ta.id.should == @ta.id
     end
@@ -257,16 +256,16 @@ describe StudentsController do
       @ta.student = @student
       @ta.save
 
-      @second_student = @board.students.create!(Factory.attributes_for :student)
+      @second_student = @queue.students.create!(Factory.attributes_for(:student))
 
-      get :ta_accept, { :board_id => @board.title, :id => @second_student.id }
+      get :ta_accept, { :id => @second_student.id }
 
       response.code.should == "200"
 
-      @ta = Ta.find(@ta.id)
+      @ta.reload
       @ta.student.should == @second_student
 
-      @student = Student.find(@student.id)
+      @student.reload
       @student.ta.should be_nil
       @student.in_queue.should be_nil
     end
@@ -275,11 +274,11 @@ describe StudentsController do
       authenticate @ta
       @student.in_queue = DateTime.now
       @student.save.should == true
-      get :ta_remove, { :board_id => @board.title, :id => @student.id }
+      get :ta_remove, { :id => @student.id }
 
       response.code.should == "200"
 
-      @student = Student.find(@student.id)
+      @student.reload
 
       @student.in_queue.should be_nil
       @student.ta.should be_nil
@@ -292,7 +291,7 @@ describe StudentsController do
     it "create fails creating a student with a name longer than 40 characters" do
       stud = Factory.attributes_for :student
       stud[:username] = "a" * 41
-      post :create, { :board_id => @board.title, :student => stud }
+      post :create, { :student => stud }.merge(@queue_hash)
 
       response.code.should == "422"
 
@@ -304,7 +303,7 @@ describe StudentsController do
     it "create succeeds creating a student with a name longer than 40 characters" do
       stud = Factory.attributes_for :student
       stud[:username] = "a" * 40
-      post :create, { :board_id => @board.title, :student => stud }
+      post :create, { :student => stud }.merge(@queue_hash)
 
       response.code.should == "201"
     end
@@ -312,7 +311,7 @@ describe StudentsController do
     it "fails creating a student with a location longer than 20 characters" do
       stud = Factory.attributes_for :student
       stud[:location] = "a" * 21
-      post :create, { :board_id => @board.title, :student => stud }
+      post :create, { :student => stud }.merge(@queue_hash)
 
       response.code.should == "422"
 
@@ -326,7 +325,7 @@ describe StudentsController do
       stud = Factory.attributes_for :student
       stud[:username] = "username"
 
-      post :create, { :board_id => @board.title, :student => stud }
+      post :create, { :student => stud }.merge(@queue_hash)
 
       response.code.should == "422"
 
@@ -339,7 +338,7 @@ describe StudentsController do
       stud = Factory.attributes_for :student
       stud[:username] = "name"
 
-      post :create, { :board_id => @board.title, :student => stud }
+      post :create, { :student => stud }.merge(@queue_hash)
 
       response.code.should == "422"
 
@@ -352,7 +351,7 @@ describe StudentsController do
       stud = Factory.attributes_for :student
       stud['location'] = "location"
 
-      post :create, { :board_id => @board.title, :student => stud }
+      post :create, { :student => stud }.merge(@queue_hash)
 
       response.code.should == "422"
 
@@ -362,21 +361,17 @@ describe StudentsController do
     end
 
     it "fails if trying 'show' action on non-existant student" do
-      authenticate @board.students.create(@full_student_hash)
+      authenticate @queue.students.create(@full_student_hash)
 
-      get :show, { :board_id => @board.title, :id => "hello" }
+      get :show, { :id => "hello" }
 
-      res = decode response.body
-
-      response.code.should == "422"
-
-      res['error'].should_not be_nil
+      response.code.should == "401"
     end
 
     it "create succeeds creating a student with a location longer than 20 characters" do
       stud = Factory.attributes_for :student
       stud[:location] = "a" * 20
-      post :create, { :board_id => @board.title, :student => stud }
+      post :create, { :student => stud }.merge(@queue_hash)
 
       response.code.should == "201"
     end

@@ -8,12 +8,11 @@ describe QueuesController do
   end
 
   before :each do
-    @board = Factory.create :board
-    @board.active = true
-    @board.save
-    @queue = @board.queue
-    @ta = @board.tas.create!(Factory.attributes_for(:ta))
-    @student = @board.students.create!(Factory.attributes_for(:student))
+    @school = Factory.create(:school)
+    @instructor = @school.instructors.create(Factory.attributes_for(:instructor))
+    @queue = @instructor.queues.create(Factory.attributes_for(:school_queue))
+    @ta = @queue.tas.create!(Factory.attributes_for(:ta))
+    @student = @queue.students.create!(Factory.attributes_for(:student))
     @student.in_queue = nil
     @student.save
     set_api_headers
@@ -22,16 +21,20 @@ describe QueuesController do
   after :each do
     @student.destroy
     @ta.destroy
-    @board.destroy
+    @school.destroy
   end
 
   describe "API" do
     it "update" do
       authenticate @ta
 
-      @board.queue.frozen.should == false
+      @queue.frozen.should == false
 
-      put :update, { :board_id => @board.title, :queue => { :frozen => true } }
+      put :update, :queue => { :frozen => true }
+
+      @queue.reload
+
+      @queue.frozen.should == true
 
       response.code.should == "204"
     end
@@ -39,23 +42,23 @@ describe QueuesController do
     it "show" do
       authenticate @ta
       3.times do
-        @board.tas.create!(Factory.attributes_for(:ta))
+        @queue.tas.create!(Factory.attributes_for(:ta))
       end
 
       5.times do
-        @board.students.create!(Factory.attributes_for(:student))
+        @queue.students.create!(Factory.attributes_for(:student))
       end
 
       7.times do
-        @board.students.create!(Factory.attributes_for(:student).merge!( :in_queue => DateTime.now ))
+        @queue.students.create!(Factory.attributes_for(:student).merge!( :in_queue => DateTime.now ))
       end
 
-      ta = @board.tas.first
+      ta = @queue.tas.first
 
       ta.accept_student! @student
 
 
-      get :show, { :board_id => @board.title }
+      get :show
 
       response.code.should == "200"
       
@@ -75,36 +78,36 @@ describe QueuesController do
       res_hash['tas'].count.should == 4 # the extra is due to the ta created in the before :each block
 
       res_hash['tas'].each do |_ta|
-        _ta['student']['id'].should == @board.students.first.id.to_s if _ta['id'] == ta.id.to_s
+        _ta['student']['id'].should == @queue.students.first.id.to_s if _ta['id'] == ta.id.to_s
       end
     end
 
     it "removes all students from the queue when going inactive"
 
     it "students should come back in the order they joined the queue" do
-      @board.students.destroy_all
-      @board.tas.destroy_all
+      @queue.students.destroy_all
+      @queue.tas.destroy_all
 
       time = DateTime.now
       # Order should be 2, 5, 0, 1, 3, 4
       order = {}
 
-      stud = @board.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 2.seconds ))
+      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 2.seconds ))
       order["2"] = stud.id.to_s
-      stud = @board.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 3.seconds ))
+      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 3.seconds ))
       order["3"] = stud.id.to_s
-      stud = @board.students.create!(Factory.attributes_for(:student).merge( :in_queue => time ))
+      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time ))
       order["0"] = stud.id.to_s
-      stud = @board.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 4.seconds ))
+      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 4.seconds ))
       order["4"] = stud.id.to_s
-      stud = @board.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 5.seconds ))
+      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 5.seconds ))
       order["5"] = stud.id.to_s
-      stud = @board.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 1.second  ))
+      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 1.second  ))
       order["1"] = stud.id.to_s
 
       authenticate stud
 
-      get :show, { :board_id => @board.title }
+      get :show
 
       response.code.should == "200"
       
@@ -112,8 +115,9 @@ describe QueuesController do
 
       res['students'].count.should == 6
 
-      @board = Board.where(:title => @board.title).first
-      students = @board.queue.students.to_a
+      @queue.reload
+
+      students = @queue.students.to_a
 
       students.each_index do |i|
         students[i].id.to_s.should == order[i.to_s].to_s
@@ -125,29 +129,30 @@ describe QueuesController do
     it "should allow student to enter queue" do
       authenticate @student
 
-      get :enter_queue, { :board_id => @board.title }
+      get :enter_queue
 
       response.code.should == "200" 
 
       res_hash = decode response.body
-      student = Student.find(@student.id)
 
-      student.in_queue.should_not be_nil
-      res_hash['students'][0]['username'].should == student.username
+      @student.reload
+
+      @student.in_queue.should_not be_nil
+      res_hash['students'][0]['username'].should == @student.username
     end
 
     it "should allow student to exit queue" do
       authenticate @student
 
-      get :exit_queue, { :board_id => @board.title }
+      get :exit_queue
 
       response.code.should == "200"
 
       res_hash = decode response.body
 
-      student = Student.find(@student.id)
+      @student.reload
 
-      student.in_queue.should be_nil
+      @student.in_queue.should be_nil
 
       res_hash['students'].count.should == 1
     end
@@ -156,23 +161,24 @@ describe QueuesController do
       @ta.student.should be_nil
       authenticate @student
 
-      other_student = @board.students.create!(Factory.attributes_for(:student))
+      other_student = @queue.students.create!(Factory.attributes_for(:student))
       @student.enter_queue!
       other_student.enter_queue!
 
       @ta.accept_student! @student
 
       @ta.student.should == @student
-      @student = Student.find(@student.id)
+      @student.reload
       @student.ta.should == @ta
 
       other_student.in_queue = DateTime.now
       other_student.save!
 
-      get :exit_queue, { board_id: @board.title }
+      get :exit_queue
 
       @ta = Ta.find(@ta.id)
-      @student = Student.find(@student.id)
+
+      @student.reload
 
       @student.ta.should == nil
 
@@ -188,13 +194,13 @@ describe QueuesController do
       @ta.accept_student! @student
 
       @ta.student.should == @student
-      @student = Student.find(@student.id)
+      @student.reload
       @student.ta.should == @ta
 
-      get :exit_queue, { board_id: @board.title }
+      get :exit_queue
 
-      @ta = Ta.find(@ta.id)
-      @student = Student.find(@student.id)
+      @ta.reload
+      @student.reload
 
       @ta.student.should be_nil
 
@@ -212,7 +218,7 @@ describe QueuesController do
       @queue.frozen = false
       @queue.save
 
-      put :update, { :board_id => @board.title, :queue => { :frozen => "hello" } }
+      put :update, :queue => { :frozen => "hello" }
 
       response.code.should == "422"
 
@@ -222,31 +228,30 @@ describe QueuesController do
     end
 
     it "Doesn't respond to enter_queue when frozen" do
-      queue = @board.queue
-      queue.frozen = true
-      queue.save
+      @queue.frozen = true
+      @queue.save
 
       authenticate @student
 
-      get :enter_queue, { :board_id => @board.title }
+      get :enter_queue
 
       response.code.should == "403"
 
       res = decode response.body
 
       res['error'].should_not be_nil
-      @student = Student.find(@student.id)
+
+      @student.reload
       @student.in_queue.should == nil
     end
 
     it "doesn't respond to enter_queue when deactivated" do
       authenticate @student
       
-      queue = @board.queue
-      queue.active = false 
-      queue.save
+      @queue.active = false 
+      @queue.save
 
-      get :enter_queue, { board_id: @board.title }
+      get :enter_queue
 
       response.code.should == "403"
     end
@@ -254,11 +259,10 @@ describe QueuesController do
     it "doesn't respond to exit_queue when deactivated" do
       authenticate @student
       
-      queue = @board.queue
-      queue.active = false 
-      queue.save
+      @queue.active = false 
+      @queue.save
 
-      get :exit_queue, { board_id: @board.title }
+      get :exit_queue
 
       response.code.should == "403"
     end
@@ -268,7 +272,7 @@ describe QueuesController do
     it "show should pass with ta authentication" do
       authenticate @ta
 
-      get :show, { :board_id => @board.title }
+      get :show
 
       response.code.should == "200"
     end
@@ -276,13 +280,13 @@ describe QueuesController do
     it "show should pass with student authentication" do
       authenticate @student
 
-      get :show, { :board_id => @board.title }
+      get :show
 
       response.code.should == "200"
     end
 
     it "show should fail on no authentication" do
-      get :show, { :board_id => @board.title }
+      get :show
 
       response.code.should == "401"
     end
@@ -290,36 +294,38 @@ describe QueuesController do
     it "update should succeed on ta authentication" do
       authenticate @ta
       @queue.frozen.should == false
-      put :update, { :board_id => @board.title, :queue => { :frozen => true } }
+
+      put :update, :queue => { :frozen => true }
 
       response.code.should == "204"
 
-      @board = Board.find(@board.id)
+      @queue.reload
 
-      @board.queue.frozen.should == true
+      @queue.frozen.should == true
     end
 
     it "update should fail on student authentication" do
       authenticate @student
       @queue.frozen.should == false
-      put :update, { :board_id => @board.title, :queue => { :frozen => true } }
+
+      put :update, :queue => { :frozen => true }
 
       response.code.should == "401"
 
-      @board = Board.find(@board.id)
+      @queue.reload
 
-      @board.queue.frozen.should == false
+      @queue.frozen.should == false
     end
 
     it "update should fail on no authentication" do
       @queue.frozen.should == false
-      put :update, { :board_id => @board.title, :queue => { :frozen => true } }
+      put :update, :queue => { :frozen => true }
 
       response.code.should == "401"
 
-      @board = Board.find(@board.id)
+      @queue.reload
 
-      @board.queue.frozen.should == false
+      @queue.frozen.should == false
     end
   end
 end

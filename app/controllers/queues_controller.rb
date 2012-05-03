@@ -2,7 +2,6 @@ class QueuesController < ApplicationController
   before_filter :authenticate_student!, :only => [:enter_queue, :exit_queue]
   before_filter :authenticate!, :only => [:show]
   before_filter :authenticate_ta!, :only => [:update]
-  before_filter :get_board
   before_filter :get_queue
   before_filter :check_frozen, :only => [:enter_queue]
   before_filter :check_active, :only => [:enter_queue, :exit_queue]
@@ -48,7 +47,7 @@ class QueuesController < ApplicationController
   private
 
     def get_queue
-      @queue = @board.queue
+      @queue = current_user.queue
     end
 
     def check_frozen

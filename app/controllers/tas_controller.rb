@@ -1,7 +1,7 @@
 class TasController < ApplicationController
-  before_filter :get_board
-  before_filter :get_ta, :only => [:update, :show, :destroy]
   before_filter :authenticate_ta!, :except => [:create]
+  before_filter :get_queue
+  before_filter :get_ta, :only => [:update, :show, :destroy]
 
   #after_filter :push_notify!, [:destroy, :create, :update]
 
@@ -12,7 +12,7 @@ class TasController < ApplicationController
   end
 
   def create 
-    @ta = @board.tas.new(params[:ta].merge( :password => params[:queue_password]))
+    @ta = @queue.tas.new(params[:ta].merge( :password => params[:queue_password]))
     respond_with do |f|
       if @ta.save
         sign_in @ta
@@ -21,7 +21,7 @@ class TasController < ApplicationController
         f.json { render :json => { token: @ta.token, id: @ta.id, username: @ta.username }, :status => :created }
         f.xml  { render :xml => { token: @ta.token, id: @ta.id, username: @ta.username }, :status => :created }
       else
-        f.html { flash[:errors] = @ta.errors.full_messages; redirect_to board_login_path(@board, :ta => true) }
+        f.html { flash[:errors] = @ta.errors.full_messages; redirect_to board_login_path(@queue, :ta => true) }
         f.json { render :json => @ta.errors, :status => :unprocessable_entity }
         f.json { render :xml => @ta.errors, :status => :unprocessable_entity }
       end
@@ -48,7 +48,7 @@ class TasController < ApplicationController
   private
 
     def get_ta
-      @ta = @board.tas.find(params[:id])
+      @ta = @queue.tas.find(params[:id])
       if !@ta
         render template: "shared/does_not_exist", :status => 422
       end

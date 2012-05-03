@@ -38,7 +38,7 @@ class Ta < QueueUser
 
   # If there are students left in the queue, accept the next one
   def accept_next_student
-    if stud = board.students.in_queue.first
+    if stud = queue.students.in_queue.first
       accept_student! stud
     end
   end

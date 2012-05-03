@@ -5,13 +5,15 @@ class SchoolQueue
   # ATTRIBUTES
 
   field :frozen, type: Boolean, default: false
+  field :title, type: String
+  field :class_number, type: String
   field :active, type: Boolean, default: true
   field :status, type: String, default: ""
   field :password, type: String
 
   # ASSOCIATIONS
 
-  embedded_in :instructor
+  belongs_to :instructor
   has_many :queue_users, dependent: :destroy
   # These associations work out of the box because of inheritance! Whoop whoop!
   has_many :tas
