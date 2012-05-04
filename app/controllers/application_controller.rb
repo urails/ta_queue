@@ -155,7 +155,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def sign_in user
+    def sign_in_user user
       if request.format == "html"
         cookies.permanent.signed[@@user_id_cookie_name] = user.id
       end
@@ -167,7 +167,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def sign_out user
+    def sign_out_user user
       if request.format == "html"
         cookies.permanent.signed[@@user_id_cookie_name] = nil
       end

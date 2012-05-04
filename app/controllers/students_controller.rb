@@ -18,7 +18,7 @@ class StudentsController < ApplicationController
     @student = @queue.students.new(params[:student])
     respond_with do |f|
       if @student.save
-        sign_in @student
+        sign_in_user @student
         push_notify!
         f.html { redirect_to queue_path }
         f.json { render :json => { location: @student.location, token: @student.token, id: @student.id, username: @student.username }, :status => :created }
@@ -48,7 +48,7 @@ class StudentsController < ApplicationController
 
   def destroy
     @student.destroy
-    sign_out @student
+    sign_out_user @student
     push_notify!
     respond_with do |f|
       f.html { redirect_to build_queue_login_path @student.queue }

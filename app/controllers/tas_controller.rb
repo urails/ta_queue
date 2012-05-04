@@ -15,7 +15,7 @@ class TasController < ApplicationController
     @ta = @queue.tas.new(params[:ta].merge( :password => params[:queue_password]))
     respond_with do |f|
       if @ta.save
-        sign_in @ta
+        sign_in_user @ta
         push_notify!
         f.html { redirect_to queue_path }
         f.json { render :json => { token: @ta.token, id: @ta.id, username: @ta.username }, :status => :created }
@@ -38,7 +38,7 @@ class TasController < ApplicationController
 
   def destroy
     @ta.destroy
-    sign_out @ta
+    sign_out_user @ta
     push_notify!
     respond_with do |f|
       f.html { redirect_to build_queue_login_path @ta.queue }

@@ -32,7 +32,7 @@ class TaQueue.Views.Chat.UserView extends Backbone.View
   userEl: (id) ->
     return $(@el).find("[data-id='#{id}']")
 
-  userClicked: (event)->
+  userClicked: (event) ->
     user_id = $(event.srcElement).attr("data-id")
     window.chatsRouter.navigate "chat/#{user_id}", trigger: true
 

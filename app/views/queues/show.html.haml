@@ -1,6 +1,6 @@
 - content_for :title do @queue.title end
 -#= content_for :javascripts do javascript_include_tag (current_user.student? ? "application-student" : "application-ta" ), "http://#{QUEUE_HOSTNAME}:8080/application.js" end
-- content_for :javascripts do javascript_include_tag "application-backbone", "http://#{QUEUE_HOSTNAME}:8080/application.js" end
+- content_for :javascripts do javascript_include_tag "application-backbone" end
 = render "queues/content_header"
 = content_for :stylesheets do stylesheet_link_tag "application" end
 %table{ :class => "chalkboard" }
@@ -24,7 +24,7 @@
     %td{ :class => "mm" }
       #status_bar
         #notification
-          No notifications
+          Hello #{current_user.username}
       #panes
         #queue_panel
           #queue_status
@@ -43,10 +43,7 @@
     %td{ :class => "bm" }
     %td{ :class => "br" }
 
-%button{ class: "chat" } Chat
-#chat
-  Chat goes here
-
+= render "queues/chat"
 = render "queues/beta"
 
 
@@ -59,6 +56,7 @@
     if(window.user_type === "Student")
       window.current_user = window.queue.students.get(window.user_id) 
     window.queueRouter = new TaQueue.Routers.QueuesRouter()
+    window.chatsRouter = new TaQueue.Routers.ChatsRouter()
     Backbone.history.start()
   });
 
