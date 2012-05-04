@@ -1,4 +1,4 @@
-collection @schools, :object_root => "school"
+collection @schools
 
 attribute :name, :abbreviation
 

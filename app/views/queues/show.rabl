@@ -1,4 +1,4 @@
-object @queue => :queue
+object @queue
 
 attribute :frozen
 node(:active) { |q| q.active }

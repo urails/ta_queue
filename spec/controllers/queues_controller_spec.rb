@@ -58,8 +58,6 @@ describe QueuesController do
 
       get :show
 
-      raise response.body
-
       response.code.should == "200"
       
       res_hash = decode response.body

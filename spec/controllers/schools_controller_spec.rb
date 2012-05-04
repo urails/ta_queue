@@ -19,8 +19,6 @@ describe SchoolsController do
 
       get :index
 
-      raise response.body.inspect
-
       response.code.should == "200"
 
       res = decode response.body
