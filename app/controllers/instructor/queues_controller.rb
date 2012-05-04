@@ -1,4 +1,4 @@
-class Instructor::QueuesController < ApplicationController
+class Instructor::QueuesController < InstructorController
   def show
   end
   
