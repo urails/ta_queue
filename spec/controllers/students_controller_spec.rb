@@ -8,8 +8,8 @@ describe StudentsController do
 
   before :all do
     @school = Factory.create :school
-    @instructor = @school.instructors.create(Factory.attributes_for(:instructor))
-    @queue = @instructor.queues.create(Factory.attributes_for(:school_queue))
+    @instructor = @school.instructors.create!(Factory.attributes_for(:instructor))
+    @queue = @instructor.queues.create!(Factory.attributes_for(:school_queue))
     @full_student_hash = Factory.attributes_for :student
     @queue_hash = { :school => @school.abbreviation, :instructor => @instructor.username, :queue => @queue.class_number }
   end
@@ -90,12 +90,13 @@ describe StudentsController do
 
       res_hash = ActiveSupport::JSON.decode(response.body)
 
-      res_hash.count.should == 4
+      res_hash.count.should == 5
 
       res_hash['username'].should == @full_student_hash[:username]
       res_hash['location'].should == @full_student_hash[:location]
       res_hash['id'].should == @full_student_hash[:id]
       res_hash['in_queue'].to_s.should == "false"
+      res_hash['ta_id'].should be_nil
     end
 
     it "successfully destroys the student" do
@@ -210,11 +211,12 @@ describe StudentsController do
 
       res = decode response.body
 
-      res.count.should == 4
+      res.count.should == 5
       res['id'].should_not be_nil
       res['username'].should_not be_nil
       res['location'].should_not be_nil
       res['in_queue'].should_not be_nil
+      res['ta_id'].should be_nil
     end
 
   end

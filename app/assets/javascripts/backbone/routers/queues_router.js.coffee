@@ -2,6 +2,7 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
   initialize: (options) ->
     @queue = window.queue
     @initStudentsView()
+    @initTasView()
     @initCurrentUser()
     @initUserButtons()
     @initQueueStatus()
@@ -19,7 +20,12 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
       students: window.queue.students
       el: $("#queue_list")
     @studentsView.render()
-
+  
+  initTasView: ->
+    @tasView = new TaQueue.Views.Tas.IndexView
+      queue: window.queue
+      el: $("#tas_in_queue")
+    @tasView.render()
 
   initQueueStatus: ->
     @queue_status = new TaQueue.Views.Controls.StatusUpdateShowView

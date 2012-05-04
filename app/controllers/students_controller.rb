@@ -20,7 +20,7 @@ class StudentsController < ApplicationController
       if @student.save
         sign_in @student
         push_notify!
-        f.html { redirect_to (queue_path) }
+        f.html { redirect_to queue_path }
         f.json { render :json => { location: @student.location, token: @student.token, id: @student.id, username: @student.username }, :status => :created }
         f.xml  { render :xml => { token: @student.token, id: @student.id, username: @student.username }, :status => :created }
       else

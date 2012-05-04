@@ -20,7 +20,7 @@ class QueuesController < ApplicationController
   end
 
   def update
-    @queue.update_attributes(params[:queue])
+    @queue.update_attributes(queue_params)
     push_notify!
     respond_with @queue
   end
@@ -57,5 +57,9 @@ class QueuesController < ApplicationController
           render template: "queues/error_frozen", :status => 403 and return
         end
       end
+    end
+
+    def queue_params
+      params[:queue].slice :active, :frozen, :status
     end
 end

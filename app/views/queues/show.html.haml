@@ -16,15 +16,6 @@
       #cork_board
         #control_panel
           #control_bar
-        #student_welcome
-          .post_it
-            %b= @current_user.username
-            .message
-              - if @current_user.student?
-                %span.position Position in queue: none
-        #tas_in_queue_header
-          %div
-            Available TAs
         #tas_in_queue
           #tas_list
     %td{ :class => "ml" }

@@ -27,9 +27,18 @@ class SchoolQueue
   # SCOPES
 
   # CALLBACKS
+  before_save :check_active
 
   def to_param
     class_number
   end
+
+  private
+    
+    def check_active
+      if !active
+        self.students.update_all(:in_queue => nil)
+      end
+    end
 
 end

@@ -1,21 +1,5 @@
 .footer.clear
-  - if !current_user || current_user.student?
-    This TA Queue is in beta, please help us improve it by reporting bugs/improvements
-    = link_to "as a GitHub issue", "http://www.github.com/urails/ta_queue/issues", :target => "_blank"
-    or sending an email to 
-    = mail_to "uofu.ta.queue@gmail.com"
-  - else
-    %span{ style: "color:red; font-size:1.4em; text-shadow:0px 0px 3px white;" }
-      Good News!
-    We've implemented a push server for updating the UI. This means it should be MUCH more responsive.
-    %br
-    %span{ style: "color:red; font-size:1.4em; text-shadow:0px 0px 3px white;" }
-      Good News!
-    You now have a status you can update! Let us know (via email or Github) if it is to your liking :-)
-    %br
-    %br
-    The TA Queue is currently in beta. You can report bug/feature requests by 
-    = link_to "submitting an issue on GitHub,", "http://www.github.com/urails/ta_queue/issues", :target => "_blank"
-    or emailing
-    = mail_to "uofu.ta.queue@gmail.com"
-  
+  This TA Queue is in beta, please help us improve it by reporting bugs/improvements
+  = link_to "as a GitHub issue", "http://www.github.com/urails/ta_queue/issues", :target => "_blank"
+  or sending an email to 
+  = mail_to "uofu.ta.queue@gmail.com"

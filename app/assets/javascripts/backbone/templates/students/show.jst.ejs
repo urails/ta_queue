@@ -1,8 +1,10 @@
 <p class="username"><%= student.username %></p>
 <p class="location"><%= student.location %></p>
-<% if(window.current_user.isTa) { %>
+<% if(window.queue.currentUser().isTa) { %>
   <div class="ta_control">
-    <input type="button" class="accept" value="Accept" />
+    <% if( !student.ta_id ) { %> 
+      <input type="button" class="accept" value="Accept" />
+    <% } %>
     <input type="button" class="remove" value="Remove" />
   </div>
 <% } %>

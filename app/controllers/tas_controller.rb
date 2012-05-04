@@ -8,7 +8,7 @@ class TasController < ApplicationController
   respond_to :json, :xml
 
   def show
-    #respond_with @ta
+    respond_with @ta
   end
 
   def create 
@@ -17,11 +17,11 @@ class TasController < ApplicationController
       if @ta.save
         sign_in @ta
         push_notify!
-        f.html { redirect_to board_path @board }
+        f.html { redirect_to queue_path }
         f.json { render :json => { token: @ta.token, id: @ta.id, username: @ta.username }, :status => :created }
         f.xml  { render :xml => { token: @ta.token, id: @ta.id, username: @ta.username }, :status => :created }
       else
-        f.html { flash[:errors] = @ta.errors.full_messages; redirect_to board_login_path(@queue, :ta => true) }
+        f.html { flash[:errors] = @ta.errors.full_messages; redirect_to build_queue_login_path(@queue, :ta => true) }
         f.json { render :json => @ta.errors, :status => :unprocessable_entity }
         f.json { render :xml => @ta.errors, :status => :unprocessable_entity }
       end
@@ -41,7 +41,7 @@ class TasController < ApplicationController
     sign_out @ta
     push_notify!
     respond_with do |f|
-      f.html { redirect_to board_login_path @board }
+      f.html { redirect_to build_queue_login_path @ta.queue }
     end
   end
 
@@ -51,14 +51,6 @@ class TasController < ApplicationController
       @ta = @queue.tas.find(params[:id])
       if !@ta
         render template: "shared/does_not_exist", :status => 422
-      end
-    end
-
-    def get_board
-      if current_user
-        @board = current_user.board
-      elsif params[:board_id]
-        @board = Board.where(:title => params[:board_id]).first
       end
     end
 end

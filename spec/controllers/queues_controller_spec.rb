@@ -80,7 +80,24 @@ describe QueuesController do
       end
     end
 
-    it "removes all students from the queue when going inactive"
+    it "removes all students from the queue when going inactive" do
+      authenticate @ta
+      @queue.students.destroy_all
+
+      @queue.active.should == true
+
+      2.times do
+        student = @queue.students.create!(Factory.attributes_for(:student))
+        student.enter_queue!
+      end
+
+      @queue.students.in_queue.count.should == 2
+
+      put :update, :queue => { :active => false }
+
+      @queue.students(true).in_queue.count.should == 0
+
+    end
 
     it "students should come back in the order they joined the queue" do
       @queue.students.destroy_all
