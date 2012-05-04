@@ -8,6 +8,6 @@ class Instructor::InstructorsController < ApplicationController
   end
 
   def login
-
+    @instructor = Instructor.new
   end
 end
