@@ -19,6 +19,7 @@ class StudentsController < ApplicationController
     respond_with do |f|
       if @student.save
         sign_in_user @student
+        @current_user = @student
         push_notify!
         f.html { redirect_to queue_path }
         f.json { render :json => { location: @student.location, token: @student.token, id: @student.id, username: @student.username }, :status => :created }

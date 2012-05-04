@@ -16,6 +16,7 @@ class TasController < ApplicationController
     respond_with do |f|
       if @ta.save
         sign_in_user @ta
+        @current_user = @ta
         push_notify!
         f.html { redirect_to queue_path }
         f.json { render :json => { token: @ta.token, id: @ta.id, username: @ta.username }, :status => :created }

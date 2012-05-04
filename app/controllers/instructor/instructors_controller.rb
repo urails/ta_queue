@@ -1,4 +1,4 @@
-class Instructor::InstructorsController < ApplicationController
+class Instructor::InstructorsController < InstructorController
   def dashboard
 
   end
