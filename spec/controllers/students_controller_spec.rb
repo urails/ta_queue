@@ -90,13 +90,14 @@ describe StudentsController do
 
       res_hash = ActiveSupport::JSON.decode(response.body)
 
-      res_hash.count.should == 5
+      res_hash.count.should == 6
 
       res_hash['username'].should == @full_student_hash[:username]
       res_hash['location'].should == @full_student_hash[:location]
       res_hash['id'].should == @full_student_hash[:id]
       res_hash['in_queue'].to_s.should == "false"
       res_hash['ta_id'].should be_nil
+      res_hash['question'].should be_nil
     end
 
     it "successfully destroys the student" do
@@ -198,25 +199,6 @@ describe StudentsController do
       res = decode response.body
 
       res.count.should == @queue.students.count
-    end
-
-    it "show" do
-      student = @queue.students.create!(Factory.attributes_for(:student))
-
-      authenticate student
-
-      get :show, { :id => student.id.to_s }
-
-      response.code.should == "200"
-
-      res = decode response.body
-
-      res.count.should == 5
-      res['id'].should_not be_nil
-      res['username'].should_not be_nil
-      res['location'].should_not be_nil
-      res['in_queue'].should_not be_nil
-      res['ta_id'].should be_nil
     end
 
   end

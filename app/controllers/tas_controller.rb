@@ -12,7 +12,7 @@ class TasController < ApplicationController
   end
 
   def create 
-    @ta = @queue.tas.new(params[:ta].merge( :password => params[:queue_password]))
+    @ta = @queue.tas.new(params[:ta])
     respond_with do |f|
       if @ta.save
         sign_in_user @ta

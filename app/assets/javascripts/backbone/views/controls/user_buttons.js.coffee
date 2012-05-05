@@ -33,10 +33,16 @@ class TaQueue.Views.Controls.UserButtons extends Backbone.View
     queue.save()
 
   toggleEnterQueue: ->
+
+    text = null
+    if window.queue.get('is_question_based') && !queue.currentUser().get('in_queue')
+      text = prompt "What's your question?"
+      return if text == null || text == ''
+
     if window.queue.currentUser().get('in_queue')
       queue.exit_queue()
     else
-      queue.enter_queue()
+      queue.enter_queue(text)
 
   signOut: ->
     window.jug_handler.unsubscribe()

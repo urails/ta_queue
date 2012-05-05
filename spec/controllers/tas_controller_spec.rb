@@ -131,7 +131,7 @@ describe TasController do
 
   describe "CRUD ta" do
     it "successfully creates a ta" do
-      post :create, { :ta => @full_ta_hash, :queue_password => @queue.password }.merge(@queue_hash)
+      post :create, { :ta => @full_ta_hash.merge({ :password => @queue.password }) }.merge(@queue_hash)
 
       response.code.should == "201"
 

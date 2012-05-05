@@ -2,6 +2,6 @@
     <input id="activate_queue" type="button" value="<%= queue.get('active') ? "Deactivate" : "Activate" %>" />
     <input id="freeze_queue" type="button" value="<%= queue.get('frozen') ? "Unfreeze" : "Freeze" %>" />
 <% } else { %>
-  <input id="enter_queue" type="button" value="<%= current_user.get('in_queue') ? "Exit Queue" : "Enter Queue" %>"/>
+  <input id="enter_queue" type="button" value="<%= current_user.get('in_queue') ? "Exit Queue" : "Enter Queue" %>" />
 <% } %>
 <input id="sign_out" type="button" class="sign_out_with" value="Sign Out" />

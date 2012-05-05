@@ -3,6 +3,7 @@ class Student < QueueUser
   # ATTRIBUTES
   
   field :in_queue, type: DateTime
+  field :question, type: String
   
   # ASSOCIATIONS
 
@@ -19,6 +20,7 @@ class Student < QueueUser
   validates :location, :length => { :within => 1..20 }
   validates :location, :exclusion => { :in => ["location"] }
   validate :check_username_location, :on => :create
+  validate :check_question_if_question_based
 
   # SCOPES
 
@@ -31,6 +33,7 @@ class Student < QueueUser
 
   def enter_queue
     if self.in_queue.nil?
+      return unless check_question_if_question_based
       iqd = self.in_queue_duration ||= InQueueDuration.new
 
       date = DateTime.now
@@ -77,6 +80,16 @@ class Student < QueueUser
       if Student.where(:username => self.username, :location => self.location).first
         self.errors["username"] = "This username and location are already logged in. Are you already logged in somewhere else?"
       end
+    end
+
+    def check_question_if_question_based
+      if self.in_queue && self.queue.is_question_based
+        if question.blank?
+          self.errors[:question] = "is blank, must provide a question." 
+          return false
+        end
+      end
+      return true
     end
 
 end

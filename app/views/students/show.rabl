@@ -1,8 +1,8 @@
 object @student
 
-attribute :_id => :id
+attribute :_id => :id 
 node(:username) { |stud| escp(stud.username) }
-attribute :location
+attribute :location, :question
 
 node(:in_queue) { |stud| !!stud.in_queue }
 

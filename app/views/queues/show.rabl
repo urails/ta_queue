@@ -1,6 +1,6 @@
 object @queue
 
-attribute :frozen
+attribute :frozen, :is_question_based
 node(:active) { |q| q.active }
 node(:status) { |q| escp(q.status) }
 

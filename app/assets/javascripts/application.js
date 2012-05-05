@@ -5,7 +5,5 @@
 // the compiled file.
 //
 //= require jquery
-//= require jug_handler
 //= require jquery_ujs
-//= require User
 

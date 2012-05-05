@@ -1,2 +1,0 @@
-//= require TABoard
-//= require TAQueue

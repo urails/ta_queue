@@ -16,11 +16,11 @@ class TaQueue.Models.Queue extends TaQueue.Model
     students: null
     tas: null
 
-  action: (action_name) ->
-    $.get("#{@url}/#{action_name}")
+  action: (action_name, text) ->
+    $.get("#{@url}/#{action_name}", question: text)
 
-  enter_queue: ->
-    @action "enter_queue"
+  enter_queue: (text) ->
+    @action "enter_queue", text
 
   currentUser: ->
     if window.user_type == "Ta"

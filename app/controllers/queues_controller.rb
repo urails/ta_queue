@@ -26,6 +26,10 @@ class QueuesController < ApplicationController
   end
 
   def enter_queue
+    if @queue.is_question_based
+      head :unprocessable_entity, status: 422  and return if params[:question].blank?
+    end
+    current_user.question = params[:question]
     current_user.enter_queue!
     push_notify!
     respond_with @queue, template: "queues/show"

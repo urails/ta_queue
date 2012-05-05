@@ -14,7 +14,7 @@ describe QueuesController do
     @ta = @queue.tas.create!(Factory.attributes_for(:ta))
     @student = @queue.students.create!(Factory.attributes_for(:student))
     @student.in_queue = nil
-    @student.save
+    @student.save!
     set_api_headers
   end
 
@@ -63,10 +63,11 @@ describe QueuesController do
       res_hash = decode response.body
 
 
-      res_hash.count.should == 5
+      res_hash.count.should == 6
 
       res_hash['frozen'].should_not be_nil
       res_hash['active'].should_not be_nil
+      res_hash['is_question_based'].should_not be_nil
       res_hash['students'].should_not be_nil
       res_hash['status'].should_not be_nil
       res_hash['tas'].should_not be_nil
@@ -156,6 +157,46 @@ describe QueuesController do
       res_hash['students'][0]['username'].should == @student.username
     end
 
+    it "should allow student to enter queue with question" do
+      authenticate @student
+
+      @student.save!
+
+      @queue.is_question_based = true
+      @queue.save!
+
+      question = "Who's your daddy?"
+
+      get :enter_queue, :question => question
+
+      response.code.should == "200" 
+
+      res_hash = decode response.body
+
+      @student.reload
+
+      @student.question.should == question
+
+      @student.in_queue.should_not be_nil
+      res_hash['students'][0]['username'].should == @student.username
+    end
+
+    it "should not allow student to enter queue without question if question_based" do
+      authenticate @student
+
+      @queue.is_question_based = true
+
+      @queue.save!
+
+      get :enter_queue
+
+      response.code.should == "422" 
+
+      @student.reload
+
+      @student.in_queue.should be_nil
+    end
+
     it "should allow student to exit queue" do
       authenticate @student
 
@@ -231,7 +272,7 @@ describe QueuesController do
       authenticate @ta
 
       @queue.frozen = false
-      @queue.save
+      @queue.save!
 
       put :update, :queue => { :frozen => "hello" }
 
@@ -244,7 +285,7 @@ describe QueuesController do
 
     it "Doesn't respond to enter_queue when frozen" do
       @queue.frozen = true
-      @queue.save
+      @queue.save!
 
       authenticate @student
 
@@ -264,7 +305,7 @@ describe QueuesController do
       authenticate @student
       
       @queue.active = false 
-      @queue.save
+      @queue.save!
 
       get :enter_queue
 
@@ -275,7 +316,7 @@ describe QueuesController do
       authenticate @student
       
       @queue.active = false 
-      @queue.save
+      @queue.save!
 
       get :exit_queue
 
