@@ -27,4 +27,17 @@ class Instructor::QueuesController < InstructorController
     @queue = SchoolQueue.where(class_number: params[:id]).first
   end
 
+  def update
+    @queue = SchoolQueue.where(class_number: params[:id]).first
+    @queue.update_attributes(params[:school_queue])
+    flash[:notice] = "Updated!"
+    redirect_to instructor_queue_path @queue
+  end
+
+  def destroy
+    @queue.destroy
+    flash[:notice] = "Queue deleted!"
+    redirect_to instructor_root_path
+  end
+
 end
