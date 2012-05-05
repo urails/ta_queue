@@ -5,6 +5,9 @@ class Instructor
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  attr_accessor :master_password
+  before_create :check_master_password
+
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""
   field :encrypted_password, :type => String, :null => false, :default => ""
@@ -44,5 +47,13 @@ class Instructor
   def to_param
     username
   end
+
+  private
+    
+    def check_master_password
+      if self.master_password != self.school.master_password
+        self.errors[:master_password] = "is invalid"
+      end
+    end
 
 end

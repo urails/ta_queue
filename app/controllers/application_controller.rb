@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   @@user_id_cookie_name = "_queue"
 
+  def after_sign_out_path_for instructor
+    instructor_login_path
+  end
+
 
   private
     def build_queue_login_path queue, options={}

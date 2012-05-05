@@ -1,4 +1,12 @@
 - if instructor_signed_in?
-  User signed in
+  Instructor signed in
+  %br
+  = @instructor.name
+  %br
+  - @instructor.queues.each do |q|
+    = link_to q.class_number, instructor_queue_path(q.class_number)
+    %br
+  = link_to "+ New Queue", new_instructor_queue_path
+  = button_to "Sign out", destroy_instructor_session_path, method: :delete
 - else
-  User not signed in
+  Instructor not signed in

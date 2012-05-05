@@ -1,0 +1,6 @@
+%h3 New Queue
+= semantic_form_for @queue, url: instructor_queues_path, method: :post do |f|
+  = f.input :title
+  = f.input :class_number
+  = f.input :password
+  = f.actions

@@ -17,6 +17,7 @@ gem 'haml'
 gem 'therubyracer'
 gem 'crom', :git => 'http://github.com/kgiszczak/crom'
 gem 'newrelic_rpm', :group => :production
+gem 'formtastic'
 
 gem 'rabl'
 
