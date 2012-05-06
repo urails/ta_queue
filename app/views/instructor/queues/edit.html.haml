@@ -3,7 +3,5 @@
 Let's change some settings!
 %br
 = semantic_form_for @queue, url: "/instructor/queues/#{@queue.class_number}", method: :put do |f|
-  = f.input :password
-  = f.input :title
-  = f.actions
+  = render "form", f: f, q: @queue
 = link_to "Back to stats", instructor_queue_path(@queue)
