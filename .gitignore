@@ -1,17 +1,14 @@
 .bundle
 db/*.sqlite3
-log/*.log
 tmp/
 .sass-cache/
 *.swp
 .DS_Store
 notes.txt
 *~
-<<<<<<< HEAD
 config/newrelic.yml
 log/newrelic_agent_store.db
 log/newrelic_agent_store.pid
 mongo.log
 =======
 *.log*
->>>>>>> c9ff0ffe63b09eed63b4e65e1b2fcabfb3041f9b
