@@ -28,6 +28,8 @@ TaQueue::Application.routes.draw do
     get "exit_queue"
   end
 
+  match "/queue/ios/:token" => "queues#ios"
+
   match "/chats" => "chats#receive", via: :post
 
 end

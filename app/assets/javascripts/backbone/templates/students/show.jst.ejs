@@ -1,5 +1,8 @@
 <p class="username"><%= student.username %></p>
 <p class="location"><%= student.location %></p>
+<% if( window.queue.get('is_question_based') && window.queue.currentUser().isTa && student.question && student.question.length > 0 ) { %>
+  <p class="location">Question: <%= student.question %></p>
+<% } %>
 <% if(window.queue.currentUser().isTa) { %>
   <div class="ta_control">
     <% if( !student.ta_id ) { %> 

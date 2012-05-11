@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
 
     def push_notify!
       if Rails.env != "test"
-        Juggernaut.publish("queue/#{current_user.queue.class_number}", render_queue)
+        Juggernaut.publish("queue/#{current_user.queue.id.to_s}", render_queue)
       end
     end
 

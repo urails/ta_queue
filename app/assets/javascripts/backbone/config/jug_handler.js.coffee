@@ -1,5 +1,5 @@
 class JugHandler
-  queue_path: -> "queue/#{window.queue_title}"
+  queue_path: -> "queue/#{window.queue_id}"
   chat_path: -> "chats/#{window.user_token}"
 
   start_juggernaut: () ->

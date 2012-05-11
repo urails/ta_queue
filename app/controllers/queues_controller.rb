@@ -52,6 +52,10 @@ class QueuesController < ApplicationController
 
     respond_with @queue, template: "queues/show"
   end
+
+  def ios
+    @queue = QueueUser.where( token: params[:token] ).first.queue
+  end
   
   private
 

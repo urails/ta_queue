@@ -1,6 +1,7 @@
 - content_for :head do
   :javascript
     window.queue_title = "#{@queue.class_number}"
+    window.queue_id = "#{@queue.id.to_s}"
     window.user_id = "#{current_user.id}"
     window.user_token = "#{current_user.token}"
   - if current_user.ta?
