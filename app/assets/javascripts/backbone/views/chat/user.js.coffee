@@ -44,5 +44,5 @@ class TaQueue.Views.Chat.UserView extends Backbone.View
   render_collection: (name, collection) ->
     $(@el).append("<li class=\"header\">#{name}</li>")
     _.each collection, (user) =>
-      $(@el).append @template(user: user) if user.get('id') != window.current_user.get('id')
+      $(@el).append @template(user: user) if user.get('id') != window.queue.currentUser().get('id')
 

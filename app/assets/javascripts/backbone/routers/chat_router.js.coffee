@@ -5,15 +5,19 @@ class TaQueue.Routers.ChatsRouter extends Backbone.Router
     @initMessagesView()
 
   initUsersView: ->
-    @usersView = new TaQueue.Views.Chat.UserView( el: $("#chat_list"))
-    @usersView.render()
+    @usersView = new TaQueue.Views.Chat.UserView
+      el: $("#main-left")
+    #@usersView.render()
 
   initSendMessage: ->
-    @sendMessageView = new TaQueue.Views.Chat.SendMessageView( el: $("#send_message"))
-    @sendMessageView.render()
+    @sendMessageView = new TaQueue.Views.Chat.SendMessageView
+      el: $("#main-bottom")
+    #@sendMessageView.render()
 
   initMessagesView: ->
-    @messagesView = new TaQueue.Views.Chat.MessagesView( el: $("#messages"), selected: @usersView.selected)
+    @messagesView = new TaQueue.Views.Chat.MessagesView
+      el: $("#main-right"),
+      selected: @usersView.selected
 
 
   routes: {
@@ -21,7 +25,14 @@ class TaQueue.Routers.ChatsRouter extends Backbone.Router
     "chat/:id" : "showChatUser"
   }
 
+  render: ->
+    @usersView.render()
+    @sendMessageView.render()
+    @messagesView.render()
+    @showChat()
+
   showChatUser: (id) ->
+    @render()
     @usersView.select id
     @messagesView.render id
 

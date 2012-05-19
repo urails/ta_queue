@@ -37,8 +37,9 @@ class TaQueue.Collections.TasCollection extends Backbone.Collection
   
   # This returns the first TA which is NOT the current_user
   firstTa: () ->
+    cu = window.queue.currentUser()
     for ta in @models
-      return ta if ta.get('id') != window.current_user.get('id')
+      return ta if ta.get('id') != cu.get('id')
     
 
   url: '/tas'

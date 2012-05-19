@@ -3,45 +3,44 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
     @queue = window.queue
     @initStudentsView()
     @initTasView()
-    @initCurrentUser()
     @initUserButtons()
     @initQueueStatus()
-    @user_buttons.centerControlBar()
+    @userButtons.centerControlBar()
 
   # This is the default route executed when the queue is visited
   routes:
     "": "index"
   
   index: ->
-    console.log "got here"
+    @render()
+
+  render: ->
+    @studentsView.render()
+    @tasView.render()
+    @queueStatus.render()
+    @userButtons.render()
 
   initStudentsView: ->
     @studentsView = new TaQueue.Views.Students.IndexView
       students: window.queue.students
       el: $("#main-right")
-    @studentsView.render()
+    #@studentsView.render()
   
   initTasView: ->
     @tasView = new TaQueue.Views.Tas.IndexView
       queue: window.queue
       el: $("#main-left")
-    @tasView.render()
+    #@tasView.render()
 
   initQueueStatus: ->
-    @queue_status = new TaQueue.Views.Controls.StatusUpdateShowView
+    @queueStatus = new TaQueue.Views.Controls.StatusUpdateShowView
       queue: window.queue
       el: $("#queue-status")
-    @queue_status.render()
-
-  initCurrentUser: ->
-    if window.user_type == "Student"
-      window.current_user = @queue.students.get(window.user_id)
-    else
-      window.current_user = @queue.tas.get(window.user_id)
+    #@queue_status.render()
 
   initUserButtons: ->
-    @user_buttons = new TaQueue.Views.Controls.UserButtons
+    @userButtons = new TaQueue.Views.Controls.UserButtons
       queue: @queue
-      current_user: window.current_user
+      current_user: window.queue.currentUser()
       el: $("#main-bottom")
-    @user_buttons.render()
+    #@user_buttons.render()

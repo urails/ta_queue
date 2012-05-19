@@ -11,7 +11,7 @@ class TaQueue.Views.Chat.MessagesView extends Backbone.View
 
   appendClientMessage: (id, message) ->
     @render id
-    @userDiv(id).append("<p class=\"sent\">#{window.current_user.get('username')}: #{message}</p>")
+    @userDiv(id).append("<p class=\"sent\">#{window.queue.currentUser().get('username')}: #{message}</p>")
     @scroll id, 200
 
   appendReceivedMessage: (id, message) ->

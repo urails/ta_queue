@@ -14,7 +14,7 @@ class TaQueue.Views.Controls.StatusUpdateShowView extends Backbone.View
     "keypress #queue_status_update" : "checkEnter"
 
   swapEdit: ->
-    return if window.current_user.isStudent
+    return if window.queue.currentUser().isStudent
 
     $(@el).find("div").remove()
     @current_template = @template_edit

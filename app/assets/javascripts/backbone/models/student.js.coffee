@@ -25,8 +25,9 @@ class TaQueue.Collections.StudentsCollection extends Backbone.Collection
 
   # This returns the first Student which is NOT the current_user
   firstStudent: () ->
+    cu = window.queue.currentUser()
     for student in @models
-      return student if student.get('id') != window.current_user.get('id')
+      return student if student.get('id') != cu.get('id')
     return null
 
   url: '/students'

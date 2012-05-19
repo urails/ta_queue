@@ -7,6 +7,8 @@
 #main-content
   #content-left
     #nav-buttons
+      %button#queue-button Queue
+      %button#chat-button Chat
     #main-left
   #content-right
     #queue-status
@@ -23,15 +25,24 @@
 
 :javascript
   $(function() {
-    window.queue = new TaQueue.Models.Queue
+    window.queue = new TaQueue.Models.Queue;
     window.queue.set(#{render_queue});
     if(window.user_type === "Ta")
-      window.current_user = window.queue.tas.get(window.user_id) 
+      window.current_user = window.queue.tas.get(window.user_id) ;
     if(window.user_type === "Student")
-      window.current_user = window.queue.students.get(window.user_id) 
-    window.queueRouter = new TaQueue.Routers.QueuesRouter()
-    window.chatsRouter = new TaQueue.Routers.ChatsRouter()
-    Backbone.history.start()
+      window.current_user = window.queue.students.get(window.user_id);
+
+    window.queueRouter = new TaQueue.Routers.QueuesRouter();
+    $("#queue-button").live("click", function() {
+      window.queueRouter.render();
+    });
+
+    window.chatsRouter = new TaQueue.Routers.ChatsRouter();
+    $("#chat-button").live("click", function() {
+      window.chatsRouter.render();
+    });
+
+    Backbone.history.start();
   });
 
 
