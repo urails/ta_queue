@@ -24,7 +24,7 @@ body {
   margin-left:auto;
   margin-right:auto;
   height:400px;
-  background-color:#EEE;
+  /*background-color:#EEE;*/
 }
 
 #content-left {
@@ -62,25 +62,28 @@ body {
 
 #main-bottom {
   height:40px;
-  background-color:#EEE;
+  /*background-color:#EEE;*/
   width:100%;
 }
 
 #queue-status {
-  background-color:#EEE;
+  /*background-color:#EEE;*/
   width:100%;
-  height:40px;
+  height:34px;
+  padding-top:3px;
+  padding-bottom:3px;
 }
 
 #queue-button {
-  width:48%;
+  width:49%;
 }
 
 #chat-button {
-  width:48%;
+  width:49%;
 }
 
 input[type="button"],
+input[type="submit"],
 button {
   /*-moz-box-shadow:inset 0px 0px 0px 0px #ffffff;*/
   /*-webkit-box-shadow:inset 0px 0px 0px 0px #ffffff;*/
@@ -92,9 +95,10 @@ button {
   -moz-border-radius:2px;
   -webkit-border-radius:2px;
   border-radius:2px;
-  border:1px solid #dcdcdc;
+  border:0;
   display:inline-block;
-  color:black;
+  color:#222;
+  background-color:#bbb;
   text-shadow:1px 1px #ddd;
   /*font-family:Trebuchet MS;*/
   font-size:14px;
@@ -104,6 +108,7 @@ button {
 }
 
 input[type="button"]:hover,
+input[type="submit"]:hover,
 button:hover {
 	/*background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #AAA), color-stop(1, #333) );*/
 	/*background:-moz-linear-gradient( center top, #AAA 5%, #333 100% );*/
@@ -146,4 +151,8 @@ li.user {
 }
 li.header {
   font-weight:bold;
+}
+
+.post-it {
+  padding:3px;
 }

@@ -19,4 +19,6 @@ class TaQueue.Views.Students.ShowView extends Backbone.View
     $(@el).html(@template(student: @options.student.attributes))
     if ta_id = @options.student.get('ta_id')
       $(@el).css 'background-color', window.queue.tas.get(ta_id).hexColor()
+      $(@el).css 'color', 'black'
+
     return this
