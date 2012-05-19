@@ -1,5 +1,7 @@
-<p class="username"><%= student.username %></p>
-<p class="location"><%= student.location %></p>
+<div class="lefty" style="float:left;width:70%;word-wrap:break-word;">
+	<p class="username"><%= student.username %></p>
+	<p class="location"><%= student.location %></p>
+</div>
 <% if( window.queue.get('is_question_based') && window.queue.currentUser().isTa && student.question && student.question.length > 0 ) { %>
   <p class="location">Question: <%= student.question %></p>
 <% } %>
@@ -11,3 +13,5 @@
     <input type="button" class="remove" value="Remove" />
   </div>
 <% } %>
+<br />
+<br />
