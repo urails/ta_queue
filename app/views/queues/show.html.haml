@@ -30,17 +30,17 @@
     window.chatsRouter = new TaQueue.Routers.ChatsRouter();
     
     $("#chat-button").live("click", function() {
-      window.queue.off("reset");
-      window.queue.off("change");
+      // window.queue.off("reset");
+      // window.queue.off("change");
       // window.queueRouter.unbind();
-      window.chatsRouter.render();
+      window.chatsRouter.navigate("chat", { trigger: true });
     });
 
     $("#queue-button").live("click", function() {
-      window.queue.off("reset");
-      window.queue.off("change");
+      // window.queue.off("reset");
+      // window.queue.off("change");
       // window.chatsRouter.unbind();
-      window.queueRouter.render();
+      window.queueRouter.navigate("", { trigger: true });
     });
 
     Backbone.history.start();

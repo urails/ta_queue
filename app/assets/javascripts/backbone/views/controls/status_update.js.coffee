@@ -14,7 +14,7 @@ class TaQueue.Views.Controls.StatusUpdateShowView extends Backbone.View
 
   events:
     "click .checking" : "swapEdit"
-    "keypress #queue_status_update" : "checkEnter"
+    "keypress #queue-status-update" : "checkEnter"
 
   swapEdit: ->
     return if window.queue.currentUser().isStudent
@@ -23,13 +23,13 @@ class TaQueue.Views.Controls.StatusUpdateShowView extends Backbone.View
     @current_template = @template_edit
     @render()
 
-    $(@el).find("#queue_status_update").get(0).select()
+    $(@el).find("#queue-status-update").get(0).select()
 
   checkEnter: (e) ->
     return if (e.keyCode != 13)
-    $(@el).undelegate("#queue_status_update", "keypress")
+    $(@el).undelegate("#queue-status-update", "keypress")
     @current_template = @template_show
-    queue.save('status' : $(@el).find("#queue_status_update").val())
+    queue.save('status' : $(@el).find("#queue-status-update").val())
 
   render: ->
     $(@el).html(@current_template(queue:@queue))

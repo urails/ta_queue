@@ -11,7 +11,7 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
   routes:
     "": "index"
   
-  index: ->
+  index: =>
     @render()
 
   #unbind: ->
@@ -22,6 +22,7 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
 
   render: ->
     @studentsView.bind()
+    @studentsView.el = $("#main-right")
     @studentsView.render()
 
     @tasView.bind()
