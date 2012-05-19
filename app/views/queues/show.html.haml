@@ -3,48 +3,19 @@
 - content_for :javascripts do javascript_include_tag "application-backbone" end
 = render "queues/content_header"
 = content_for :stylesheets do stylesheet_link_tag "application" end
-%table{ :class => "chalkboard" }
-  %tr
-    %td{ :class => "tl" }
-    %td{ :class => "tm" }
-    %td{ :class => "tm" }
-    %td{ :class => "tm" }
-    %td{ :class => "tr" }
-  %tr
-    %td{ :class => "ml" }
-    %td{ :class => "mm" }
-      #cork_board
-        #control_panel
-          #control_bar
-        #tas_in_queue
-          #tas_list
-    %td{ :class => "ml" }
-      .border_container
-        .borders
-    %td{ :class => "mm" }
-      #status_bar
-        #notification
-          Hello #{current_user.username}
-      #panes
-        #queue_panel
-          #queue_status
-          #queue_list
-    %td{ :class => "mr" }
-      #left_tab_bar
-        #queue_tab
-          .top_tab.left
-          .content_tab.left
-            Queue
-          .bottom_tab.left
-  %tr
-    %td{ :class => "bl" }
-    %td{ :class => "bm" }
-    %td{ :class => "bm" }
-    %td{ :class => "bm" }
-    %td{ :class => "br" }
 
-= render "queues/chat"
-= render "queues/beta"
+#main-content
+  #content-left
+    #nav-buttons
+    #main-left
+  #content-right
+    #queue-status
+    #main-right
+    #main-bottom
+
+
+-#= render "queues/chat"
+-#= render "queues/beta"
 
 #ask_question{ class: "fancy", style: "display:none;height:130px;width:355px;" }
   Hello world!
