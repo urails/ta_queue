@@ -14,10 +14,23 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
   index: ->
     @render()
 
+  #unbind: ->
+    #@studentsView.remove()
+    #@tasView.remove()
+    #@queueStatus.remove()
+    #@userButtons.remove()
+
   render: ->
+    @studentsView.bind()
     @studentsView.render()
+
+    @tasView.bind()
     @tasView.render()
+
+    @queueStatus.bind()
     @queueStatus.render()
+
+    @userButtons.bind()
     @userButtons.render()
 
   initStudentsView: ->

@@ -3,6 +3,9 @@ TaQueue.Views.Tas ||= {}
 class TaQueue.Views.Tas.IndexView extends Backbone.View
   initialize: (options) ->
     @queue = options.queue
+    #@bind()
+
+  bind: ->
     @queue.bind "change", @render, @
 
   render: ->

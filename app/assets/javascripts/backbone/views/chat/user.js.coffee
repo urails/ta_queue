@@ -4,6 +4,9 @@ class TaQueue.Views.Chat.UserView extends Backbone.View
   template: JST["backbone/templates/chat/user"]
 
   initialize: (options) ->
+    #@bind()
+
+  bind: ->
     window.queue.bind "change", @render, this
 
   events: {

@@ -19,6 +19,11 @@ class TaQueue.Routers.ChatsRouter extends Backbone.Router
       el: $("#main-right"),
       selected: @usersView.selected
 
+  #unbind: ->
+    #@usersView.unbind()
+    #@sendMessageView.unbind()
+    #@messagesView.unbind()
+
 
   routes: {
     "chat" : "showChat"
@@ -34,8 +39,14 @@ class TaQueue.Routers.ChatsRouter extends Backbone.Router
 
   showChatUser: (id) ->
     @usersView.select id
+
+    @usersView.bind()
     @usersView.render()
+
+    @messagesView.bind()
     @messagesView.render id
+
+    @sendMessageView.bind()
     @sendMessageView.render()
 
   showChat: ->

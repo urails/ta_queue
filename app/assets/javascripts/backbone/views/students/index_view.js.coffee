@@ -8,11 +8,14 @@ class TaQueue.Views.Students.IndexView extends Backbone.View
 
   initialize: (options) ->
     @students = options.students
-    window.queue.bind 'change', @render, this
+    #@bind()
     _.bindAll(this, 'updateClock', 'render', 'updateStudentViews')
     @updateClock()
     window.setInterval @updateClock, 3000
     this
+
+  bind: =>
+    window.queue.on 'change', @render, this
 
   render: ->
     $(@el).html(@template())
@@ -21,14 +24,14 @@ class TaQueue.Views.Students.IndexView extends Backbone.View
     return this
 
   updateStudentViews: ->
-    el = $(@el).find("#queue_datetime")
-    $(el).after("")
+    el = $(@el).find("#student_queue_list")
+    #$(el).after("")
     _.forEach @students.in_queue(), (student) ->
       view = new TaQueue.Views.Students.ShowView(student: student)
-      $(el).after view.render().el
-      el = view.el
+      $(el).append view.render().el
+      #el = view.el
 
   updateClock: ->
-    $(@el).find("#queue_datetime span.left").html(window.util.getDate())
-    $(@el).find("#queue_datetime span.right").html(window.util.getTime())
+    #$(@el).find("#queue_datetime span.left").html(window.util.getDate())
+    #$(@el).find("#queue_datetime span.right").html(window.util.getTime())
     

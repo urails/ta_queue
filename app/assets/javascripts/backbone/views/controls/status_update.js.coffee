@@ -6,8 +6,11 @@ class TaQueue.Views.Controls.StatusUpdateShowView extends Backbone.View
 
   initialize: (options) ->
     @queue = options.queue
-    @queue.bind "change", @render, this
+    #@bind()
     @current_template = @template_show
+
+  bind: ->
+    @queue.bind "change", @render, this
 
   events:
     "click .checking" : "swapEdit"

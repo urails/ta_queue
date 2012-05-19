@@ -15,13 +15,7 @@
     #main-right
     #main-bottom
 
-
--#= render "queues/chat"
 -#= render "queues/beta"
-
-#ask_question{ class: "fancy", style: "display:none;height:130px;width:355px;" }
-  Hello world!
-
 
 :javascript
   $(function() {
@@ -33,13 +27,20 @@
       window.current_user = window.queue.students.get(window.user_id);
 
     window.queueRouter = new TaQueue.Routers.QueuesRouter();
-    $("#queue-button").live("click", function() {
-      window.queueRouter.render();
+    window.chatsRouter = new TaQueue.Routers.ChatsRouter();
+    
+    $("#chat-button").live("click", function() {
+      window.queue.off("reset");
+      window.queue.off("change");
+      // window.queueRouter.unbind();
+      window.chatsRouter.render();
     });
 
-    window.chatsRouter = new TaQueue.Routers.ChatsRouter();
-    $("#chat-button").live("click", function() {
-      window.chatsRouter.render();
+    $("#queue-button").live("click", function() {
+      window.queue.off("reset");
+      window.queue.off("change");
+      // window.chatsRouter.unbind();
+      window.queueRouter.render();
     });
 
     Backbone.history.start();

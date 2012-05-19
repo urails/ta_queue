@@ -4,8 +4,11 @@ class TaQueue.Views.Controls.UserButtons extends Backbone.View
   template: JST["backbone/templates/controls/user_buttons"]
 
   initialize: (options) ->
-    window.queue.bind "change", @render, this
+    #@bind()
     _.bindAll(this, 'render', 'toggleActive', 'toggleFrozen')
+
+  bind: ->
+    window.queue.bind "change", @render, this
 
   id: 'control_bar'
 
