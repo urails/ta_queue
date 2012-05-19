@@ -26,15 +26,17 @@ class TaQueue.Routers.ChatsRouter extends Backbone.Router
   }
 
   render: ->
-    @usersView.render()
-    @sendMessageView.render()
-    @messagesView.render()
     @showChat()
+    #@usersView.render()
+    #@sendMessageView.render()
+    #@messagesView.render()
+    #@showChat()
 
   showChatUser: (id) ->
-    @render()
     @usersView.select id
+    @usersView.render()
     @messagesView.render id
+    @sendMessageView.render()
 
   showChat: ->
     if user = window.queue.tas.firstTa()
