@@ -218,23 +218,6 @@
   color: #593612;
 }
 
-.post_it
-{
-  background-color:#FFD873;
-  @include border-radius(3px);
-  width: 180px;
-  margin-left: 32px;  
-  padding: 10px 10px 20px 10px;
-  font-family: 'Architects Daughter';
-  color: #3744ea;
-  letter-spacing: 1px;
-}
-
-.post_it b
-{
-  font-size: 22pt;
-  padding: 0px;
-}
 
 #tas_in_queue_header
 {
@@ -256,10 +239,6 @@
   overflow: auto;
 }
 
-#tas_in_queue .post_it
-{
-  margin-bottom: 5px;
-}
 
 .ta_name
 {
