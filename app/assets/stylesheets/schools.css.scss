@@ -1,3 +1,30 @@
 // Place all the styles related to the schools controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.school-list {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  li.school {
+    h3 {
+      font-size:28px;
+    }
+  }
+
+  li.instructor {
+    margin-left:10px;
+
+    h4 {
+      font-size:24px;
+      margin:5px 0;
+    }
+  }
+
+  li.queue {
+    margin-left:30px;
+  }
+}
+
+.instructor-login {
+  float:right;
+}

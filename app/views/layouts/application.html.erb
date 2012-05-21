@@ -9,7 +9,11 @@
          %></title>
   <% # stylesheet_link_tag    "application" %>
   <%= yield :head_start %>
-  <%= yield :stylesheets %>
+  <% if content_for? :stylesheets %>
+    <%= yield :stylesheets %>
+  <% else %>
+    <%= stylesheet_link_tag "application" %>
+  <% end %>
   <%= javascript_include_tag "application" %>
   <% if params[:iframe] %>
     <%= stylesheet_link_tag "iframe" %>

@@ -6,12 +6,10 @@ class JugHandler
     jug = new Juggernaut()
     @jug_object = jug
 
-    console.log "Connecting to #{@queue_path()}..."
     jug.subscribe @queue_path() , (data) ->
       console.log "Got queue data"
       window.queue.set($.parseJSON(data))
 
-    console.log "Connecting to #{@chat_path()}..."
     jug.subscribe @chat_path(), (data) ->
       console.log data
       window.chatsRouter.receivedMessage data.from, data.message
