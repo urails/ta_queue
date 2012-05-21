@@ -12,7 +12,7 @@ class Student < QueueUser
   # is declared in QueueUser
 
   # Used for statistices
-  has_one :in_queue_duration
+  has_one :in_queue_duration, dependent: :nullify
 
   # VALIDATIONS
 
@@ -29,12 +29,14 @@ class Student < QueueUser
 
   # CALLBACKS
   
-  after_create :create_in_queue_duration
+  before_save :detect_ta_change
+  after_create :create_new_in_queue_duration
+  before_destroy :nullify_in_queue_duration
 
   def enter_queue
     if self.in_queue.nil?
       return unless check_question_if_question_based
-      iqd = self.in_queue_duration ||= InQueueDuration.new
+      iqd = self.in_queue_duration ||= self.queue.in_queue_durations.new
 
       date = DateTime.now
       self.in_queue = date
@@ -64,8 +66,8 @@ class Student < QueueUser
 
       iqd.save
 
-      # Orphan off the old duration and build a new
-      self.in_queue_duration = InQueueDuration.new
+      # Orphan off the old duration and build a new one
+      self.in_queue_duration = self.queue.in_queue_durations.new
     end
   end
 
@@ -90,6 +92,26 @@ class Student < QueueUser
         end
       end
       return true
+    end
+
+    def create_new_in_queue_duration
+      iqd = self.in_queue_duration = self.queue.in_queue_durations.new
+      iqd.save
+    end
+
+    def nullify_in_queue_duration
+      idq = self.in_queue_duration
+      idq.exit_time = DateTime.now
+    end
+
+    # If a TA starts helping a student while they're in the queue,
+    # we need to mark their InQueueDuration.was_helped = true
+    def detect_ta_change
+      if self.ta_id.present? && self.in_queue
+        idq = self.in_queue_duration
+        idq.was_helped = true   
+        idq.save
+      end
     end
 
 end

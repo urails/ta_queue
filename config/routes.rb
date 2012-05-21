@@ -1,6 +1,8 @@
 TaQueue::Application.routes.draw do
   devise_for :instructors
 
+  match "learn_more" => "pages#learn_more"
+
   namespace :instructor do
     match "new" => "instructors#new"
     match "login" => "instructors#login"

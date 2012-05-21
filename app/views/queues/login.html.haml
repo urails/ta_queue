@@ -1,59 +1,42 @@
 - content_for :title do @queue.title end
-- content_for :javascripts do javascript_include_tag "jquery", "login" end
-- content_for :stylesheets do stylesheet_link_tag "style", "login", "chalkboard" end
-%table{ :class => "chalkboard" }
-  %tr
-    %td{ :class => "tl" }
-    %td{ :class => "tm" }
-      #top_tab_bar
-        #student_tab
-          .left_tab.left
-          .content_tab.left
-            Student
-          .right_tab.left
-        #ta_tab
-          .left_tab.left
-          .content_tab.left
-            TA
-          .right_tab.left
-    %td{ :class => "tr" }
-  %tr
-    %td{ :class => "ml" }
-    %td{ :class => "mm" }
-      #login
-        #status_bar
-          #class_title.left
-            = @queue.title + " Queue"
-        #panes
-          #student_panel
-            = form_for @student, :url => build_create_student_path(@queue) do |f|
-              = f.text_field :username, :autocomplete => "off", :value => "username"
-              = f.text_field :location, :value => "location", :class => "login", :autocomplete => "off"
-              = submit_tag "Login", :class => "submit right"
-            - if flash[:errors].present? && params[:student] == "true"
-              .errors
-                Errors:
-                %ul
-                  - flash[:errors].each do |error|
-                    %li= error
-            %span{ :class => "login_hint" }
-              Simply type in your name and computer location.
-          #ta_panel
-            = form_for @ta, :url => build_create_ta_path(@queue) do |f|
-              = f.text_field :username, :autocomplete => "off"
-              = f.text_field :password, :value => "password", :autocomplete => "off"
-              = submit_tag "Login", :class => "submit right"
-            - if flash[:errors].present? && params[:ta] == "true"
-              .errors
-                Errors:
-                %ul
-                  - flash[:errors].each do |error|
-                    %li= error
-            %span{ :class => "login_hint" }
-              Log in with the password you were given.  
-    %td{ :class => "mr" }
-  %tr
-    %td{ :class => "bl" }
-    %td{ :class => "bm" }
-    %td{ :class => "br" }
+- content_for :extra_stylesheets do stylesheet_link_tag "login" end
+- content_for :extra_javascripts do javascript_include_tag "login" end
+.queue-login
+  #status_bar
+    #class_title.left
+      %h2= @queue.title
+  #top_tab_bar
+    %button#student_tab.login-tab
+      Student
+    %button#ta_tab.login-tab
+      TA
+  #panes
+    #student_panel
+      = form_for @student, :url => build_create_student_path(@queue) do |f|
+        %span{ :class => "login_hint" }
+          Simply type in your name and computer location.
+        = f.text_field :username, :autocomplete => "off", :placeholder => "Name", :class => "login"
+        = f.text_field :location, :placeholder => "Location", :class => "login", :autocomplete => "off", :class => "login"
+        %br/
+        = submit_tag "Login", :class => "submit right"
+      - if flash[:errors].present? && params[:student] == "true"
+        .errors
+          Errors:
+          %ul
+            - flash[:errors].each do |error|
+              %li= error
+    #ta_panel
+      = form_for @ta, :url => build_create_ta_path(@queue) do |f|
+        %span{ :class => "login_hint" }
+          Log in with the password you were given.  
+        = f.text_field :username, :autocomplete => "off", :placeholder => "Name", :class => "login"
+        = f.text_field :password, :placeholder => "Password", :autocomplete => "off", :class => "login"
+        %br/ 
+        = submit_tag "Login", :class => "submit right"
+      - if flash[:errors].present? && params[:ta] == "true"
+        .errors
+          Errors:
+          %ul
+            - flash[:errors].each do |error|
+              %li= error
 = render "queues/beta"

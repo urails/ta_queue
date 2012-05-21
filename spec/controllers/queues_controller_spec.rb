@@ -213,33 +213,34 @@ describe QueuesController do
       res_hash['students'].count.should == 1
     end
 
-    it "should accept the next student if the student being helped dequeues themselves" do
-      @ta.student.should be_nil
-      authenticate @student
+    # TODO: This spec should be enabled when the optional "auto-accept" feature is implemented
+    #it "should accept the next student if the student being helped dequeues themselves" do
+      #@ta.student.should be_nil
+      #authenticate @student
 
-      other_student = @queue.students.create!(Factory.attributes_for(:student))
-      @student.enter_queue!
-      other_student.enter_queue!
+      #other_student = @queue.students.create!(Factory.attributes_for(:student))
+      #@student.enter_queue!
+      #other_student.enter_queue!
 
-      @ta.accept_student! @student
+      #@ta.accept_student! @student
 
-      @ta.student.should == @student
-      @student.reload
-      @student.ta.should == @ta
+      #@ta.student.should == @student
+      #@student.reload
+      #@student.ta.should == @ta
 
-      other_student.in_queue = DateTime.now
-      other_student.save!
+      #other_student.in_queue = DateTime.now
+      #other_student.save!
 
-      get :exit_queue
+      #get :exit_queue
 
-      @ta = Ta.find(@ta.id)
+      #@ta = Ta.find(@ta.id)
 
-      @student.reload
+      #@student.reload
 
-      @student.ta.should == nil
+      #@student.ta.should == nil
 
-      @ta.student.should == other_student
-    end
+      #@ta.student.should == other_student
+    #end
 
     it "should not throw exception if the student being helped dequeues and no one else is in the queue" do
       @ta.student.should be_nil

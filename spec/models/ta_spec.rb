@@ -9,6 +9,10 @@ describe Ta do
     @student = @queue.students.create Factory.attributes_for(:student)
   end
 
+  after :each do
+    @school.destroy
+  end
+
   it "properly accepts new students, setting all the proper attributes" do
       @queue.students.destroy_all
 

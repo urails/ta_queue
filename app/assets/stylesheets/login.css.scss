@@ -1,209 +1,27 @@
-/*
- * Styles for login.html.haml
- *
- */
+.queue-login {
+  text-align:center;
+  #top_tab_bar .login-tab {
+    width:100px;
+  }
 
-@import url('http://fonts.googleapis.com/css?family=Architects+Daughter');
-@import url('http://fonts.googleapis.com/css?family=Ubuntu+Condensed|Yanone+Kaffeesatz:700');
+  #status_bar {
+  }
 
-/* Custom width for main container */
-#content
-{
-	width: 600px;
-  margin: 0px auto 0px auto;
-}
+  .login {
+    width:300px;
+  }
 
-/* Placement of chalk board */
-.chalkboard
-{
-  margin-top: 100px;
-  width: inherit;
-  -moz-box-shadow: 0px 0px 100px 0px #000;
-  box-shadow: 0px 0px 100px 0px #000;
-  -webkit-box-shadow:  0px 0px 100px 0px #000;
-}
+  input[type="submit"] {
+    margin:10px 0;
+  }
 
-/* Tab bar styles */
-#top_tab_bar
-{
-  position: relative;
-  height: 100%;
-}
+  #panes {
+    display:inline;
 
-#ta_tab, #student_tab
-{
-  position: absolute;
-  top: -22px;
-  cursor: pointer;
-}
+  }
 
-#student_tab 
-{
-  left: -5px;
-  z-index: 50;
-  color: #aa6622;
-  text-shadow: 1px 1px 1px #eeee88;
-}
-
-#ta_tab
-{
-  left: 122px;  
-  z-index: 10;
-  color: #834f1a;
-  text-shadow: 1px 1px 1px #ccaa66;
-}
-
-#ta_tab:hover
-{
-  text-shadow: 1px 1px 1px #eeee88;
-}
-
-.content_tab
-{
-  padding: 0px 5px 9px 5px; 
-  margin-top: -3px; 
-  font-family: 'Yanone Kaffeesatz', sans-serif;
-  font-size: 18pt;
-  height: 16px;
-  letter-spacing: 2px;
-}
-
-#student_tab .content_tab
-{
-  background: url('/assets/h_wood.jpg') 0px 3px repeat-x;
-}
-
-#ta_tab .content_tab
-{
-  background: url('/assets/h_wood_dark.jpg') 0px 3px repeat-x;
-}
-
-.left_tab, .right_tab
-{
-  width: 30px;
-  height: 22px;
-}
-
-#student_tab .left_tab
-{
-  background: url('/assets/htab_left.png') 0px 0px no-repeat;
-}
-
-#ta_tab .left_tab
-{
-  background: url('/assets/htab_left_dark.png') 0px 0px no-repeat;
-}
-
-#student_tab  .right_tab
-{
-  background: url('/assets/htab_right.png') 0px 0px no-repeat;
-}
-
-#ta_tab  .right_tab
-{
-  background: url('/assets/htab_right_dark.png') 0px 0px no-repeat;
-}
-
-/* Status bar styles */
-#status_bar
-{
-  position: relative;
-  width: 100%;
-  height: 49px;
-  background: #555 url('/assets/status_bar.png') top left repeat-x;
-  border-bottom: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: #111;
-  color: #efefef;
-  font-family: 'Yanone Kaffeesatz', sans-serif;
-  font-size: 20pt;
-  text-shadow: 0px 0px 3px #000;
-  letter-spacing: 2px;
-}
-
-#class_title
-{
-  margin-top: 7px;
-  margin-left: 10px;
-}
-
-/* Styles for the ta and student panels and their forms */
-#panes
-{
-  background: url('/assets/chalk_dust.jpg') top left repeat;
-  padding: 10px;
-  font-family: 'Architects Daughter';
-  color: #fff;
-  font-size: 15pt;
-  line-height: 1.4; 
-  letter-spacing: 2px;
-}
-
-#panes form
-{
-  width: 100%;
-}
-
-#panes form input
-{
-  display: block;
-  width: 200px;
-  border: none;
-  color: #666;
-  font-family: 'Architects Daughter';
-  font-size: 25pt;
-  padding: 2px 5px;
-}
-
-#panes form input:focus
-{
-  outline: none;
-}
-
-#panes form input:hover
-{
-  color: #fff;
-}
-
-#panes .submit
-{
-  width: auto;
-  cursor: pointer;
-  margin-right: 55px;
-  margin-top: -135px;
-  padding: 16px 23px;  
-}
-
-#student_username, #ta_username
-{
-  background: url('/assets/username_underline.png') 0px 37px no-repeat;
-  margin: 15px 0px 15px 85px;
-}
-
-#ta_password, #student_location
-{
-  background: url('/assets/password_underline.png') -2px 37px no-repeat;
-  margin: 15px 0px 50px 85px;
-}
-
-.submit
-{
-  background: url('/assets/login_circle.png') 10px 7px no-repeat;
-}
-
-.errors
-{
-  margin-top: -30px;
-  color: red;
-}
-
-.login_hint
-{
-  display: block;
-  margin-top: 20px;
-}
-
-#ta_panel
-{
-   display: none;
+  .login_hint {
+    display:inline-block;
+    margin: 10px 0;
+  }
 }

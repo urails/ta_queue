@@ -6,6 +6,7 @@
 #content {
   margin-top:10px;
   margin-bottom:5px;
+  width:600px;
   /*font-family:Courier New;*/
   word-wrap:break-word;
 }
@@ -47,6 +48,7 @@
 
   li { 
     margin:5px;
+    @include border-radius(2px);
   } 
 
   li.user {
@@ -73,7 +75,7 @@
   width:100%;
   background-color:$dark-background;
   color:#ddd;
-  border-radius:3px;
+  @include border-radius(2px);
 }
 
 #main-bottom {

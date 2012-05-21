@@ -16,6 +16,7 @@ class SchoolQueue
 
   belongs_to :instructor
   has_many :queue_users, dependent: :destroy
+  has_many :in_queue_durations, dependent: :nullify
   # These associations work out of the box because of inheritance! Whoop whoop!
   has_many :tas
   has_many :students

@@ -1,8 +1,7 @@
 - content_for :title do @queue.title end
 -#= content_for :javascripts do javascript_include_tag (current_user.student? ? "application-student" : "application-ta" ), "http://#{QUEUE_HOSTNAME}:8080/application.js" end
-- content_for :javascripts do javascript_include_tag "application-backbone" end
+- content_for :extra_javascripts do javascript_include_tag "application-backbone" end
 = render "queues/content_header"
-- content_for :stylesheets do stylesheet_link_tag "application" end
 
 #main-content
   #content-left
@@ -15,7 +14,7 @@
     #main-right
     #main-bottom
 
--#= render "queues/beta"
+= render "queues/bugs"
 
 :javascript
   $(function() {
@@ -25,27 +24,14 @@
     window.queue = new TaQueue.Models.Queue;
     window.queue.set(#{render_queue});
 
-    if(window.user_type === "Ta")
-      window.current_user = window.queue.tas.get(window.user_id) ;
-    if(window.user_type === "Student")
-      window.current_user = window.queue.students.get(window.user_id);
-
     window.queueRouter = new TaQueue.Routers.QueuesRouter();
     window.chatsRouter = new TaQueue.Routers.ChatsRouter();
     
     $("#chat-button").live("click", function() {
-      // window.queue.off("reset");
-      // window.queue.off("change");
-      // window.queueRouter.unbind();
-      window.events.trigger("unbind:queue")
       window.chatsRouter.navigate("chat", { trigger: true });
     });
 
     $("#queue-button").live("click", function() {
-      // window.queue.off("reset");
-      // window.queue.off("change");
-      // window.chatsRouter.unbind();
-      window.events.trigger("unbind:chat");
       window.queueRouter.navigate("", { trigger: true });
     });
 

@@ -3,6 +3,10 @@ class TaQueue.Routers.ChatsRouter extends Backbone.Router
     @initUsersView()
     @initSendMessage()
     @initMessagesView()
+    window.events.on "bind:chat", ->
+      $('#chat-button').addClass('active')
+    window.events.on "unbind:chat", ->
+      $('#chat-button').removeClass('active')
 
   initUsersView: ->
     @usersView = new TaQueue.Views.Chat.UserView

@@ -6,6 +6,10 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
     @initUserButtons()
     @initQueueStatus()
     @userButtons.centerControlBar()
+    window.events.on "bind:queue", ->
+      $('#queue-button').addClass('active')
+    window.events.on "unbind:queue", ->
+      $('#queue-button').removeClass('active')
 
   # This is the default route executed when the queue is visited
   routes:

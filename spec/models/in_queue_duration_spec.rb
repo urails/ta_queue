@@ -85,6 +85,7 @@ describe InQueueDuration do
 
       passed.should == true
     end
+
   end
 
 end

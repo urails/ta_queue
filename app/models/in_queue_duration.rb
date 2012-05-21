@@ -2,6 +2,9 @@ class InQueueDuration
   include Mongoid::Document
 
   belongs_to :student
+  belongs_to :school_queue
+
+  scope :finished, where(:enter_time.ne => nil, :exit_time.ne => nil)
 
   field :enter_time, type: DateTime
   field :exit_time, type: DateTime
@@ -19,5 +22,9 @@ class InQueueDuration
     elsif type == :hours
       return (time / 60) / 60
     end
+  end
+
+  def queue
+    school_queue
   end
 end
