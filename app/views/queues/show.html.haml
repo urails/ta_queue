@@ -19,8 +19,12 @@
 
 :javascript
   $(function() {
+    window.events = {}
+    _.extend(window.events, Backbone.Events)
+
     window.queue = new TaQueue.Models.Queue;
     window.queue.set(#{render_queue});
+
     if(window.user_type === "Ta")
       window.current_user = window.queue.tas.get(window.user_id) ;
     if(window.user_type === "Student")
@@ -33,6 +37,7 @@
       // window.queue.off("reset");
       // window.queue.off("change");
       // window.queueRouter.unbind();
+      window.events.trigger("unbind:queue")
       window.chatsRouter.navigate("chat", { trigger: true });
     });
 
@@ -40,6 +45,7 @@
       // window.queue.off("reset");
       // window.queue.off("change");
       // window.chatsRouter.unbind();
+      window.events.trigger("unbind:chat");
       window.queueRouter.navigate("", { trigger: true });
     });
 

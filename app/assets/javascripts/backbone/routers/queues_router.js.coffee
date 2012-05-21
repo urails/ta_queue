@@ -21,8 +21,9 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
     #@userButtons.remove()
 
   render: ->
-    @studentsView.bind()
-    @studentsView.el = $("#main-right")
+    window.events.trigger "bind:queue"
+    #@studentsView.el = $("#main-right")
+    #@studentsView.bind()
     @studentsView.render()
 
     @tasView.bind()
