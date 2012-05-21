@@ -17,6 +17,5 @@ class TaQueue.Views.Chat.SendMessageView extends TaQueue.View
 
   render: ->
     return null unless @active
-    console.log @el
     $(@el).html(@template())
 

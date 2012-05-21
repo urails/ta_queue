@@ -7,11 +7,9 @@ class JugHandler
     @jug_object = jug
 
     jug.subscribe @queue_path() , (data) ->
-      console.log "Got queue data"
       window.queue.set($.parseJSON(data))
 
     jug.subscribe @chat_path(), (data) ->
-      console.log data
       window.chatsRouter.receivedMessage data.from, data.message
 
   unsubscribe: ->
