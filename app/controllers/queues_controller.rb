@@ -46,7 +46,8 @@ class QueuesController < ApplicationController
 
     # If when exiting the queue, the student was being helped by a TA, automatically
     # accept the next student
-    ta.accept_next_student if should_accept_next
+    # TODO: Make this current.
+    #ta.accept_next_student if should_accept_next
 
     push_notify!
 
