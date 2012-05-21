@@ -1,14 +1,15 @@
 TaQueue.Views.Students ||= {}
 
-class TaQueue.Views.Students.IndexView extends Backbone.View
+class TaQueue.Views.Students.IndexView extends TaQueue.View
   template: JST["backbone/templates/students/index"]
 
   # This refers to the id given to the DOM element (which is by default a div)
   id: "queue_list"
 
   initialize: (options) ->
+    super(options)
     @students = options.students
-    #@bind()
+    @bind()
     _.bindAll(this, 'updateClock', 'render', 'updateStudentViews')
     @updateClock()
     window.setInterval @updateClock, 3000
@@ -17,7 +18,8 @@ class TaQueue.Views.Students.IndexView extends Backbone.View
   bind: =>
     window.queue.on 'change', @render, this
 
-  render: ->
+  render: =>
+    return null unless @active
     $(@el).html(@template())
     @updateClock()
     @updateStudentViews()

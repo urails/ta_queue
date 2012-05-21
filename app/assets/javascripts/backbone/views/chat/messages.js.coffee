@@ -1,10 +1,12 @@
 TaQueue.Views.Chat ||= {}
 
-class TaQueue.Views.Chat.MessagesView extends Backbone.View
+class TaQueue.Views.Chat.MessagesView extends TaQueue.View
   initialize: (options) ->
+    super options
     @selected = options.selected
 
   render: (id) ->
+    return null unless @active
     @selected = id
     $(@el).html(@userDiv(@selected))
     @scroll id, 0

@@ -21,36 +21,36 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
     #@userButtons.remove()
 
   render: ->
+    window.events.trigger "unbind:chat"
     window.events.trigger "bind:queue"
     #@studentsView.el = $("#main-right")
-    #@studentsView.bind()
     @studentsView.render()
 
-    @tasView.bind()
     @tasView.render()
 
-    @queueStatus.bind()
     @queueStatus.render()
 
-    @userButtons.bind()
     @userButtons.render()
 
   initStudentsView: ->
     @studentsView = new TaQueue.Views.Students.IndexView
       students: window.queue.students
       el: $("#main-right")
+      type: "queue"
     #@studentsView.render()
   
   initTasView: ->
     @tasView = new TaQueue.Views.Tas.IndexView
       queue: window.queue
       el: $("#main-left")
+      type: "queue"
     #@tasView.render()
 
   initQueueStatus: ->
     @queueStatus = new TaQueue.Views.Controls.StatusUpdateShowView
       queue: window.queue
       el: $("#queue-status")
+      type: "queue"
     #@queue_status.render()
 
   initUserButtons: ->
@@ -58,4 +58,5 @@ class TaQueue.Routers.QueuesRouter extends Backbone.Router
       queue: @queue
       current_user: window.queue.currentUser()
       el: $("#main-bottom")
+      type: "queue"
     #@user_buttons.render()

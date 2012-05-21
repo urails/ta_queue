@@ -5,6 +5,8 @@ class TaQueue.Views.Tas.ShowView extends Backbone.View
 
   className: "post-it"
 
+  tagName: "li"
+
   initialize: (options) ->
     @ta = options.ta
 

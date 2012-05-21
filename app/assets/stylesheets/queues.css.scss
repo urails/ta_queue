@@ -52,6 +52,31 @@ body {
   margin-right:3px;
 }
 
+#main-left {
+
+  li { 
+    margin:5px;
+  } 
+
+  li.user {
+    margin-left:10px;
+    min-height:10px;
+  }
+
+  li.header {
+    min-height:10px;
+    font-weight:bold;
+  }
+
+  .post-it {
+    padding:8px;
+  }
+
+}
+
+
+
+
 #main-right {
   height:320px;
   width:100%;
@@ -62,6 +87,7 @@ body {
 
 #main-bottom {
   height:40px;
+  margin-top:5px;
   /*background-color:#EEE;*/
   width:100%;
 }
@@ -76,11 +102,11 @@ body {
 }
 
 #queue-button {
-  width:49%;
+  width:48%;
 }
 
 #chat-button {
-  width:49%;
+  width:48%;
 }
 
 input[type="button"],
@@ -99,10 +125,12 @@ button {
   border:0;
   display:inline-block;
   color:#222;
+  font-size:18px;
+  font-weight:bold;
+  font-family:"Josefin Sans";
   background-color:#bbb;
   text-shadow:1px 1px #ddd;
   /*font-family:Trebuchet MS;*/
-  font-size:14px;
   /*font-weight:bold;*/
   padding:8px 15px;
   text-decoration:none;
@@ -133,30 +161,9 @@ input[type="text"] {
   margin-top:7px;
 }
 
-input[type="button"].accept,
-input[type="button"].remove {
-  font-size:12px;
-  padding:3px;
-  border:none;
-}
-
-.ta_control {
-  margin-top:4px;
-  float:right;
-  width:30%;
-}
 
 
-li.user {
-  margin-left:10px;
-}
-li.header {
-  font-weight:bold;
-}
 
-.post-it {
-  padding:3px;
-}
 
 #queue-status-update {
   text-align:center;
@@ -167,14 +174,28 @@ li.header {
 #student_queue_list  {
 
   .lefty {
-    float:left;
+    /*float:left;*/
     padding-left:5px;
     width:65%;
+    display:inline-block;
     word-wrap:break-word;
   }
-  .even.student {
+
+  .student {
     padding-top:5px;
     padding-bottom:5px;
+  }
+
+  .ta_control {
+    float:right;
+    text-align:left;
+    margin-right:5px;
+    width:30%;
+    button {
+      font-size:12px;
+      padding:5px;
+      border:none;
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 <% if (window.queue.currentUser().isTa) { %>
-    <input id="activate_queue" type="button" value="<%= queue.get('active') ? "Deactivate" : "Activate" %>" />
-    <input id="freeze_queue" type="button" value="<%= queue.get('frozen') ? "Unfreeze" : "Freeze" %>" />
+    <button id="activate_queue" value=""><%= queue.get('active') ? "Deactivate" : "Activate" %></button>
+    <button id="freeze_queue" type="button" ><%= queue.get('frozen') ? "Unfreeze" : "Freeze" %></button>
 <% } else { %>
-  <input id="enter_queue" type="button" value="<%= current_user.get('in_queue') ? "Exit Queue" : "Enter Queue" %>" />
+  <button id="enter_queue" type="button" ><%= current_user.get('in_queue') ? "Exit Queue" : "Enter Queue" %></button>
 <% } %>
-<input id="sign_out" type="button" class="sign_out_with" value="Sign Out" />
+<button id="sign_out" type="button" class="sign_out_with">Sign Out</button> 

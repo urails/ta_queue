@@ -1,10 +1,11 @@
 TaQueue.Views.Controls ||= {}
 
-class TaQueue.Views.Controls.UserButtons extends Backbone.View
+class TaQueue.Views.Controls.UserButtons extends TaQueue.View
   template: JST["backbone/templates/controls/user_buttons"]
 
   initialize: (options) ->
-    #@bind()
+    @bind()
+    super options
     _.bindAll(this, 'render', 'toggleActive', 'toggleFrozen')
 
   bind: ->
@@ -19,7 +20,7 @@ class TaQueue.Views.Controls.UserButtons extends Backbone.View
     "click #enter_queue" : "toggleEnterQueue"
 
   render: ->
-    console.log "render called"
+    return null unless @active
     $(@el).html(@template(current_user:window.queue.currentUser(), queue:window.queue))
     @centerControlBar()
     @delegateEvents()

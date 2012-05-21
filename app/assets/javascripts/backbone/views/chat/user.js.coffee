@@ -1,16 +1,17 @@
 TaQueue.Views.Chat ||= {}
 
-class TaQueue.Views.Chat.UserView extends Backbone.View
+class TaQueue.Views.Chat.UserView extends TaQueue.View
   template: JST["backbone/templates/chat/user"]
 
   initialize: (options) ->
-    #@bind()
+    super options
+    @bind()
 
   bind: ->
     window.queue.bind "change", @render, this
 
   events: {
-    "click li" : "userClicked"
+    "click li.user" : "userClicked"
   }
 
   select: (id) ->
@@ -36,10 +37,11 @@ class TaQueue.Views.Chat.UserView extends Backbone.View
     return $(@el).find("[data-id='#{id}']")
 
   userClicked: (event) ->
-    user_id = $(event.srcElement).attr("data-id")
+    user_id = $(event.target).attr("data-id")
     window.chatsRouter.navigate "chat/#{user_id}", trigger: true
 
   render: ->
+    return null unless @active
     $(@el).html("")
     @render_collection "TAs", window.queue.tas.models
     @render_collection "Students", window.queue.students.models

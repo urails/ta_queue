@@ -2,7 +2,7 @@
 -#= content_for :javascripts do javascript_include_tag (current_user.student? ? "application-student" : "application-ta" ), "http://#{QUEUE_HOSTNAME}:8080/application.js" end
 - content_for :javascripts do javascript_include_tag "application-backbone" end
 = render "queues/content_header"
-= content_for :stylesheets do stylesheet_link_tag "application" end
+- content_for :stylesheets do stylesheet_link_tag "application" end
 
 #main-content
   #content-left

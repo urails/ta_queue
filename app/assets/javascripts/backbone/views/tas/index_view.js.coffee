@@ -1,14 +1,17 @@
 TaQueue.Views.Tas ||= {}
 
-class TaQueue.Views.Tas.IndexView extends Backbone.View
+class TaQueue.Views.Tas.IndexView extends TaQueue.View
+
   initialize: (options) ->
+    super options
     @queue = options.queue
-    #@bind()
+    @bind()
 
   bind: ->
     @queue.bind "change", @render, @
 
-  render: ->
+  render: =>
+    return null unless @active
     $(@el).html("")
     @addAll(@queue.tas.models)
 
