@@ -30,7 +30,7 @@
         %span{ :class => "login_hint" }
           Log in with the password you were given.  
         = f.text_field :username, :autocomplete => "off", :placeholder => "Name", :class => "login"
-        = f.text_field :password, :placeholder => "Password", :autocomplete => "off", :class => "login"
+        = f.password_field :password, :placeholder => "Password", :autocomplete => "off", :class => "login"
         %br/ 
         = submit_tag "Login", :class => "submit right"
       - if flash[:errors].present? && params[:ta] == "true"
