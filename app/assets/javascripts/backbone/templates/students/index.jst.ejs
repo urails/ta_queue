@@ -1,8 +1,5 @@
-<% if (false) { %>
-<div id="queue_datetime">
-  <span class="left"></span>
-  <span class="right"></span>
-  <div class="clear"></div>
-</div>
+<ul id="student_queue_list">
+<% if ( students.in_queue().length == 0 ) { %>
+  <li class="center" style="margin-top:10px; color:#999;">No students in the queue.</li>
 <% } %>
-<ul id="student_queue_list"></ul>
+</ul>

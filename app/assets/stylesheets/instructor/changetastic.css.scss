@@ -1,0 +1,22 @@
+.formtastic {
+  width:400px;
+  margin: 0 auto;
+  ul {
+    list-style:none;
+  }
+
+  input[type="submit"] {
+    padding:8px;
+  }
+
+  input {
+    margin: 5px 0;
+    font-family:"Josefin Sans";
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+    padding-left:5px;
+  }
+}

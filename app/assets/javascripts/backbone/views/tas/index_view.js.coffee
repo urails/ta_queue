@@ -13,7 +13,10 @@ class TaQueue.Views.Tas.IndexView extends TaQueue.View
   render: =>
     return null unless @active
     $(@el).html("")
-    @addAll(@queue.tas.models)
+    if @queue.tas.length > 0
+      @addAll(@queue.tas.models)
+    else
+      $(@el).html("<span class=\"quiet center\" style=\"display:block; margin-top:10px;\">No TAs on duty.</span>")
 
   addAll: (tas) ->
     _.each tas, (ta) =>

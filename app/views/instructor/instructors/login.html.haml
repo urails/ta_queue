@@ -1,10 +1,9 @@
-.formz
-  %h3 What is this
-  = form_for @instructor, url: instructor_session_path, method: :post do |f|
-    = f.text_field :email, placeholder: "email address"
-    %br
-    = f.password_field :password, placeholder: "password"
-    %br
-    = f.submit "Sign in"
-    = link_to "New?", instructor_new_path
+= semantic_form_for @instructor, url: instructor_session_path, method: :post do |f|
+  %h1 Instructor Login
+  = f.text_field :email, placeholder: "email address"
+  %br
+  = f.password_field :password, placeholder: "password"
+  %br
+  = f.submit "Sign in"
+  = link_to "New?", instructor_new_path
 

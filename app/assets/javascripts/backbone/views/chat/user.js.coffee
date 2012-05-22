@@ -48,6 +48,9 @@ class TaQueue.Views.Chat.UserView extends TaQueue.View
 
   render_collection: (name, collection) ->
     $(@el).append("<li class=\"header\">#{name}</li>")
-    _.each collection, (user) =>
-      $(@el).append @template(user: user) if user.get('id') != window.queue.currentUser().get('id')
+    if collection.length == 0 || (collection.length == 1 && collection[0].get('id') == window.queue.currentUser().get('id'))
+      $(@el).append('<li class="quiet center">None logged in.</li>')
+    else
+      _.each collection, (user) =>
+        $(@el).append @template(user: user) if user.get('id') != window.queue.currentUser().get('id')
 

@@ -20,7 +20,7 @@ class TaQueue.Views.Students.IndexView extends TaQueue.View
 
   render: =>
     return null unless @active
-    $(@el).html(@template())
+    $(@el).html(@template({ @students }))
     @updateClock()
     @updateStudentViews()
     return this

@@ -52,12 +52,19 @@
   } 
 
   li.user {
-    margin-left:10px;
+    margin-left:30px;
     min-height:10px;
+
+    &:hover {
+      cursor:pointer;
+    }
+
+
   }
 
   li.header {
     min-height:10px;
+    font-size:22px;
     font-weight:bold;
   }
 
@@ -102,10 +109,13 @@
   width:48%;
 }
 
+.quiet {
+  color:#999;
+}
 
-
-
-
+.center {
+  text-align:center;
+}
 
 #queue-status-update {
   text-align:center;

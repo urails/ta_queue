@@ -26,12 +26,6 @@ class TaQueue.Routers.ChatsRouter extends Backbone.Router
       selected: @usersView.selected
       type: "chat"
 
-  #unbind: ->
-    #@usersView.unbind()
-    #@sendMessageView.unbind()
-    #@messagesView.unbind()
-
-
   routes: {
     "chat" : "showChat"
     "chat/:id" : "showChatUser"
@@ -39,20 +33,18 @@ class TaQueue.Routers.ChatsRouter extends Backbone.Router
 
   render: ->
     @showChat()
-    #@usersView.render()
-    #@sendMessageView.render()
-    #@messagesView.render()
-    #@showChat()
 
   showChatUser: (id) ->
     @usersView.select id
-    @usersView.render()
     @messagesView.render id
-    @sendMessageView.render()
 
   showChat: ->
     window.events.trigger "unbind:queue"
     window.events.trigger "bind:chat"
+
+    @usersView.render()
+    @sendMessageView.render()
+
     if user = window.queue.tas.firstTa()
       id = user.get('id')
     else if user = window.queue.students.firstStudent()

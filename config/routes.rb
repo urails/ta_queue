@@ -10,6 +10,10 @@ TaQueue::Application.routes.draw do
     resources :queues, :only => [:new, :edit, :update, :create, :show]
   end
 
+  devise_scope :instructor do
+    get "/instructors/sign_in", :to => "instructor/instructors#login"
+  end
+
   root :to => "schools#index"
 
   match "schools/:school/:instructor/:queue/login" => "queues#login", as: :queue_login
