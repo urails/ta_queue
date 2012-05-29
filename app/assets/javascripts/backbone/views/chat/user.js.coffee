@@ -52,5 +52,5 @@ class TaQueue.Views.Chat.UserView extends TaQueue.View
       $(@el).append('<li class="quiet center">None logged in.</li>')
     else
       _.each collection, (user) =>
-        $(@el).append @template(user: user) if user.get('id') != window.queue.currentUser().get('id')
+        $(@el).append @template({ user, @selected }) if user.get('id') != window.queue.currentUser().get('id')
 

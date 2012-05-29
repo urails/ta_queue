@@ -6,7 +6,8 @@ class Instructor
          :recoverable, :rememberable, :validatable
 
   attr_accessor :master_password
-  before_create :check_master_password
+  validate :check_master_password, on: :create
+  validates :username, :name, :school, :presence => true
 
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""
@@ -51,7 +52,7 @@ class Instructor
   private
     
     def check_master_password
-      if self.master_password != self.school.master_password
+      if !self.school || self.master_password != self.school.master_password
         self.errors[:master_password] = "is invalid"
       end
     end

@@ -25,4 +25,12 @@
     margin: 10px 0;
   }
 
+  input[type="text"],
+  input[type="password"],
+  input[type="email"], {
+    &.login {
+      margin-top:7px;
+    }
+  }
+
 }

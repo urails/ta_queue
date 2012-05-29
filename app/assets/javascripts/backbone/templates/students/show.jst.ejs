@@ -1,20 +1,16 @@
 <div class="lefty">
 	<p><%= student.username %> @ <%= student.location %></p>
 
-  <% if (student.ta_id && false) { %>
-    <p>Being helped by <%= window.queue.tas.get(student.ta_id) %></p>
-  <% } %>
-
   <% if( window.queue.get('is_question_based') 
          && window.queue.currentUser().isTa 
          && student.question && student.question.length > 0 ) { %>
 
-    <p>Question: <%= student.question %></p>
+    <p class="student-question">Question: <%= student.question %></p>
 
   <% } %>
 
-
 </div>
+
 <% if(window.queue.currentUser().isTa) { %>
   <div class="ta_control">
     <% if( !student.ta_id ) { %> 

@@ -1,17 +1,14 @@
 TaQueue::Application.routes.draw do
-  devise_for :instructors
+  devise_for :instructors, controllers: { sessions: 'instructors/sessions',
+                                          registrations: 'instructors/registrations' }
 
   match "learn_more" => "pages#learn_more"
 
-  namespace :instructor do
+  namespace :instructors do
     match "new" => "instructors#new"
     match "login" => "instructors#login"
-    root :to => "instructors#dashboard"
-    resources :queues, :only => [:new, :edit, :update, :create, :show]
-  end
-
-  devise_scope :instructor do
-    get "/instructors/sign_in", :to => "instructor/instructors#login"
+    root :to => "instructors#dashboard", as: :dashboard
+    resources :queues, :only => [:new, :edit, :update, :create, :show, :destroy]
   end
 
   root :to => "schools#index"

@@ -8,6 +8,8 @@
         TA Queue
     = yield :head_start
 
+    %link{:href => "http://fonts.googleapis.com/css?family=Josefin+Sans", :rel => "stylesheet", :type => "text/css"}
+
     - if content_for? :stylesheets
       = yield :stylesheets
     - else
@@ -22,8 +24,10 @@
 
     - if params[:iframe]
       = stylesheet_link_tag "iframe"
-      = csrf_meta_tags
-      = yield :head
+
+    = csrf_meta_tags
+
+    = yield :head
   %body
     #content
       = yield

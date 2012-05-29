@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %title
+    = stylesheet_link_tag "instructor/application"
+    = javascript_include_tag "instructor/application"
+    = csrf_meta_tags
+    %link{:href => "http://fonts.googleapis.com/css?family=Josefin+Sans", :rel => "stylesheet", :type => "text/css"}/
+  %body
+    #content
+      = link_to " Sign Out", destroy_instructor_session_path, style: "float:right"
+      = link_to "Account", edit_instructor_registration_path, style: "margin-right:10px;float:right;"
+      Welcome #{current_instructor.name}.
+      %br
+      %br
+      #nav
+        = render "instructors/nav"
+      #main-content
+        - if flash[:notice]
+          .notice= flash[:notice]
+        = yield
+

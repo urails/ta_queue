@@ -1,0 +1,11 @@
+= render "instructors/queues/header"
+
+URL to this queue:
+%p{ style: "font-size:16px; text-align:center;" }
+  http://nine.eng.utah.edu/schools/#{current_instructor.school.abbreviation}/#{current_instructor.username}/#{@queue.class_number}/login
+%br
+
+= semantic_form_for @queue, url: instructors_queue_path(@queue) do |f|
+  = render "form", f: f, q: @queue
+%br
+= button_to "Destroy Queue", instructors_queue_path(@queue), method: :delete, confirm: "Are you sure? This cannot be undone."

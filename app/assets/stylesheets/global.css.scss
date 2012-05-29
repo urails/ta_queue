@@ -13,6 +13,7 @@ $background-color: #EEE;
 $dark-background: #333;
 
 $button-background: #bbb;
+$off-yellow: #FFD873;
 
 body {
    /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
@@ -22,6 +23,10 @@ body {
   line-height:1.4em;
    
    /*font-weight: 300;*/
+}
+
+.quiet {
+  color:#999;
 }
 
 input[type="button"],
@@ -49,6 +54,16 @@ button:hover {
 	background-color:#efefef;
 }
 
+input[type="button"][disabled],
+input[type="submit"][disabled],
+.button[disabled],
+button[disabled] {
+  color:#777;
+  &:hover {
+    background-color:#bbb;
+  }
+}
+
 button:active,
 .button:active,
 input[type="submit"]:active {
@@ -69,18 +84,25 @@ input[type="text"],
 input[type="password"],
 input[type="email"] {
   /*width:350px;*/
-  font-size:14px;
+  font-size:18px;
   height:30px;
   padding:3px;
   @include border-radius(3px);
   border:1px solid #bbb;
   width:99%;
   /*margin:5px;*/
-  margin-top:7px;
+  /*margin-top:7px;*/
 }
 
 a {
   color:#777;
+}
+
+.notice {
+  background-color:$off-yellow;
+  padding:5px;
+  text-align:center;
+  margin:5px;
 }
 
 #content {
@@ -99,4 +121,57 @@ h3 { font-size:24px; }
 .footer {
   margin-top:20px;
   text-align:center;
+}
+
+.formtastic {
+  width:400px;
+  margin: 0 auto;
+  li {
+    list-style:none;
+  }
+
+  input {
+    margin-bottom:5px;
+  }
+
+  input[type="submit"] {
+    padding:8px;
+  }
+
+  input,
+  button, textarea {
+    /*margin: 0 0 5px 0;*/
+    font-family:"Josefin Sans";
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
+    padding-left:5px;
+  }
+
+  margin-top:20px;
+
+  .inline-hints,
+  .inline-errors {
+    font-size:0.8em;
+    color:#555;
+    margin:0;
+    padding:0;
+    line-height:20px;
+  }
+
+  .inline-errors {
+    color:red;
+  }
+
+  li.error {
+    border:1px solid red;
+    padding:10px;
+    margin: 5px 0;
+    border-radius:3px;
+    input {
+      border:1px solid red;
+    }
+  }
 }

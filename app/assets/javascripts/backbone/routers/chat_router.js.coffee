@@ -48,7 +48,7 @@ class TaQueue.Routers.ChatsRouter extends Backbone.Router
     if user = window.queue.tas.firstTa()
       id = user.get('id')
     else if user = window.queue.students.firstStudent()
-      id = window.queue.students.firstStudent().get('id')
+      id = user.get('id')
     @showChatUser id if id
   
   receivedMessage: (id, message) ->

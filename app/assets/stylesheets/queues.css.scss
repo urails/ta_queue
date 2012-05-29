@@ -51,31 +51,12 @@
     @include border-radius(2px);
   } 
 
-  li.user {
-    margin-left:30px;
-    min-height:10px;
-
-    &:hover {
-      cursor:pointer;
-    }
-
-
-  }
-
-  li.header {
-    min-height:10px;
-    font-size:22px;
-    font-weight:bold;
-  }
 
   .post-it {
     padding:8px;
   }
 
 }
-
-
-
 
 #main-right {
   height:320px;
@@ -109,10 +90,6 @@
   width:48%;
 }
 
-.quiet {
-  color:#999;
-}
-
 .center {
   text-align:center;
 }
@@ -131,11 +108,16 @@
     width:65%;
     display:inline-block;
     word-wrap:break-word;
+
+    .student-question {
+      font-size:0.8em;
+    }
   }
 
   .student {
     padding-top:5px;
     padding-bottom:5px;
+    border-bottom:1px solid #444;
   }
 
   .ta_control {

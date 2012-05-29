@@ -1,22 +1,43 @@
-.formtastic {
-  width:400px;
-  margin: 0 auto;
-  ul {
-    list-style:none;
-  }
+
+.button_to {
+  text-align:center;
 
   input[type="submit"] {
-    padding:8px;
+    background-color:#c00;
+    color:white;
+    text-shadow: 1px 1px black;
+  }
+}
+
+#nav {
+  float:left;
+  width:150px;
+  padding:5px;
+  padding-right:15px;
+}
+
+#main-content {
+  float:right;
+  width:420px;
+  border-left:1px solid #fff;
+  padding-left:8px;
+  h1 {
+    margin:0;
+    padding:0;
+    font-size:1.2em;
+    text-decoration:underline;
+    text-align:center;
   }
 
-  input {
-    margin: 5px 0;
-    font-family:"Josefin Sans";
-  }
+  .header-table {
+    margin-top:10px;
+    width:420px;
 
-  input[type="text"],
-  input[type="password"],
-  input[type="email"] {
-    padding-left:5px;
+    tr {
+      td {
+        width:50%;
+        text-align:center;
+      }
+    }
   }
 }

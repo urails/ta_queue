@@ -24,6 +24,7 @@ class SchoolQueue
   # VALIDATIONS
 
   validates :frozen, :active, :is_question_based, :inclusion => { :in => [true, false], :message => "must be a true/false value" }
+  validates :title, :class_number, :password, :presence => true
 
   # SCOPES
 

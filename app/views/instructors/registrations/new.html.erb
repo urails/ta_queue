@@ -1,0 +1,20 @@
+
+<%= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <h2>Create Instructor Account</h2>
+
+  <%= f.input :email, label: false, placeholder: "Email" %>
+
+  <%= f.input :name, label: false, placeholder: "Name", hint: "This should be a full name that will be displayed to students, e.g. John Smith" %>
+
+  <%= f.input :username, label: false, placeholder: "Username", hint: "This should be a username with no spaces or special characters, used inside a url to namespace your queues, e.g. jsmith" %>
+
+  <%= f.input :password, label: false, placeholder: "Password" %>
+
+  <%= f.input :password_confirmation, label: false, placeholder: "Password Confirmation" %>
+
+  <%= f.input :school, as: :select %>
+
+  <%= f.input :master_password, label: false, placeholder: "Master Password", hint: "This should have been given to you by person in charge of the school you instruct at." %>
+
+  <div><%= f.submit "Sign up" %></div>
+<% end %>

@@ -1,0 +1,8 @@
+Queues:
+%br
+= link_to "+ New Queue", new_instructors_queue_path
+%br
+- current_instructor.queues.each do |q|
+  = link_to q.class_number, edit_instructors_queue_path(q.class_number)
+  %br
+

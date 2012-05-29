@@ -1,5 +1,9 @@
 <ul id="student_queue_list">
-<% if ( students.in_queue().length == 0 ) { %>
-  <li class="center" style="margin-top:10px; color:#999;">No students in the queue.</li>
+<% if ( !window.queue.get('active') ) { %>
+  <li class="center quiet" style="margin-top:10px;">The queue is not active</li>
+<% } else if ( window.queue.get('frozen') ) { %>
+  <li class="center quiet" style="margin-top:10px;">The queue is frozen</li>
+<% } else if ( students.in_queue().length == 0 ) { %>
+  <li class="center quiet" style="margin-top:10px;">No students in the queue.</li>
 <% } %>
 </ul>

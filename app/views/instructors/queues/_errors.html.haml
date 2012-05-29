@@ -1,0 +1,4 @@
+- if @queue.errors.present?
+  %ul.errors
+  - @queue.errors.full_messages.each do |err|
+    %li= err

@@ -1,4 +1,6 @@
-class Instructor::InstructorsController < InstructorController
+class Instructors::InstructorsController < InstructorsController
+  before_filter :authenticate_instructor!, only: [:dashboard]
+
   def dashboard
     @instructor = current_instructor
   end
