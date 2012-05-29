@@ -59,6 +59,7 @@ FactoryGirl.define do
     email { Factory.next :email }
     password "foobar"
     password_confirmation "foobar"
+    master_password "foobar"
   end
 
   factory :school_queue do
