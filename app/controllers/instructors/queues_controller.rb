@@ -43,7 +43,7 @@ class Instructors::QueuesController < InstructorsController
   def destroy
     @queue.destroy
     flash[:notice] = "Queue deleted!"
-    redirect_to instructors_root_path
+    redirect_to instructors_dashboard_path
   end
 
   private
