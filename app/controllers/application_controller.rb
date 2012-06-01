@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  #protect_from_forgery
   helper_method :current_user, :render_queue, :build_queue_login_path
   helper_method :build_create_student_path, :build_create_ta_path
 
@@ -69,19 +69,6 @@ class ApplicationController < ActionController::Base
           f.html { redirect_to root_path }
         end
       end
-    end
-
-
-    def get_board
-      #if current_user
-        @board ||= current_user.board
-      #else
-        #if params[:controller] == "boards"
-          #@board ||= Board.where(:title => params[:id]).first
-        #else
-          #@board ||= Board.where(:title => params[:board_id]).first
-        #end
-      #end
     end
 
     # if the board is inactive, redirect

@@ -1,10 +1,11 @@
 class QueuesController < ApplicationController
-  before_filter :authenticate_student!, :only => [:enter_queue, :exit_queue]
-  before_filter :authenticate!, :only => [:show]
-  before_filter :authenticate_ta!, :only => [:update]
+  before_filter :authenticate_student!, only: [:enter_queue, :exit_queue]
+  before_filter :authenticate!, only: [:show]
+  before_filter :authenticate_ta!, only: [:update]
+  before_filter :forward_if_logged_in, only: [:login]
   before_filter :get_queue
-  before_filter :check_frozen, :only => [:enter_queue]
-  before_filter :check_active, :only => [:enter_queue, :exit_queue]
+  before_filter :check_frozen, only: [:enter_queue]
+  before_filter :check_active, only: [:enter_queue, :exit_queue]
 
   #after_filter :push_notify!, :only => [:update, :enter_queue, :exit_queue]
 
@@ -70,5 +71,11 @@ class QueuesController < ApplicationController
 
     def queue_params
       params[:queue].slice :active, :frozen, :status
+    end
+
+    def forward_if_logged_in
+      if current_user
+        redirect_to queue_path
+      end
     end
 end

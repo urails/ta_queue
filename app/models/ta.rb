@@ -3,7 +3,6 @@ class Ta < QueueUser
 
   # ATTRIBUTES
   
-  field :status, type: String, default: ""
   attr_accessor :password
 
   # ASSOCIATIONS

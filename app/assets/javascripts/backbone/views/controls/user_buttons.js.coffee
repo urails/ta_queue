@@ -53,7 +53,7 @@ class TaQueue.Views.Controls.UserButtons extends TaQueue.View
     window.queue.currentUser().destroy
       wait: true
       success: ->
-        window.location = "/"
+        window.location = window.login_url
 
   centerControlBar: ->
     parentWidth = $('#control_panel').innerWidth()

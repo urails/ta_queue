@@ -1,7 +1,7 @@
 Crom.schedule do
 
    every '30m' do
-     QueueUser.where(:alive_time.lt => DateTime.now - 30.minutes).destroy_all
+     QueueUser.where(:alive_time.lt => DateTime.now - 2.hours).destroy_all
    end
 
   # cron '* * * * *' do

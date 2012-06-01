@@ -54,7 +54,6 @@ describe TasController do
 
       res['id'].should == @ta.id.to_s
       res['username'].should == @ta.username
-      res['status'].should == @ta.status
       res['student'].should == nil
     end
 
@@ -75,7 +74,6 @@ describe TasController do
 
       res['id'].should == @ta.id.to_s
       res['username'].should == @ta.username
-      res['status'].should == @ta.status
       res['student']['id'].should == @ta.student.id.to_s
       res['student']['username'].should == @ta.student.username
       res['student']['location'].should == @ta.student.location
@@ -157,7 +155,7 @@ describe TasController do
 
       res_hash = ActiveSupport::JSON.decode(response.body)
 
-      res_hash.count.should == 4
+      res_hash.count.should == 3
     end
 
     it "successfully updates username" do
