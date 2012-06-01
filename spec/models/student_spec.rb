@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe Student do
   before :each do
-    @school = Factory.create(:school)
-    @instructor = @school.instructors.create!(Factory.attributes_for(:instructor))
-    @queue = @instructor.queues.create!(Factory.attributes_for(:school_queue))
-    @student = @queue.students.create!(Factory.attributes_for(:student))
-    @ta = @queue.tas.create!(Factory.attributes_for(:ta))
+    @school = create(:school)
+    @instructor = @school.instructors.create!(attributes_for(:instructor))
+    @queue = @instructor.queues.create!(attributes_for(:school_queue))
+    @student = @queue.students.create!(attributes_for(:student))
+    @ta = @queue.tas.create!(attributes_for(:ta))
   end
 
   after :each do

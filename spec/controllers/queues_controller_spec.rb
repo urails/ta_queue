@@ -8,11 +8,11 @@ describe QueuesController do
   end
 
   before :each do
-    @school = Factory.create(:school)
-    @instructor = @school.instructors.create!(Factory.attributes_for(:instructor))
-    @queue = @instructor.queues.create!(Factory.attributes_for(:school_queue))
-    @ta = @queue.tas.create!(Factory.attributes_for(:ta))
-    @student = @queue.students.create!(Factory.attributes_for(:student))
+    @school = create(:school)
+    @instructor = @school.instructors.create!(attributes_for(:instructor))
+    @queue = @instructor.queues.create!(attributes_for(:school_queue))
+    @ta = @queue.tas.create!(attributes_for(:ta))
+    @student = @queue.students.create!(attributes_for(:student))
     @student.in_queue = nil
     @student.save!
     set_api_headers
@@ -40,15 +40,15 @@ describe QueuesController do
     it "show" do
       authenticate @ta
       3.times do
-        @queue.tas.create!(Factory.attributes_for(:ta))
+        @queue.tas.create!(attributes_for(:ta))
       end
 
       5.times do
-        @queue.students.create!(Factory.attributes_for(:student))
+        @queue.students.create!(attributes_for(:student))
       end
 
       7.times do
-        @queue.students.create!(Factory.attributes_for(:student).merge!( :in_queue => DateTime.now ))
+        @queue.students.create!(attributes_for(:student).merge!( :in_queue => DateTime.now ))
       end
 
       ta = @queue.tas.first
@@ -88,7 +88,7 @@ describe QueuesController do
       @queue.active.should == true
 
       2.times do
-        student = @queue.students.create!(Factory.attributes_for(:student))
+        student = @queue.students.create!(attributes_for(:student))
         student.enter_queue!
       end
 
@@ -108,17 +108,17 @@ describe QueuesController do
       # Order should be 2, 5, 0, 1, 3, 4
       order = {}
 
-      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 2.seconds ))
+      stud = @queue.students.create!(attributes_for(:student).merge( :in_queue => time + 2.seconds ))
       order["2"] = stud.id.to_s
-      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 3.seconds ))
+      stud = @queue.students.create!(attributes_for(:student).merge( :in_queue => time + 3.seconds ))
       order["3"] = stud.id.to_s
-      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time ))
+      stud = @queue.students.create!(attributes_for(:student).merge( :in_queue => time ))
       order["0"] = stud.id.to_s
-      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 4.seconds ))
+      stud = @queue.students.create!(attributes_for(:student).merge( :in_queue => time + 4.seconds ))
       order["4"] = stud.id.to_s
-      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 5.seconds ))
+      stud = @queue.students.create!(attributes_for(:student).merge( :in_queue => time + 5.seconds ))
       order["5"] = stud.id.to_s
-      stud = @queue.students.create!(Factory.attributes_for(:student).merge( :in_queue => time + 1.second  ))
+      stud = @queue.students.create!(attributes_for(:student).merge( :in_queue => time + 1.second  ))
       order["1"] = stud.id.to_s
 
       authenticate stud
@@ -218,7 +218,7 @@ describe QueuesController do
       #@ta.student.should be_nil
       #authenticate @student
 
-      #other_student = @queue.students.create!(Factory.attributes_for(:student))
+      #other_student = @queue.students.create!(attributes_for(:student))
       #@student.enter_queue!
       #other_student.enter_queue!
 

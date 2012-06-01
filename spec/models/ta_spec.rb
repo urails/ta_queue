@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe Ta do
   before :each do
-    @school = Factory.create :school
-    @instructor = @school.instructors.create(Factory.attributes_for(:instructor))
-    @queue = @instructor.queues.create(Factory.attributes_for(:school_queue))
-    @ta = @queue.tas.create Factory.attributes_for(:ta)
-    @student = @queue.students.create Factory.attributes_for(:student)
+    @school = create :school
+    @instructor = @school.instructors.create(attributes_for(:instructor))
+    @queue = @instructor.queues.create(attributes_for(:school_queue))
+    @ta = @queue.tas.create attributes_for(:ta)
+    @student = @queue.students.create attributes_for(:student)
   end
 
   after :each do
@@ -17,7 +17,7 @@ describe Ta do
       @queue.students.destroy_all
 
       10.times do |i|
-        @queue.students.create!(Factory.attributes_for(:student).merge(:in_queue => DateTime.now + i.seconds))
+        @queue.students.create!(attributes_for(:student).merge(:in_queue => DateTime.now + i.seconds))
       end
 
       students = @queue.students.in_queue.to_a

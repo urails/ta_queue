@@ -7,10 +7,10 @@ describe StudentsController do
   end
 
   before :all do
-    @school = Factory.create :school
-    @instructor = @school.instructors.create!(Factory.attributes_for(:instructor))
-    @queue = @instructor.queues.create!(Factory.attributes_for(:school_queue))
-    @full_student_hash = Factory.attributes_for :student
+    @school = create :school
+    @instructor = @school.instructors.create!(attributes_for(:instructor))
+    @queue = @instructor.queues.create!(attributes_for(:school_queue))
+    @full_student_hash = attributes_for :student
     @queue_hash = { :school => @school.abbreviation, :instructor => @instructor.username, :queue => @queue.class_number }
   end
 
@@ -37,7 +37,7 @@ describe StudentsController do
     end
 
     it "receives proper validation errors" do
-      student = Factory.attributes_for :student
+      student = attributes_for :student
       student[:username] = ""
     	post :create, { :student => student }.merge(@queue_hash)
     	
@@ -49,8 +49,8 @@ describe StudentsController do
     end
     
     it "allows same username with different location" do
-      student_1 = Factory.attributes_for :student
-      student_2 = Factory.attributes_for :student
+      student_1 = attributes_for :student
+      student_2 = attributes_for :student
       student_1[:username] = "doesn't matter"
       student_2[:username] = "doesn't matter"
       
@@ -64,8 +64,8 @@ describe StudentsController do
     end
 
     it "fails with same username and location" do
-      student_1 = Factory.attributes_for :student
-      student_2 = Factory.attributes_for :student
+      student_1 = attributes_for :student
+      student_2 = attributes_for :student
       student_2[:username] = student_1[:username]
       student_2[:location] = student_1[:location]
       
@@ -112,8 +112,8 @@ describe StudentsController do
 
   describe "authentication" do
     before :each do
-      @student = @queue.students.create!(Factory.attributes_for(:student))
-      @ta = @queue.tas.create!(Factory.attributes_for(:ta))
+      @student = @queue.students.create!(attributes_for(:student))
+      @ta = @queue.tas.create!(attributes_for(:ta))
     end
 
     after :each do
@@ -121,8 +121,8 @@ describe StudentsController do
     end
 
     it "fails when student tries to change another student's state" do
-      student_1 = @queue.students.create!(Factory.attributes_for(:student))
-      student_2 = @queue.students.create!(Factory.attributes_for(:student))
+      student_1 = @queue.students.create!(attributes_for(:student))
+      student_2 = @queue.students.create!(attributes_for(:student))
       authenticate student_2
 
       put :update, { :student => { :username => "it doesn't matter cause this should fail" }, :id => student_1.id.to_s }
@@ -187,7 +187,7 @@ describe StudentsController do
       @queue.queue_users.destroy_all
 
       5.times do
-        @queue.students.create!(Factory.attributes_for(:student))
+        @queue.students.create!(attributes_for(:student))
       end
 
       authenticate @queue.students(true).first
@@ -205,8 +205,8 @@ describe StudentsController do
 
   describe "student actions" do
     before :each do
-      @full_student_hash = Factory.attributes_for :student
-      @ta = @queue.tas.create!(Factory.attributes_for :ta )
+      @full_student_hash = attributes_for :student
+      @ta = @queue.tas.create!(attributes_for :ta )
       @student = @queue.students.create!(@full_student_hash)
     end
 
@@ -240,7 +240,7 @@ describe StudentsController do
       @ta.student = @student
       @ta.save
 
-      @second_student = @queue.students.create!(Factory.attributes_for(:student))
+      @second_student = @queue.students.create!(attributes_for(:student))
 
       get :ta_accept, { :id => @second_student.id }
 
@@ -273,7 +273,7 @@ describe StudentsController do
 
   describe "Errors" do
     it "create fails creating a student with a name longer than 40 characters" do
-      stud = Factory.attributes_for :student
+      stud = attributes_for :student
       stud[:username] = "a" * 41
       post :create, { :student => stud }.merge(@queue_hash)
 
@@ -285,7 +285,7 @@ describe StudentsController do
     end
     
     it "create succeeds creating a student with a name longer than 40 characters" do
-      stud = Factory.attributes_for :student
+      stud = attributes_for :student
       stud[:username] = "a" * 40
       post :create, { :student => stud }.merge(@queue_hash)
 
@@ -293,7 +293,7 @@ describe StudentsController do
     end
 
     it "fails creating a student with a location longer than 20 characters" do
-      stud = Factory.attributes_for :student
+      stud = attributes_for :student
       stud[:location] = "a" * 21
       post :create, { :student => stud }.merge(@queue_hash)
 
@@ -306,7 +306,7 @@ describe StudentsController do
     end
 
     it "create fails if username is 'username'" do
-      stud = Factory.attributes_for :student
+      stud = attributes_for :student
       stud[:username] = "username"
 
       post :create, { :student => stud }.merge(@queue_hash)
@@ -319,7 +319,7 @@ describe StudentsController do
     end
 
     it "create fails if username is 'name'" do
-      stud = Factory.attributes_for :student
+      stud = attributes_for :student
       stud[:username] = "name"
 
       post :create, { :student => stud }.merge(@queue_hash)
@@ -332,7 +332,7 @@ describe StudentsController do
     end
 
     it "create fails if location is 'location'" do
-      stud = Factory.attributes_for :student
+      stud = attributes_for :student
       stud['location'] = "location"
 
       post :create, { :student => stud }.merge(@queue_hash)
@@ -353,7 +353,7 @@ describe StudentsController do
     end
 
     it "create succeeds creating a student with a location longer than 20 characters" do
-      stud = Factory.attributes_for :student
+      stud = attributes_for :student
       stud[:location] = "a" * 20
       post :create, { :student => stud }.merge(@queue_hash)
 

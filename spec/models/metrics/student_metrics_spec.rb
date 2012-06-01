@@ -3,10 +3,10 @@ require 'spec_helper'
 describe Student do
   before(:each) do
     InQueueDuration.destroy_all
-    @school = Factory.create :school
-    @instructor = @school.instructors.create(Factory.attributes_for(:instructor))
-    @queue = @instructor.queues.create(Factory.attributes_for(:school_queue))
-    @student = @queue.students.create( Factory.attributes_for(:student) )
+    @school = create :school
+    @instructor = @school.instructors.create(attributes_for(:instructor))
+    @queue = @instructor.queues.create(attributes_for(:school_queue))
+    @student = @queue.students.create( attributes_for(:student) )
   end
 
   after (:each) { @student.destroy }
@@ -46,7 +46,7 @@ describe Student do
     it "sets was_helped to true if TA was helping them" do
       @student.enter_queue!
 
-      ta = @queue.tas.create(Factory.attributes_for(:ta))
+      ta = @queue.tas.create(attributes_for(:ta))
       ta.accept_student! @student
       iqd = @student.in_queue_duration
       @student.exit_queue!

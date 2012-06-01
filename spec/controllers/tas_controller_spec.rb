@@ -3,9 +3,9 @@ require 'spec_helper'
 describe TasController do
   before :all do
     QueueUser.destroy_all
-    @school = Factory.create :school
-    @instructor = @school.instructors.create!(Factory.attributes_for(:instructor))
-    @queue = @instructor.queues.create!(Factory.attributes_for(:school_queue))
+    @school = create :school
+    @instructor = @school.instructors.create!(attributes_for(:instructor))
+    @queue = @instructor.queues.create!(attributes_for(:school_queue))
     @full_ta_hash = { :username => "Bob" }
     @queue_hash = { school: @school.abbreviation, instructor: @instructor.username, queue: @queue.class_number }
   end
@@ -20,7 +20,7 @@ describe TasController do
 
   describe "API" do
     before :each do
-      @ta = @queue.tas.create!(Factory.attributes_for(:ta))
+      @ta = @queue.tas.create!(attributes_for(:ta))
     end
 
     after :each do
@@ -58,7 +58,7 @@ describe TasController do
     end
 
     it "show with student" do
-      student = @queue.students.create!(Factory.attributes_for(:student))
+      student = @queue.students.create!(attributes_for(:student))
       @ta.student = student
       @ta.save
 
@@ -84,7 +84,7 @@ describe TasController do
 
   describe "Errors" do
     before :each do
-      @ta = @queue.tas.create!(Factory.attributes_for(:ta))
+      @ta = @queue.tas.create!(attributes_for(:ta))
     end
 
     it "create" do
@@ -179,7 +179,7 @@ describe TasController do
 
   describe "Authentication" do
     before :each do
-      @ta = @queue.tas.create!(Factory.attributes_for(:ta))
+      @ta = @queue.tas.create!(attributes_for(:ta))
     end
 
     after :each do

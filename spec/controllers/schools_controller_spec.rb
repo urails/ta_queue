@@ -7,15 +7,15 @@ describe SchoolsController do
 
   describe "API" do
     it "index" do
-      school = Factory.create :school
+      school = create :school
   
-      instructor1 = school.instructors.create(Factory.attributes_for(:instructor))
-      instructor2 = school.instructors.create(Factory.attributes_for(:instructor))
+      instructor1 = school.instructors.create(attributes_for(:instructor))
+      instructor2 = school.instructors.create(attributes_for(:instructor))
 
-      queue1 = instructor1.queues.create(Factory.attributes_for(:school_queue))
-      queue2 = instructor1.queues.create(Factory.attributes_for(:school_queue))
-      queue3 = instructor2.queues.create(Factory.attributes_for(:school_queue))
-      queue4 = instructor2.queues.create(Factory.attributes_for(:school_queue))
+      queue1 = instructor1.queues.create(attributes_for(:school_queue))
+      queue2 = instructor1.queues.create(attributes_for(:school_queue))
+      queue3 = instructor2.queues.create(attributes_for(:school_queue))
+      queue4 = instructor2.queues.create(attributes_for(:school_queue))
 
       get :index
 
