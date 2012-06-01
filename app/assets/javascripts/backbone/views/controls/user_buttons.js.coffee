@@ -13,6 +13,8 @@ class TaQueue.Views.Controls.UserButtons extends TaQueue.View
 
   id: 'control_bar'
 
+  disabled_enter_queue: -> $("#enter_queue.disabled")
+
   events:
     "click #activate_queue" : "toggleActive"
     "click #freeze_queue" : "toggleFrozen"
@@ -22,9 +24,27 @@ class TaQueue.Views.Controls.UserButtons extends TaQueue.View
   render: ->
     return null unless @active
     $(@el).html(@template(current_user:window.queue.currentUser(), queue:window.queue))
-    @centerControlBar()
     @delegateEvents()
-    this
+    @simpleTip()
+
+  simpleTip: ->
+    #$("#ta_auto_accept").simpletip
+      #content: "Checking this box causes the next student to be auto-accepted when the student you are helping removes themselves from the queue",
+      #fixed: true,
+      #position:"top",
+      #offset: [0, -10]
+
+    return null if @disabled_enter_queue().length == 0
+
+    content = "A TA has frozen the queue, no more students may enter at this time." if window.queue.get('frozen')
+    content = "A TA has not activated the queue." if !window.queue.get('active')
+    el = @disabled_enter_queue()
+    el.simpletip
+      content: content,
+      fixed: true,
+      position: "top",
+      offset: [0, -10]
+
 
   toggleActive: ->
     queue = window.queue
@@ -37,6 +57,7 @@ class TaQueue.Views.Controls.UserButtons extends TaQueue.View
     queue.save()
 
   toggleEnterQueue: ->
+    return null if !window.queue.get('active') || window.queue.get('frozen')
 
     text = null
     if window.queue.get('is_question_based') && !queue.currentUser().get('in_queue')
@@ -54,10 +75,3 @@ class TaQueue.Views.Controls.UserButtons extends TaQueue.View
       wait: true
       success: ->
         window.location = window.login_url
-
-  centerControlBar: ->
-    parentWidth = $('#control_panel').innerWidth()
-    childWidth = $('#control_bar').innerWidth()
-    margin = (parentWidth - childWidth)/2
-
-    $('#control_bar').css('margin-left', margin + 'px')

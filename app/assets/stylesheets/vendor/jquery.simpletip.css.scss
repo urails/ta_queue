@@ -1,0 +1,15 @@
+// Default tooltip class name: .tooltip
+.tooltip {
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 3;
+   display: none;
+   background-color:white;
+   color:black;
+   padding:10px;
+   text-shadow:0;
+   width:300px;
+   border: 1px solid #aaa;
+   @include border-radius(3px);
+}

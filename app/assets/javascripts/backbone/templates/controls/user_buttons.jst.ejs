@@ -5,8 +5,11 @@
   <% var active = window.queue.get('active');
      var in_queue = window.queue.currentUser().get('in_queue');
      var frozen = window.queue.get('frozen'); %>
-  <button id="enter_queue" type="button" <%= ( in_queue || (active && !frozen)) ? "" : 'disabled="disabled"' %> >
+  <button id="enter_queue" type="button" <%= ( in_queue || (active && !frozen)) ? "" : 'class="disabled"' %> >
     <%= current_user.get('in_queue') ? "Exit Queue" : "Enter Queue" %>
   </button>
 <% } %>
 <button id="sign_out" type="button" class="sign_out_with">Sign Out</button> 
+<% if ( false && current_user.isTa) { %>
+  <input type="checkbox" /><img src="/assets/icon_info.png" id="ta_auto_accept" width="20px" />
+<% } %>

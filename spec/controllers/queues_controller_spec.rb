@@ -142,6 +142,19 @@ describe QueuesController do
   end
 
   describe "actions" do
+    it "deactivating queue causes status to clear" do
+      authenticate @ta
+
+      @queue.status = "Foobar"
+      @queue.save
+
+      put :update, { queue: { active: false } }
+
+      @queue = SchoolQueue.find(@queue.id)
+
+      @queue.status.should == ""
+    end
+
     it "should allow student to enter queue" do
       authenticate @student
 

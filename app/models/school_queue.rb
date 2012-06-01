@@ -40,6 +40,7 @@ class SchoolQueue
     def check_active
       if !active
         self.students.update_all(:in_queue => nil)
+        self.status = ""
       end
     end
 

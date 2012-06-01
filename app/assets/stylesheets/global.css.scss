@@ -54,10 +54,10 @@ button:hover {
 	background-color:#efefef;
 }
 
-input[type="button"][disabled],
-input[type="submit"][disabled],
-.button[disabled],
-button[disabled] {
+input[type="button"].disabled,
+input[type="submit"].disabled,
+.button.disabled,
+button.disabled {
   color:#777;
   &:hover {
     background-color:#bbb;
