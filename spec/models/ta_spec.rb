@@ -44,4 +44,19 @@ describe Ta do
         new_students.count.should == 10 - i
       end
   end
+
+  it "removes student when queue becomes inactive" do
+    @ta.student = @student
+    @ta.save
+    @student.save
+
+    @ta.reload
+    @ta.student.should == @student
+
+    @queue.active = false
+    @queue.save
+
+    @ta.reload
+    @ta.student.should == nil
+  end
 end
