@@ -1,6 +1,8 @@
-<% if (window.queue.currentUser().isTa) { %>
+<% if (queue.currentUser().isTa) { %>
     <button id="activate_queue"><%= queue.get('active') ? "Deactivate" : "Activate" %></button>
-    <button id="freeze_queue" type="button" ><%= queue.get('frozen') ? "Unfreeze" : "Freeze" %></button>
+    <% if (queue.get('active')) { %>
+      <button id="freeze_queue" type="button" ><%= queue.get('frozen') ? "Unfreeze" : "Freeze" %></button>
+    <% } %>
 <% } else { %>
   <% var active = window.queue.get('active');
      var in_queue = window.queue.currentUser().get('in_queue');

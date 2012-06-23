@@ -57,7 +57,8 @@ class TaQueue.Views.Controls.UserButtons extends TaQueue.View
     queue.save()
 
   toggleEnterQueue: ->
-    return null if !window.queue.get('active') || window.queue.get('frozen')
+    return null if !window.queue.currentUser().get('in_queue') && 
+                   (!window.queue.get('active') || window.queue.get('frozen'))
 
     text = null
     if window.queue.get('is_question_based') && !queue.currentUser().get('in_queue')

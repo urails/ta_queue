@@ -41,6 +41,7 @@ class SchoolQueue
       if !active
         self.students.update_all(:in_queue => nil)
         self.tas.each { |ta| ta.student = nil ; ta.save }
+        self.frozen = false
         self.status = ""
       end
     end

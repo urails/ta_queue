@@ -7,6 +7,7 @@ class JugHandler
     @jug_object = jug
 
     jug.subscribe @queue_path() , (data) ->
+      console.log $.parseJSON(data)
       window.queue.set($.parseJSON(data))
 
     jug.subscribe @chat_path(), (data) ->

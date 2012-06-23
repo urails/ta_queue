@@ -10,6 +10,15 @@ class TaQueue.Models.Queue extends TaQueue.Model
     @students.reset @get('students')
     @tas.reset @get('tas')
 
+    if @currentUser().isTa && @students.in_queue().length > 0
+      $('body').css("background-color", "#FBFFB3")
+    else if @get('frozen')
+      $('body').css("background-color", "#94F3FF")
+    else if !@get('active')
+      $('body').css("background-color", "#FCBDA4")
+    else
+      $('body').css("background-color", "#EEE")
+
   defaults:
     frozen: null
     active: null
