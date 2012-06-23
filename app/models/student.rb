@@ -76,6 +76,17 @@ class Student < QueueUser
     save
   end
 
+  def putback!
+    self.putback
+    self.save
+  end
+
+  def putback
+    if self.in_queue
+      self.ta = nil
+    end
+  end
+
   private
 
     def check_username_location

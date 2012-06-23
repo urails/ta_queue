@@ -8,12 +8,16 @@ class TaQueue.Views.Students.ShowView extends Backbone.View
   events:
     "click .ta_control .accept" : "acceptStudent"
     "click .ta_control .remove" : "removeStudent"
+    "click .ta_control .putback" : "putbackStudent"
 
   acceptStudent: ->
     @options.student.ta_accept()
 
   removeStudent: ->
     @options.student.ta_remove()
+
+  putbackStudent: ->
+    @options.student.ta_putback()
 
   render: ->
     $(@el).html(@template(student: @options.student.attributes))

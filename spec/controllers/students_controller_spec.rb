@@ -268,6 +268,20 @@ describe StudentsController do
       @student.ta.should be_nil
     end
 
+    it "puts back a student with ta_putback" do
+      authenticate @ta
+      @student.enter_queue!
+      @ta.accept_student! @student
+
+      get :ta_putback, id: @student.id
+
+      response.code.should == "200"
+
+      @student.reload
+      @student.ta.should be_nil
+      @student.in_queue.should_not be_nil
+    end
+
 
   end
 

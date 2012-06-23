@@ -13,10 +13,13 @@
 
 <% if(window.queue.currentUser().isTa) { %>
   <div class="ta_control">
-    <% if( !student.ta_id ) { %> 
+    <% if (!student.ta_id) { %> 
       <button class="accept">Accept</button>
     <% } %>
     <button class="remove">Remove</button>
+    <% if (student.ta_id) { %>
+      <button class="putback">Put Back</button>
+    <% } %>
   </div>
 <% } %>
 

@@ -21,8 +21,9 @@ TaQueue::Application.routes.draw do
 
   resources :tas, :only => [:index, :show, :update, :destroy]
   resources :students, :only => [:index, :show, :update, :destroy] do
-    get "ta_accept", :on => :member
-    get "ta_remove", :on => :member
+    get "ta_accept", on: :member
+    get "ta_remove", on: :member
+    get "ta_putback", on: :member
   end
 
   resource :queue, :only => [:show, :update] do

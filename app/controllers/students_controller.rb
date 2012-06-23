@@ -70,6 +70,12 @@ class StudentsController < ApplicationController
     respond_with @student, :template => "students/show"
   end
 
+  def ta_putback
+    @student.putback!
+    push_notify!
+    respond_with @student, :template => "students/show"
+  end
+
 ###### PRIVATE ######
 
   private

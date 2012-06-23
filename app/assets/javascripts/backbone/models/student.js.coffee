@@ -17,6 +17,9 @@ class TaQueue.Models.Student extends TaQueue.Model
   ta_remove: ->
     @action "ta_remove"
 
+  ta_putback: ->
+    @action "ta_putback"
+
 class TaQueue.Collections.StudentsCollection extends Backbone.Collection
   model: TaQueue.Models.Student
 
