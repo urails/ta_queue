@@ -7,7 +7,8 @@ class Instructor
 
   attr_accessor :master_password
   validate :check_master_password, on: :create
-  validates :username, :name, :school, :presence => true
+  validates :username, :name, :school, presence: true
+  validates :username, uniqueness: { scope: :school_id }
 
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""
