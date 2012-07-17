@@ -28,7 +28,7 @@ class QueuesController < ApplicationController
 
   def enter_queue
     if @queue.is_question_based
-      head :unprocessable_entity, status: 422  and return if params[:question].blank?
+      render json: { errors: ["You must enter a question to enter the queue"] }, status: 422  and return if params[:question].blank?
     end
     current_user.question = params[:question]
     current_user.enter_queue!

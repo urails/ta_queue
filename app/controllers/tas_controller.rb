@@ -23,8 +23,8 @@ class TasController < ApplicationController
         f.xml  { render :xml => { token: @ta.token, id: @ta.id, username: @ta.username }, :status => :created }
       else
         f.html { flash[:errors] = @ta.errors.full_messages; redirect_to build_queue_login_path(@queue, :ta => true) }
-        f.json { render :json => @ta.errors, :status => :unprocessable_entity }
-        f.xml  { render :xml => @ta.errors, :status => :unprocessable_entity }
+        f.json { render :json => { errors: @ta.errors.full_messages }, :status => :unprocessable_entity }
+        f.xml  { render :xml =>  { errors: @ta.errors.full_messages }, :status => :unprocessable_entity }
       end
     end
   end

@@ -94,10 +94,9 @@ describe TasController do
 
       res = decode response.body
 
-      res.count.should == 2
+      res.count.should == 1
 
-      res['username'].should_not be_nil
-      res['password'].should_not be_nil
+      res['errors'].should_not be_nil
     end
 
     it "create with invalid password" do
@@ -109,7 +108,7 @@ describe TasController do
 
       res.count.should == 1
 
-      res['password'].should_not be_nil
+      res['errors'].should_not be_nil
     end
 
     it "update" do
@@ -123,7 +122,7 @@ describe TasController do
 
       res.count.should == 1
 
-      res['errors']['username'].should_not be_nil
+      res['errors'].should_not be_nil
     end
   end
 

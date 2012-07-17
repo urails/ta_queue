@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
       authorize!
       if current_user.nil?
         respond_with do |f|
-          f.json { render :json => { :error => "You are not authorized to perform this action" }, :status => :unauthorized }
+          f.json { render :json => { :errors => ["You are not authorized to perform this action"] }, :status => :unauthorized }
           f.html { redirect_to root_path }
         end
       end
@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
     def check_active
       unless @queue.active
         respond_with do |f|
-          f.json { render :json => { :error => "You cannot enter the queue when it is deactivated" }, :status => :forbidden }
+          f.json { render :json => { :errors => ["You cannot enter the queue when it is deactivated"] }, :status => :forbidden }
         end
       end
     end
@@ -84,11 +84,11 @@ class ApplicationController < ActionController::Base
       authorize!
       if options[:current] == true
         unless current_user and current_user.student? and QueueUser.where(:_id => params[:id]).first == current_user
-          send_head_with :unauthorized and return
+          render json: { errors: "You are not authorized to perform this action." }, status: :unauthorized and return
         end
       else
         unless current_user and current_user.student?
-          send_head_with :unauthorized and return
+          render json: { errors: "You are not authorized to perform this action." }, status: :unauthorized and return
         end
       end
     end
@@ -108,11 +108,11 @@ class ApplicationController < ActionController::Base
       authorize!
       if options[:current] == true
         unless current_user and current_user.ta? and QueueUser.where(:_id => params[:id]).first == current_user
-          send_head_with :unauthorized and return
+          render json: { errors: "You are not authorized to perform this action." }, status: :unauthorized and return
         end
       else
         unless current_user and current_user.ta?
-          send_head_with :unauthorized and return
+          render json: { errors: "You are not authorized to perform this action." }, status: :unauthorized and return
         end
       end
     end

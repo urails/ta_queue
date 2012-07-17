@@ -45,7 +45,7 @@ describe StudentsController do
 
       res = decode response.body
 
-      res['username'].should_not be_nil
+      res['errors'][0].include?("Username").should == true
     end
     
     it "allows same username with different location" do
@@ -79,7 +79,7 @@ describe StudentsController do
 
       res = decode response.body
 
-      res["username"].should_not be_nil
+      res["errors"].should_not be_nil
     end
     
     it "successfully reads a student" do
@@ -295,7 +295,7 @@ describe StudentsController do
 
       res = decode response.body
 
-      res['username'].should_not be_nil
+      res['errors'].should_not be_nil
     end
     
     it "create succeeds creating a student with a name longer than 40 characters" do
@@ -315,7 +315,7 @@ describe StudentsController do
 
       res = decode response.body
 
-      res['location'].should_not be_nil
+      res['errors'].should_not be_nil
 
     end
 
@@ -329,7 +329,7 @@ describe StudentsController do
 
       res = decode response.body
 
-      res['username'].should_not be_nil
+      res['errors'].should_not be_nil
     end
 
     it "create fails if username is 'name'" do
@@ -342,7 +342,7 @@ describe StudentsController do
 
       res = decode response.body
 
-      res['username'].should_not be_nil
+      res['errors'].should_not be_nil
     end
 
     it "create fails if location is 'location'" do
@@ -355,7 +355,7 @@ describe StudentsController do
 
       res = decode response.body
 
-      res['location'].should_not be_nil
+      res['errors'].should_not be_nil
     end
 
     it "fails if trying 'show' action on non-existant student" do

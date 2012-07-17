@@ -309,7 +309,7 @@ describe QueuesController do
 
       res = decode response.body
 
-      res['error'].should_not be_nil
+      res['errors'].should_not be_nil
 
       @student.reload
       @student.in_queue.should == nil

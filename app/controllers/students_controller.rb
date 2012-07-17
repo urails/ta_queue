@@ -27,8 +27,8 @@ class StudentsController < ApplicationController
       else
         flash[:errors] = @student.errors.full_messages
         f.html { redirect_to build_queue_login_path(@queue, :student => true) }
-        f.json { render :json => @student.errors, :status => :unprocessable_entity }
-        f.xml  { render :xml  => @student.errors, :status => :unprocessable_entity }
+        f.json { render :json => { errors: @student.errors.full_messages }, :status => :unprocessable_entity }
+        f.xml  { render :xml  => { errors: @student.errors.full_messages }, :status => :unprocessable_entity }
       end
     end
   end
