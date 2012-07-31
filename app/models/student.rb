@@ -11,7 +11,7 @@ class Student < QueueUser
   # NOTE: there does NOT need to be a belongs_to :school_queue because that
   # is declared in QueueUser
 
-  # Used for statistices
+  # Used for statistics
   has_one :in_queue_duration, dependent: :nullify
 
   # VALIDATIONS
@@ -91,7 +91,7 @@ class Student < QueueUser
 
     def check_username_location
       if Student.where(:username => self.username, :location => self.location).first
-        self.errors["username"] = "This username and location are already logged in. Are you already logged in somewhere else?"
+        self.errors[:base] = "This username and location are already being used. Are you already logged in somewhere else?"
       end
     end
 

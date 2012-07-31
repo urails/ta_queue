@@ -10,6 +10,13 @@
       Student
     %button#ta_tab.login-tab
       TA
+  - if flash[:errors].present?
+    %br/
+    .errors
+      Errors:
+      %ul
+        - flash[:errors].each do |error|
+          %li= error
   #panes
     #student_panel
       = form_for @student, :url => build_create_student_path(@queue) do |f|
@@ -19,12 +26,6 @@
         = f.text_field :location, :placeholder => "Location", :class => "login", :autocomplete => "off", :class => "login"
         %br/
         = submit_tag "Login", :class => "submit right"
-      - if flash[:errors].present? && params[:student] == "true"
-        .errors
-          Errors:
-          %ul
-            - flash[:errors].each do |error|
-              %li= error
     #ta_panel
       = form_for @ta, :url => build_create_ta_path(@queue) do |f|
         %span{ :class => "login_hint" }
@@ -33,10 +34,4 @@
         = f.password_field :password, :placeholder => "Password", :autocomplete => "off", :class => "login"
         %br/ 
         = submit_tag "Login", :class => "submit right"
-      - if flash[:errors].present? && params[:ta] == "true"
-        .errors
-          Errors:
-          %ul
-            - flash[:errors].each do |error|
-              %li= error
 = render "queues/beta"

@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "compass";
 
 #content {
   margin-top:10px;
@@ -59,6 +60,7 @@
   background-color:$dark-background;
   color:#ddd;
   @include border-radius(2px);
+  @include single-box-shadow(#666, $default-box-shadow-h-offset, 0px);
 }
 
 #main-bottom {
