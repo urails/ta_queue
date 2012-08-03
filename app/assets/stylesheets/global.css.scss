@@ -3,6 +3,8 @@
 $default-box-shadow-color: #bbb;
 $default-box-shadow-v-offset: 2px;
 $default-box-shadow-blur: 5px;
+$default-font: "Source Sans Pro";
+$default-font-weight: 200;
 
 /* @group Reset */
 
@@ -23,7 +25,8 @@ $off-yellow: #FFD873;
 
 body {
    /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
-  font-family: "Josefin Sans";
+  font-family: $default-font;
+  font-weight:$default-font-weight;
   font-size: 1.2em;
   background-color:$background-color;
   line-height:1.4em;
@@ -44,7 +47,8 @@ button {
   display:inline-block;
   color:#222;
   font-size:18px;
-  font-family:"Josefin Sans";
+  font-weight: 200;
+  font-family:$default-font;
   background-color:#bbb;
   text-shadow:1px 1px #ddd;
   @include single-box-shadow();
@@ -92,6 +96,8 @@ input[type="password"],
 input[type="email"] {
   /*width:350px;*/
   font-size:18px;
+  font-family: $default-font;
+  font-weight: 400;
   height:30px;
   padding:3px;
   @include border-radius(3px);
@@ -160,7 +166,7 @@ h3 { font-size:24px; }
   input,
   button, textarea {
     /*margin: 0 0 5px 0;*/
-    font-family:"Josefin Sans";
+    font-family: $default-font;
   }
 
   input[type="text"],
