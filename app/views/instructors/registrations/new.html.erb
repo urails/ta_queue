@@ -12,7 +12,7 @@
 
   <%= f.input :password_confirmation, label: false, placeholder: "Password Confirmation" %>
 
-  <%= f.input :school, as: :select %>
+  <%= f.input :school, as: :select, include_blank: false %>
 
   <%= f.input :master_password, label: false, placeholder: "Master Password", hint: "This should have been given to you by the person in charge of the school/institution you represent." %>
 

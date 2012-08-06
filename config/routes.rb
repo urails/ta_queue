@@ -3,6 +3,7 @@ TaQueue::Application.routes.draw do
                                           registrations: 'instructors/registrations' }
 
   match "learn_more" => "pages#learn_more"
+  match "support" => "pages#support"
 
   namespace :instructors do
     match "new" => "instructors#new"

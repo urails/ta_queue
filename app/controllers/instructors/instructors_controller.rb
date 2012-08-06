@@ -3,6 +3,8 @@ class Instructors::InstructorsController < InstructorsController
 
   def dashboard
     @instructor = current_instructor
+    @queue = @instructor.queues.first
+    redirect_to edit_instructors_queue_path(@queue) if @queue
   end
 
   def new

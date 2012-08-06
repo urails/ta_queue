@@ -1,6 +1,12 @@
 .instructor-login
   = link_to "Instructor Login", new_instructor_session_path
 
+%br/
+%br/
+%p{ style: "text-align:center;" } 
+  Click the link under your instructor's name that 
+  %br/
+  corresponds to your class to login to your queue.
 %ul.school-list
   - @schools.each do |school|
     %li.school
@@ -9,4 +15,4 @@
       %li.instructor
         %h4= instructor.name
       - instructor.queues.each do |queue|
-        %li.queue= link_to queue.title, build_queue_login_path(queue)
+        %li.queue= link_to "#{queue.class_number} - #{queue.title}", build_queue_login_path(queue)

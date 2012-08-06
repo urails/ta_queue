@@ -30,6 +30,7 @@ class SchoolQueue
 
   # CALLBACKS
   before_save :check_active
+  before_save :upcase_class_number
 
   def to_param
     class_number
@@ -44,6 +45,10 @@ class SchoolQueue
         self.frozen = false
         self.status = ""
       end
+    end
+
+    def upcase_class_number
+      self.class_number.upcase!
     end
 
 end
