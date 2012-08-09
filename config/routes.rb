@@ -8,6 +8,7 @@ TaQueue::Application.routes.draw do
   namespace :instructors do
     match "new" => "instructors#new"
     match "login" => "instructors#login"
+    match "instructor_root" => "instructors#dashboard"
     root :to => "instructors#dashboard", as: :dashboard
     resources :queues, :only => [:new, :edit, :update, :create, :show, :destroy]
   end

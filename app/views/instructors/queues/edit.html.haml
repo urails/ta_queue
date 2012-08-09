@@ -1,8 +1,9 @@
 = render "instructors/queues/header"
 
-URL to this queue:
-%p{ style: "font-size:16px; text-align:center;" }
-  http://nine.eng.utah.edu/schools/#{current_instructor.school.abbreviation}/#{current_instructor.username}/#{@queue.class_number}/login
+%div{ style: "text-align:center;margin:5px 0;" } URL to this queue:
+%p{ style: "font-size:16px; text-align:center; font-family:\"Courier New\", courier, monospace;" }
+  - link = "http://nine.eng.utah.edu/schools/#{current_instructor.school.abbreviation}/#{current_instructor.username}/#{@queue.class_number}/login"
+  = link_to link, link, target: "_blank"
 %br
 
 = semantic_form_for @queue, url: instructors_queue_path(@queue) do |f|

@@ -18,6 +18,15 @@
   width:150px;
   padding:5px;
   padding-right:15px;
+
+  div {
+    padding:5px;
+  }
+
+  .active_queue {
+    background-color:white;
+    width:100%;
+  }
 }
 
 #main-content {

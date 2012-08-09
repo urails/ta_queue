@@ -2,11 +2,7 @@
   <h1> Edit Account Information </h1>
   <%= devise_error_messages! %>
 
-  <%= f.input :email, label: false, placeholder: "Email" %>
-
-  <%= f.input :password, label: false, placeholder: "New Password" %>
-
-  <%= f.input :password_confirmation, label: false, placeholder: "New Password Confirmation" %>
+  <%= render "instructors/registrations/form", f: f %>
 
   <%= f.input :current_password, label: false, placeholder: "Current Password" %>
 

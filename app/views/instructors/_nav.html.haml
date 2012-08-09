@@ -1,8 +1,12 @@
 Queues:
 %br
-= link_to "+ New Queue", new_instructors_queue_path
-%br
+- if current_page?(new_instructors_queue_path)
+  .active_queue= "+ New Queue"
+- else
+  %div= link_to "+ New Queue", new_instructors_queue_path
 - current_instructor.queues.each do |q|
-  = link_to q.class_number, edit_instructors_queue_path(q.class_number)
-  %br
+  - if current_page?(edit_instructors_queue_path(q.class_number))
+    .active_queue= q.class_number
+  - else
+    %div= link_to q.class_number, edit_instructors_queue_path(q.class_number)
 

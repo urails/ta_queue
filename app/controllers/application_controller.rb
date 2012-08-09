@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
     instructors_dashboard_path
   end
 
-
   private
     def build_queue_login_path queue, options={}
       queue_login_path queue.instructor.school, queue.instructor, queue, options
