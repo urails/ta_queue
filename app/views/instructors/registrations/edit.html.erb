@@ -9,4 +9,7 @@
   <%= f.submit "Update" %>
   <%= link_to "Back", instructors_dashboard_path %>
 <% end %>
-
+<br />
+<div class="warning">
+<%= button_to "Delete Account", instructor_registration_path, method: :delete, confirm: "Are you sure? This cannot be undone." %>
+</div>

@@ -200,3 +200,13 @@ h3 { font-size:24px; }
     }
   }
 }
+
+.warning {
+  text-align:center;
+  button,
+  input[type='submit'] {
+    background-color: #c00;
+    color: white;
+    text-shadow: 1px 1px black;
+  }
+}
