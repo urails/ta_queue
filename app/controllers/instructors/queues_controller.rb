@@ -50,7 +50,7 @@ class Instructors::QueuesController < InstructorsController
 
     def get_queue
       @queue = current_instructor.queues.where(class_number: params[:id]).first
-      redirect_to instructor_root_path unless @queue
+      redirect_to instructors_dashboard_path unless @queue
     end
 
 end

@@ -25,6 +25,8 @@ class SchoolQueue
 
   validates :frozen, :active, :is_question_based, :inclusion => { :in => [true, false], :message => "must be a true/false value" }
   validates :title, :class_number, :password, :presence => true
+  validates :class_number, format: { with: /^\w*$/, message: "Must contain only letters, numbers, and underscores." }
+  validates :class_number, uniqueness: { scope: :instructor_id }
 
   # SCOPES
 
