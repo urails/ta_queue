@@ -9,6 +9,10 @@ class Instructor
   validate :check_master_password, on: :create
   validates :username, :name, :school, presence: true
   validates :username, uniqueness: { scope: :school_id }
+  validates :username, format: { 
+                         with: /^\w*$/, 
+                         message: "Must contain only letters, numbers, and underscores."
+                       }
 
   ## Database authenticatable
   field :email,              :type => String, :null => false, :default => ""

@@ -1,3 +1,5 @@
+@import "compass";
+
 .button_to {
   text-align:center;
 
@@ -24,8 +26,11 @@
   }
 
   .active_queue {
-    background-color:white;
+    background-color:#999;
+    color:#eee;
     width:100%;
+    @include border-radius(3px);
+    @include single-text-shadow(0, 1px, 0, false, black);
   }
 }
 
