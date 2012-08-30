@@ -1,6 +1,9 @@
 
 <%= semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <h2>Instructor Sign in</h2>
+  <% if flash[:alert] %>
+    <div style="color:#cc0000;font-weight:bold;margin-bottom:5px;" ><%= flash[:alert] %></div>
+  <% end %>
   <%= f.input :email, label: false, placeholder: "Email" %>
   <%= f.input :password, label: false, placeholder: "Password" %>
   <div><%= f.submit "Sign in" %> <%= link_to "Create Account", new_instructor_registration_path, style: "margin-left:9px;" %></div>

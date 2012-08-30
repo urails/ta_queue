@@ -8,5 +8,5 @@
 
   <%= f.input :master_password, label: false, placeholder: "Master Password", hint: "This should have been given to you by the person in charge of the school/institution you represent." %>
 
-  <div><%= f.submit "Sign up" %></div>
+  <div><%= f.submit "Sign up" %><%= link_to "Sign In Instead", new_instructor_session_path, style: "margin-left:9px;" %></div>
 <% end %>

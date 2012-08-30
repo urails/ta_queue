@@ -1,8 +1,7 @@
-= f.input :title
+= f.input :title, hint: "e.g. Introduction to Java", label: "Class Title"
 = f.input :class_number, hint: "The class number is used in the url to this queue, e.g. CS1410. Links to this queue should be updated accordingly if changed."
-= f.input :is_question_based, as: :boolean, required: false, hint: "This requires students to enter a question before they enter the queue."
+= f.input :is_question_based, as: :boolean, required: false, hint: "Checking this box causes a text field to pop up when students attempt to enter the queue, requiring them to enter a question first. Only TAs can see the question they enter."
 %li{ class: "string input stringish" }
   = f.label "Password*", class: "label"
   = f.text_field :password, value: q.password
-= f.actions
-
+= f.actions 
