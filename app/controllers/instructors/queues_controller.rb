@@ -3,7 +3,6 @@ class Instructors::QueuesController < InstructorsController
   before_filter :get_queue, only: [:edit, :update, :destroy, :show]
 
   def show
-    @queue = SchoolQueue.where(class_number: params[:id]).first
   end
   
   def index
@@ -26,11 +25,9 @@ class Instructors::QueuesController < InstructorsController
   end
 
   def edit
-    @queue = SchoolQueue.where(class_number: params[:id]).first
   end
 
   def update
-    @queue = SchoolQueue.where(class_number: params[:id]).first
     @queue.update_attributes(params[:school_queue])
     if @queue.save
       flash[:notice] = "Updated!"
