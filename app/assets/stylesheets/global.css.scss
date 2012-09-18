@@ -24,14 +24,11 @@ $button-background: #bbb;
 $off-yellow: #FFD873;
 
 body {
-   /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
   font-family: $default-font;
   font-weight:$default-font-weight;
   font-size: 1.2em;
   background-color:$background-color;
   line-height:1.4em;
-   
-   /*font-weight: 300;*/
 }
 
 .quiet {

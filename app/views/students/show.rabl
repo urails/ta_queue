@@ -2,7 +2,8 @@ object @student
 
 attribute :_id => :id 
 node(:username) { |stud| escp(stud.username) }
-attribute :location, :question
+node(:location) { |stud| escp(stud.location) }
+attribute :question
 
 node(:in_queue) { |stud| !!stud.in_queue }
 
