@@ -1,4 +1,6 @@
 language: ruby
+services:
+  - mongodb
 rvm:
   - 1.9.2
   - 1.9.3
@@ -6,5 +8,4 @@ notifications:
   email:
     recipients:
       - parkerwightman@gmail.com
-      - itysen@gmail.com
 script: bundle exec rspec spec
