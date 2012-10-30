@@ -112,7 +112,7 @@ class Student < QueueUser
 
     def nullify_in_queue_duration
       idq = self.in_queue_duration
-      idq.exit_time = DateTime.now
+      idq.exit_time = DateTime.now if idq
     end
 
     # If a TA starts helping a student while they're in the queue,
