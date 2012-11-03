@@ -7,6 +7,7 @@ describe SchoolsController do
 
   describe "API" do
     it "index" do
+      School.destroy_all
       school = create :school
   
       instructor1 = school.instructors.create(attributes_for(:instructor))
