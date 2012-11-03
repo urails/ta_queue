@@ -1,6 +1,5 @@
 source 'http://rubygems.org'
 
-
 gem 'rails', '3.2.7'
 gem 'bourbon'
 gem 'thin'

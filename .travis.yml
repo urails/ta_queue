@@ -1,6 +1,7 @@
 language: ruby
 services:
   - mongodb
+  - redis
 rvm:
   - 1.9.2
   - 1.9.3
