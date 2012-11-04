@@ -14,5 +14,6 @@
     - school.instructors.each do |instructor|
       %li.instructor
         %h4= instructor.name
-      - instructor.queues.each do |queue|
-        %li.queue= link_to "#{queue.class_number} - #{queue.title}", build_queue_login_path(queue)
+        %ul
+          - instructor.queues.each do |queue|
+            %li.queue= link_to "#{queue.class_number} - #{queue.title}", build_queue_login_path(queue)
