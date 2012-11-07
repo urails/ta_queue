@@ -1,7 +1,0 @@
-%tr
-  %td= link_to board.title, board_login_path(board)
-  %td= board.active ? "Active" : "Inactive"
-  %td= board.students.in_queue.count
-  %td= board.students.count
-  %td= board.tas.count
-  -# %td= link_to board.remove, board_remove_path(board)
