@@ -201,6 +201,41 @@ describe StudentsController do
       res.count.should == @queue.students.count
     end
 
+    it "sends back the question if a TA is logged in" do
+      ta = @queue.tas.create(attributes_for(:ta))
+      student = @queue.students.create(attributes_for(:student))
+      question = "Hello world, man"
+      student.question = question
+      student.save!
+
+      authenticate ta
+
+      get :show, :id => student.id
+
+      res = decode response.body
+
+      res["question"].should == question
+    end
+
+    it "doesn't send back the question if a student is logged in" do
+      ta = @queue.tas.create(attributes_for(:ta))
+      student = @queue.students.create(attributes_for(:student))
+      student2 = @queue.students.create(attributes_for(:student))
+      question = "Hello world, man"
+      student.question = question
+      student.save!
+
+      # Students can see their own question, so we need to test this with
+      # another student making the request.
+      authenticate student2
+
+      get :show, :id => student.id
+
+      res = decode response.body
+
+      res["question"].should be_nil
+    end
+
   end
 
   describe "student actions" do
