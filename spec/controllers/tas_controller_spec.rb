@@ -146,6 +146,27 @@ describe TasController do
       response.code.should == "422"
     end
 
+    it "fails to create a ta with same username in same queue" do
+      ta_hash = attributes_for(:ta)
+      @queue.tas.create!(ta_hash)
+      post :create, { :ta => ta_hash, :password => @queue.password }.merge(@queue_hash)
+
+      response.code.should == "422"
+    end
+
+    it "successfully creates a ta with same username in different queue" do
+      queue2 = @instructor.queues.create!(attributes_for(:school_queue))
+
+      ta_hash = attributes_for(:ta)
+
+      queue2.tas.create!(@full_ta_hash.merge({ password: queue2.password }) )
+
+      post :create, { :ta => ta_hash, :password => @queue.password }.merge(@queue_hash)
+
+      response.code.should == "201"
+    end
+
+
     it "successfully reads a ta" do
       authenticate QueueUser.where(:_id => @full_ta_hash[:id]).first
       get :show, { :id => @full_ta_hash[:id] }

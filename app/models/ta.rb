@@ -14,7 +14,7 @@ class Ta < QueueUser
   # VALIDATIONS
 
   validate :check_password, :on => :create
-  validates :username, :uniqueness => true
+  validates :username, uniqueness: { scope: :school_queue_id }
 
   # SCOPES
   

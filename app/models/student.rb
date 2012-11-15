@@ -90,7 +90,7 @@ class Student < QueueUser
   private
 
     def check_username_location
-      if Student.where(:username => self.username, :location => self.location).first
+      if Student.where(:username => self.username, :location => self.location, :school_queue_id => self.queue.id).first
         self.errors[:base] = "This username and location are already being used. Are you already logged in somewhere else?"
       end
     end

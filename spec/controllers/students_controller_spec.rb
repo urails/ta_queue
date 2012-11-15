@@ -63,7 +63,27 @@ describe StudentsController do
       response.code.should == "201"
     end
 
-    it "fails with same username and location" do
+    it "succeeds with same username and location in different queues" do
+      student_1 = attributes_for :student
+      student_2 = attributes_for :student
+      student_2[:username] = student_1[:username]
+      student_2[:location] = student_1[:location]
+
+      queue2 = @instructor.queues.create!(attributes_for(:school_queue))
+      queue2.students.create!(student_2)
+
+      queue_hash2 = { 
+        :school => @school.abbreviation, 
+        :instructor => @instructor.username, 
+        :queue => queue2.class_number 
+      }
+      
+      post :create, { :student => student_1 }.merge(@queue_hash)
+
+      response.code.should == "201"
+    end
+
+    it "fails with same username and location in same queue" do
       student_1 = attributes_for :student
       student_2 = attributes_for :student
       student_2[:username] = student_1[:username]
