@@ -4,6 +4,7 @@ class Ta < QueueUser
   # ATTRIBUTES
   
   attr_accessor :password
+  field :login_count, type: Integer, default: 1
 
   # ASSOCIATIONS
   
@@ -13,7 +14,7 @@ class Ta < QueueUser
 
   # VALIDATIONS
 
-  validate :check_password, :on => :create
+  validate :check_password!, :on => :create
   validates :username, uniqueness: { scope: :school_queue_id }
 
   # SCOPES
@@ -42,11 +43,13 @@ class Ta < QueueUser
     end
   end
 
-  private
-
-    def check_password
-      if self.password != self.queue.password
-        self.errors["password"] = "is invalid"
-      end
+  def check_password!
+    if self.password != self.queue.password
+      self.errors["password"] = "is invalid"
+      return false
+    else
+      return true
     end
+  end
+
 end

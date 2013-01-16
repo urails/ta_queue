@@ -12,9 +12,15 @@ class TasController < ApplicationController
   end
 
   def create 
-    @ta = @queue.tas.new(params[:ta])
+    @ta = @queue.tas.where(username: params[:ta][:username]).first
+    if @ta
+      @ta.login_count += 1
+    else
+      @ta = @queue.tas.new(params[:ta])
+    end
+    @ta.update_attributes(params[:ta])
     respond_with do |f|
-      if @ta.save
+      if @ta.check_password! && @ta.save
         sign_in_user @ta
         @current_user = @ta
         push_notify!
@@ -38,9 +44,16 @@ class TasController < ApplicationController
   end
 
   def destroy
-    @ta.destroy
+    if @ta.login_count > 1
+      @ta.login_count -= 1
+      @ta.save
+    else
+      @ta.destroy
+    end
+
     sign_out_user @ta
     push_notify!
+
     respond_with do |f|
       f.html { redirect_to build_queue_login_path @ta.queue }
     end

@@ -139,19 +139,41 @@ describe TasController do
       @full_ta_hash.merge!({ :id => res_hash['id'], :token => res_hash['token']})
     end
 
+    it "increments login_count on successful login" do
+      @queue.tas.destroy_all
+      ta = @queue.tas.create!(@full_ta_hash.merge(password: @queue.password))
+      ta.login_count.should == 1
+
+      post :create, { :ta => @full_ta_hash.merge({ :password => @queue.password }) }.merge(@queue_hash)
+
+      response.code.should == "201"
+
+      ta = Ta.find(ta.id)
+      ta.login_count.should == 2
+    end
 
     it "fails to create a ta without proper password" do
-      post :create, { :ta => @full_ta_hash, :password => "wrong_password" }.merge(@queue_hash)
+      @queue.tas.destroy_all
+      post :create, { :ta => @full_ta_hash.merge({ :password => "wrong_password" }) }.merge(@queue_hash)
 
       response.code.should == "422"
     end
 
-    it "fails to create a ta with same username in same queue" do
+    it "fails to create TA without proper password even if they are already logged in elsewhere" do
       ta_hash = attributes_for(:ta)
+      @queue.tas.destroy_all
       @queue.tas.create!(ta_hash)
-      post :create, { :ta => ta_hash, :password => @queue.password }.merge(@queue_hash)
+      post :create, { :ta => ta_hash.merge({ :password => "wrong_password" }) }.merge(@queue_hash)
 
       response.code.should == "422"
+    end
+
+    it "logs in a TA with same username in same queue" do
+      ta_hash = attributes_for(:ta)
+      @queue.tas.create!(ta_hash)
+      post :create, { :ta => ta_hash.merge({ :password => @queue.password }) }.merge(@queue_hash)
+
+      response.code.should == "201"
     end
 
     it "successfully creates a ta with same username in different queue" do
@@ -161,7 +183,7 @@ describe TasController do
 
       queue2.tas.create!(@full_ta_hash.merge({ password: queue2.password }) )
 
-      post :create, { :ta => ta_hash, :password => @queue.password }.merge(@queue_hash)
+      post :create, { :ta => ta_hash.merge({ :password => @queue.password }) }.merge(@queue_hash)
 
       response.code.should == "201"
     end
@@ -187,13 +209,31 @@ describe TasController do
       response.code.should == "204"
     end
 
-    it "successfully destroys the student" do
+    it "successfully destroys the TA if only one is logged in" do
+      @queue.tas.destroy_all
+      @queue.tas.create!(@full_ta_hash.merge(password: @queue.password))
       authenticate QueueUser.where(:_id => @full_ta_hash[:id]).first
       delete :destroy, { :id => @full_ta_hash[:id] }
 
       response.code.should == "204"
 
       QueueUser.where(:_id => @full_ta_hash[:id]).first.should be_nil
+    end
+
+    it "only decrements the login_count of the TA if more than one logged in" do
+      @queue.tas.destroy_all
+      ta = @queue.tas.create!(@full_ta_hash.merge(password: @queue.password))
+      ta.login_count = 2
+      ta.save!
+      authenticate ta
+
+      delete :destroy, { :id => @full_ta_hash[:id] }
+
+      response.code.should == "204"
+
+      QueueUser.where(:_id => @full_ta_hash[:id]).first.should_not be_nil
+      ta = Ta.find(ta.id)
+      ta.login_count.should == 1
     end
   end
 
