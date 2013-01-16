@@ -152,15 +152,11 @@ class ApplicationController < ActionController::Base
     end
 
     def signed_in_id
-      if request.format == "html"
-        cookies.signed.delete @@user_id_cookie_name
-      end
+      cookies.signed.delete @@user_id_cookie_name
     end
 
     def sign_out_user user
-      if request.format == "html"
-        cookies.permanent.signed[@@user_id_cookie_name] = nil
-      end
+      cookies.permanent.signed[@@user_id_cookie_name] = nil
     end
 
     def get_queue
