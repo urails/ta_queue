@@ -4,7 +4,6 @@ class iOSJugHandler
     jug = new Juggernaut
 
     jug.subscribe "queue/#{window.queue_id}", (data) ->
-      console.log data
       window.location = data
 
 $ ->
