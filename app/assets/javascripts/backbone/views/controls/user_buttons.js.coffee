@@ -71,7 +71,7 @@ class TaQueue.Views.Controls.UserButtons extends TaQueue.View
       queue.enter_queue(text)
 
   signOut: ->
-    window.jug_handler.unsubscribe()
+    window.faye_handler.unsubscribe()
     window.queue.currentUser().destroy
       wait: true
       success: ->

@@ -1,24 +1,23 @@
-class JugHandler
-  queue_path: -> "queue/#{window.queue_id}"
-  chat_path: -> "chats/#{window.user_token}"
+class FayeHandler
+  queue_path: -> "/queue/#{window.queue_id}"
+  chat_path: -> "/chats/#{window.user_token}"
 
-  start_juggernaut: () ->
-    jug = new Juggernaut()
-    @jug_object = jug
+  start_faye: () ->
+    @faye = new Faye.Client('http://localhost:9292/faye');
 
-    jug.subscribe @queue_path() , (data) ->
+    @faye.subscribe @queue_path() , (data) ->
       window.queue.set($.parseJSON(data))
 
-    jug.subscribe @chat_path(), (data) ->
+    @faye.subscribe @chat_path(), (data) ->
       window.chatsRouter.receivedMessage data.from, data.message
 
   unsubscribe: ->
-    @jug_object.unsubscribe @queue_path()
-    @jug_object.unsubscribe @chat_path()
+    @faye.unsubscribe @queue_path()
+    @faye.unsubscribe @chat_path()
     
     
 
 $(document).ready () ->
-  if window.jug_handler == undefined
-    window.jug_handler = new JugHandler()
-    window.jug_handler.start_juggernaut()
+  if window.faye_handler == undefined
+    window.faye_handler = new FayeHandler()
+    window.faye_handler.start_faye()

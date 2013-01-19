@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.7'
 gem 'bourbon'
 gem 'thin'
-gem 'juggernaut'
 gem 'quiet_assets'
 gem 'rails-backbone'
 gem 'foreman'
@@ -19,6 +18,7 @@ gem 'therubyracer'
 gem 'crom', :git => 'http://github.com/kgiszczak/crom'
 gem 'newrelic_rpm', :group => :production
 gem 'formtastic'
+gem 'faye'
 
 gem 'rabl'
 

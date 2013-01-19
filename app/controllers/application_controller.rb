@@ -31,8 +31,14 @@ class ApplicationController < ActionController::Base
 
     def push_notify!
       if Rails.env != "test"
-        Juggernaut.publish("queue/#{current_user.queue.id.to_s}", render_queue)
+        broadcast "/queue/#{current_user.queue.id.to_s}", render_queue
       end
+    end
+
+    def broadcast channel, message
+      message = { :channel => channel, :data => message }
+      uri = URI.parse("http://localhost:9292/faye")
+      Net::HTTP.post_form(uri, :message => message.to_json)
     end
 
     def current_user

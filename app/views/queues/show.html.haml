@@ -1,5 +1,5 @@
 - content_for :title do @queue.title end
-- content_for :extra_javascripts do javascript_include_tag "application-backbone" end
+- content_for :extra_javascripts do javascript_include_tag "application-backbone", "http://localhost:9292/faye.js" end
 
 = render "queues/content_header"
 
