@@ -1,14 +1,14 @@
 - content_for :head do
   :javascript
     window.queue_hostname = "#{QUEUE_HOSTNAME}";
-    window.login_url = "#{build_queue_login_path(@queue)}"
-    window.queue_title = "#{@queue.class_number}"
-    window.queue_id = "#{@queue.id.to_s}"
-    window.user_id = "#{current_user.id}"
-    window.user_token = "#{current_user.token}"
+    window.login_url = "#{build_queue_login_path(@queue)}";
+    window.queue_title = "#{@queue.class_number}";
+    window.queue_id = "#{@queue.id.to_s}";
+    window.user_id = "#{current_user.id}";
+    window.user_token = "#{current_user.token}";
   - if current_user.ta?
     :javascript
-      window.user_type = "Ta"
+      window.user_type = "Ta";
   - else
     :javascript
-      window.user_type = "Student"
+      window.user_type = "Student";
