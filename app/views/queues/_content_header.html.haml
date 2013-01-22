@@ -1,5 +1,6 @@
 - content_for :head do
   :javascript
+    window.queue_hostname = "#{QUEUE_HOSTNAME}";
     window.login_url = "#{build_queue_login_path(@queue)}"
     window.queue_title = "#{@queue.class_number}"
     window.queue_id = "#{@queue.id.to_s}"

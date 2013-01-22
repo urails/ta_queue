@@ -3,7 +3,8 @@ class FayeHandler
   chat_path: -> "/chats/#{window.user_token}"
 
   start_faye: () ->
-    @faye = new Faye.Client('http://localhost:9292/faye');
+    host = "http://#{window.queue_hostname}:9292/faye"
+    @faye = new Faye.Client(host)
 
     @faye.subscribe @queue_path() , (data) ->
       window.queue.set($.parseJSON(data))

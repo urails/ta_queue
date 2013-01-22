@@ -36,6 +36,7 @@ describe SchoolsController do
           instructor["queues"].count.should == 2
           instructor["queues"].each do |queue|
             queue["active"].should_not be_nil
+            queue["id"].should_not be_nil
             queue["frozen"].should_not be_nil
             queue["class_number"].should_not be_nil
             queue["title"].should_not be_nil

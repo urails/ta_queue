@@ -152,9 +152,7 @@ class ApplicationController < ActionController::Base
     end
 
     def sign_in_user user
-      if request.format == "html"
-        cookies.permanent.signed[@@user_id_cookie_name] = user.id
-      end
+      cookies.permanent.signed[@@user_id_cookie_name] = user.id
     end
 
     def signed_in_id

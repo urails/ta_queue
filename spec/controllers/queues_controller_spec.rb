@@ -63,7 +63,7 @@ describe QueuesController do
       res_hash = decode response.body
 
 
-      res_hash.count.should == 6
+      res_hash.count.should == 7
 
       res_hash['frozen'].should_not be_nil
       res_hash['active'].should_not be_nil
@@ -71,6 +71,7 @@ describe QueuesController do
       res_hash['students'].should_not be_nil
       res_hash['status'].should_not be_nil
       res_hash['tas'].should_not be_nil
+      res_hash['id'].should == @queue.id.to_s
 
       # The 12 created above, and one in the before :each block
       res_hash['students'].count.should == 13
