@@ -15,8 +15,6 @@ class FayeHandler
   unsubscribe: ->
     @faye.unsubscribe @queue_path()
     @faye.unsubscribe @chat_path()
-    
-    
 
 $(document).ready () ->
   if window.faye_handler == undefined
