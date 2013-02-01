@@ -3,6 +3,8 @@
 - content_for :extra_javascripts do javascript_include_tag "login" end
 .queue-login
   #status_bar
+    #back_link
+      = link_to "Back to Queue List", root_path
     #class_title.left
       %h2= @queue.title
   #top_tab_bar
