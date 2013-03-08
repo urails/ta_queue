@@ -26,6 +26,9 @@ class TaQueue.Collections.StudentsCollection extends Backbone.Collection
   in_queue: ->
     @where in_queue: true
 
+  in_queue_not_being_helped: ->
+    @where in_queue: true, ta_id: null
+
   # This returns the first Student which is NOT the current_user
   firstStudent: () ->
     cu = window.queue.currentUser()
