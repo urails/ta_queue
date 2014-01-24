@@ -139,19 +139,6 @@ describe TasController do
       @full_ta_hash.merge!({ :id => res_hash['id'], :token => res_hash['token']})
     end
 
-    it "increments login_count on successful login" do
-      @queue.tas.destroy_all
-      ta = @queue.tas.create!(@full_ta_hash.merge(password: @queue.password))
-      ta.login_count.should == 1
-
-      post :create, { :ta => @full_ta_hash.merge({ :password => @queue.password }) }.merge(@queue_hash)
-
-      response.code.should == "201"
-
-      ta = Ta.find(ta.id)
-      ta.login_count.should == 2
-    end
-
     it "fails to create a ta without proper password" do
       @queue.tas.destroy_all
       post :create, { :ta => @full_ta_hash.merge({ :password => "wrong_password" }) }.merge(@queue_hash)
@@ -219,22 +206,6 @@ describe TasController do
 
       QueueUser.where(:_id => @full_ta_hash[:id]).first.should be_nil
     end
-
-    it "only decrements the login_count of the TA if more than one logged in" do
-      @queue.tas.destroy_all
-      ta = @queue.tas.create!(@full_ta_hash.merge(password: @queue.password))
-      ta.login_count = 2
-      ta.save!
-      authenticate ta
-
-      delete :destroy, { :id => @full_ta_hash[:id] }
-
-      response.code.should == "204"
-
-      QueueUser.where(:_id => @full_ta_hash[:id]).first.should_not be_nil
-      ta = Ta.find(ta.id)
-      ta.login_count.should == 1
-    end
   end
 
   describe "Authentication" do
@@ -245,6 +216,7 @@ describe TasController do
     after :each do
       @ta.destroy
     end
+
     it "fails updating w/o credentials" do
       put :update, { :student => { :in_queue => true}, :id => @ta.id }
       response.code.should ==  "401"

@@ -4,7 +4,6 @@ class Ta < QueueUser
   # ATTRIBUTES
   
   attr_accessor :password
-  field :login_count, type: Integer, default: 1
 
   # ASSOCIATIONS
   

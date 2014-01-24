@@ -1,10 +1,10 @@
 class Student < QueueUser
-  
+
   # ATTRIBUTES
-  
+
   field :in_queue, type: DateTime
   field :question, type: String
-  
+
   # ASSOCIATIONS
 
   belongs_to :ta, :class_name => "Ta"
