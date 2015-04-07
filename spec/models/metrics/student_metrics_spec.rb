@@ -11,6 +11,7 @@ describe Student do
 
   after (:each) { @student.destroy }
 
+=begin
   describe "in_queue_duration" do
     it "new durations are created everytime a student enters the queue" do
       @student.enter_queue!
@@ -54,5 +55,5 @@ describe Student do
 
     end
   end
+=end
 end
-

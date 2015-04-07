@@ -12,7 +12,7 @@ class Student < QueueUser
   # is declared in QueueUser
 
   # Used for statistics
-  has_one :in_queue_duration, dependent: :nullify
+  # has_one :in_queue_duration, dependent: :nullify
 
   # VALIDATIONS
 
@@ -28,21 +28,21 @@ class Student < QueueUser
   scope :in_queue, where(:in_queue.ne => nil).asc(:in_queue)
 
   # CALLBACKS
-  
-  before_save :detect_ta_change
-  after_create :create_new_in_queue_duration
-  before_destroy :nullify_in_queue_duration
+
+  # before_save :detect_ta_change
+  # after_create :create_new_in_queue_duration
+  # before_destroy :nullify_in_queue_duration
 
   def enter_queue
     if self.in_queue.nil?
       return unless check_question_if_question_based
-      iqd = self.in_queue_duration ||= self.queue.in_queue_durations.new
+      # iqd = self.in_queue_duration ||= self.queue.in_queue_durations.new
 
       date = DateTime.now
       self.in_queue = date
 
-      iqd.enter_time = date
-      iqd.save
+      # iqd.enter_time = date
+      # iqd.save
     end
   end
 
@@ -53,21 +53,21 @@ class Student < QueueUser
 
   def exit_queue
     unless self.in_queue.nil?
-      iqd = self.in_queue_duration
+      # iqd = self.in_queue_duration
 
-      iqd.exit_time = DateTime.now
+      # iqd.exit_time = DateTime.now
 
       self.in_queue = nil
 
       unless self.ta.nil?
-        iqd.was_helped = true
+        # iqd.was_helped = true
         self.ta = nil
       end
 
-      iqd.save
+      # iqd.save
 
       # Orphan off the old duration and build a new one
-      self.in_queue_duration = self.queue.in_queue_durations.new
+      # self.in_queue_duration = self.queue.in_queue_durations.new
     end
   end
 
@@ -98,31 +98,31 @@ class Student < QueueUser
     def check_question_if_question_based
       if self.in_queue && self.queue.is_question_based
         if question.blank?
-          self.errors[:question] = "is blank, must provide a question." 
+          self.errors[:question] = "is blank, must provide a question."
           return false
         end
       end
       return true
     end
 
-    def create_new_in_queue_duration
-      iqd = self.in_queue_duration = self.queue.in_queue_durations.new
-      iqd.save
-    end
-
-    def nullify_in_queue_duration
-      idq = self.in_queue_duration
-      idq.exit_time = DateTime.now if idq
-    end
+    # def create_new_in_queue_duration
+    #   iqd = self.in_queue_duration = self.queue.in_queue_durations.new
+    #   iqd.save
+    # end
+    #
+    # def nullify_in_queue_duration
+    #   idq = self.in_queue_duration
+    #   idq.exit_time = DateTime.now if idq
+    # end
 
     # If a TA starts helping a student while they're in the queue,
     # we need to mark their InQueueDuration.was_helped = true
-    def detect_ta_change
-      if self.ta_id.present? && self.in_queue
-        idq = self.in_queue_duration
-        idq.was_helped = true   
-        idq.save
-      end
-    end
+    # def detect_ta_change
+    #   if self.ta_id.present? && self.in_queue
+    #     idq = self.in_queue_duration
+    #     idq.was_helped = true
+    #     idq.save
+    #   end
+    # end
 
 end
