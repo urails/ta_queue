@@ -1,6 +1,6 @@
 class QueuesController < ApplicationController
   before_filter :authenticate_student!, only: [:enter_queue, :exit_queue]
-  before_filter :authenticate!, only: [:show]
+  before_filter :authenticate!, only: [:show, :ios]
   before_filter :authenticate_ta!, only: [:update]
   before_filter :forward_if_logged_in, only: [:login]
   before_filter :get_queue
@@ -56,9 +56,8 @@ class QueuesController < ApplicationController
   end
 
   def ios
-    @queue = QueueUser.where( token: params[:token] ).first.queue
   end
-  
+
   private
 
     def check_frozen

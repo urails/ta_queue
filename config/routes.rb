@@ -23,18 +23,26 @@ TaQueue::Application.routes.draw do
 
   resources :tas, :only => [:index, :show, :update, :destroy]
   resources :students, :only => [:index, :show, :update, :destroy] do
+    # All `get` endpoints should be removed eventually to prevent CSRF
+    # Need to wait for all clients to propagate. See: https://github.com/urails/ta_queue/issues/87
     get "ta_accept", on: :member
     get "ta_remove", on: :member
     get "ta_putback", on: :member
+    post "ta_accept", on: :member
+    post "ta_remove", on: :member
+    post "ta_putback", on: :member
   end
 
   resource :queue, :only => [:show, :update] do
     get "new_show"
     get "enter_queue"
     get "exit_queue"
+    post "new_show"
+    post "enter_queue"
+    post "exit_queue"
   end
 
-  match "/queue/ios/:token" => "queues#ios"
+  match "/queue/ios" => "queues#ios"
 
   match "/chats" => "chats#receive", via: :post
 

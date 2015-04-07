@@ -59,7 +59,7 @@ describe QueuesController do
       get :show
 
       response.code.should == "200"
-      
+
       res_hash = decode response.body
 
 
@@ -127,7 +127,7 @@ describe QueuesController do
       get :show
 
       response.code.should == "200"
-      
+
       res = decode response.body
 
       res['students'].count.should == 6
@@ -159,9 +159,9 @@ describe QueuesController do
     it "should allow student to enter queue" do
       authenticate @student
 
-      get :enter_queue
+      post :enter_queue
 
-      response.code.should == "200" 
+      response.code.should == "200"
 
       res_hash = decode response.body
 
@@ -181,9 +181,9 @@ describe QueuesController do
 
       question = "Who's your daddy?"
 
-      get :enter_queue, :question => question
+      post :enter_queue, :question => question
 
-      response.code.should == "200" 
+      response.code.should == "200"
 
       res_hash = decode response.body
 
@@ -202,9 +202,9 @@ describe QueuesController do
 
       @queue.save!
 
-      get :enter_queue
+      post :enter_queue
 
-      response.code.should == "422" 
+      response.code.should == "422"
 
       @student.reload
 
@@ -214,7 +214,7 @@ describe QueuesController do
     it "should allow student to exit queue" do
       authenticate @student
 
-      get :exit_queue
+      post :exit_queue
 
       response.code.should == "200"
 
@@ -245,7 +245,7 @@ describe QueuesController do
       #other_student.in_queue = DateTime.now
       #other_student.save!
 
-      #get :exit_queue
+      #post :exit_queue
 
       #@ta = Ta.find(@ta.id)
 
@@ -268,7 +268,7 @@ describe QueuesController do
       @student.reload
       @student.ta.should == @ta
 
-      get :exit_queue
+      post :exit_queue
 
       @ta.reload
       @student.reload
@@ -304,7 +304,7 @@ describe QueuesController do
 
       authenticate @student
 
-      get :enter_queue
+      post :enter_queue
 
       response.code.should == "403"
 
@@ -318,22 +318,22 @@ describe QueuesController do
 
     it "doesn't respond to enter_queue when deactivated" do
       authenticate @student
-      
-      @queue.active = false 
+
+      @queue.active = false
       @queue.save!
 
-      get :enter_queue
+      post :enter_queue
 
       response.code.should == "403"
     end
 
     it "doesn't respond to exit_queue when deactivated" do
       authenticate @student
-      
-      @queue.active = false 
+
+      @queue.active = false
       @queue.save!
 
-      get :exit_queue
+      post :exit_queue
 
       response.code.should == "403"
     end

@@ -50,16 +50,15 @@ class ApplicationController < ActionController::Base
     # being called if it happens here
     def authorize!
       return if @current_user # No need to continue if the current_user has already been found
-      
-      if request.format != "html"
-        @current_user ||= authenticate_with_http_basic do |u, p| 
-          logger.debug "CREDENTIALS: " + u.to_s + " " + p.to_s 
-          QueueUser.where(:_id => u, :token => p).first 
-        end
 
-      else
-        @current_user ||= QueueUser.where(:_id => cookies.signed[@@user_id_cookie_name]).first
+      # Check auth header first
+      @current_user ||= authenticate_with_http_basic do |u, p|
+        logger.debug "CREDENTIALS: " + u.to_s + " " + p.to_s
+        QueueUser.where(:_id => u, :token => p).first
       end
+
+      # Check cookie
+      @current_user ||= QueueUser.where(:_id => cookies.signed[@@user_id_cookie_name]).first
 
       if @current_user
         keep_alive @current_user

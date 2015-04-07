@@ -1,0 +1,12 @@
+- content_for :extra_javascripts do javascript_include_tag "http://#{QUEUE_HOSTNAME}:9292/faye.js" end
+
+= render "queues/content_header"
+
+:javascript
+  $(function() {
+    var client = new Faye.Client("http://" + window.queue_hostname + ":9292/faye");
+    client.subscribe("/queue/" + window.queue_id, function(data) {
+      window.webkit.messageHandlers.queueUpdate.postMessage($.parseJSON(data));
+      console.log(data);
+    });
+  });

@@ -40,20 +40,20 @@ describe StudentsController do
       student = attributes_for :student
       student[:username] = ""
     	post :create, { :student => student }.merge(@queue_hash)
-    	
+
     	response.code.should == "422"
 
       res = decode response.body
 
       res['errors'][0].include?("Username").should == true
     end
-    
+
     it "allows same username with different location" do
       student_1 = attributes_for :student
       student_2 = attributes_for :student
       student_1[:username] = "doesn't matter"
       student_2[:username] = "doesn't matter"
-      
+
       post :create, { :student => student_1 }.merge(@queue_hash)
 
       response.code.should == "201"
@@ -72,12 +72,12 @@ describe StudentsController do
       queue2 = @instructor.queues.create!(attributes_for(:school_queue))
       queue2.students.create!(student_2)
 
-      queue_hash2 = { 
-        :school => @school.abbreviation, 
-        :instructor => @instructor.username, 
-        :queue => queue2.class_number 
+      queue_hash2 = {
+        :school => @school.abbreviation,
+        :instructor => @instructor.username,
+        :queue => queue2.class_number
       }
-      
+
       post :create, { :student => student_1 }.merge(@queue_hash)
 
       response.code.should == "201"
@@ -88,7 +88,7 @@ describe StudentsController do
       student_2 = attributes_for :student
       student_2[:username] = student_1[:username]
       student_2[:location] = student_1[:location]
-      
+
       post :create, { :student => student_1 }.merge(@queue_hash)
 
       response.code.should == "201"
@@ -101,7 +101,7 @@ describe StudentsController do
 
       res["errors"].should_not be_nil
     end
-    
+
     it "successfully reads a student" do
       authenticate QueueUser.where(:_id => @full_student_hash[:id]).first
       get :show, { :id => @full_student_hash[:id] }
@@ -169,40 +169,40 @@ describe StudentsController do
     it "should reject ta_accept from a student" do
       authenticate @student
 
-      get :ta_accept, { :id => @student.id }
+      post :ta_accept, { :id => @student.id }
 
       response.code.should == "401"
     end
 
     it "should reject ta_accept without authentication" do
-      get :ta_accept, { :id => @student.id }
+      post :ta_accept, { :id => @student.id }
 
       response.code.should == "401"
     end
 
     it "ta_remove should reject no authentication" do
-      get :ta_remove, { :id => @student.id }
+      post :ta_remove, { :id => @student.id }
 
       response.code.should == "401"
     end
 
     it "ta_remove should reject student authentication" do
       authenticate @student
-      get :ta_remove, { :id => @student.id }
+      post :ta_remove, { :id => @student.id }
 
       response.code.should == "401"
     end
 
     it "ta_remove should succeed with ta authentication" do
       authenticate @ta
-      get :ta_remove, { :id => @student.id }
+      post :ta_remove, { :id => @student.id }
 
       response.code.should == "200"
     end
   end
 
   describe "API" do
-    
+
     it "index returns a list of students" do
       @queue.queue_users.destroy_all
 
@@ -271,11 +271,11 @@ describe StudentsController do
     end
 
     it "should successfully be accepted by TA" do
-      authenticate @ta 
+      authenticate @ta
 
       @ta.student.should be_nil
 
-      get :ta_accept, { :id => @student.id }
+      post :ta_accept, { :id => @student.id }
 
       response.code.should == "200"
 
@@ -297,7 +297,7 @@ describe StudentsController do
 
       @second_student = @queue.students.create!(attributes_for(:student))
 
-      get :ta_accept, { :id => @second_student.id }
+      post :ta_accept, { :id => @second_student.id }
 
       response.code.should == "200"
 
@@ -313,7 +313,7 @@ describe StudentsController do
       authenticate @ta
       @student.in_queue = DateTime.now
       @student.save.should == true
-      get :ta_remove, { :id => @student.id }
+      post :ta_remove, { :id => @student.id }
 
       response.code.should == "200"
 
@@ -328,7 +328,7 @@ describe StudentsController do
       @student.enter_queue!
       @ta.accept_student! @student
 
-      get :ta_putback, id: @student.id
+      post :ta_putback, id: @student.id
 
       response.code.should == "200"
 
@@ -352,7 +352,7 @@ describe StudentsController do
 
       res['errors'].should_not be_nil
     end
-    
+
     it "create succeeds creating a student with a name longer than 40 characters" do
       stud = attributes_for :student
       stud[:username] = "a" * 40
