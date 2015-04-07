@@ -26,7 +26,7 @@ class TaQueue.Models.Queue extends TaQueue.Model
     tas: null
 
   action: (action_name, text) ->
-    $.get("#{@url}/#{action_name}", question: text)
+    $.post("#{@url}/#{action_name}", question: text)
 
   enter_queue: (text) ->
     @action "enter_queue", text

@@ -3,6 +3,4 @@ class TaQueue.Model extends Backbone.Model
     @set(str, !@get(str))
 
   action: (action_name, text=null) ->
-    $.get("#{@collection.url}/#{@get('id')}/#{action_name}", question: text)
-
-
+    $.post("#{@collection.url}/#{@get('id')}/#{action_name}", question: text)
